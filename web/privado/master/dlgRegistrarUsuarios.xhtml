@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <p:dialog id="dlgRegistrar" widgetVar="dlgRegistrar" closable="false" modal="true" resizable="true" 
+              header="Nueva persona" showEffect="size" hideEffect="size">
+        <h:form id="frmRegistrar">
+            <p:messages autoUpdate="true"/>
+            <center><b>Los campos marcados con * son obligatorios.</b></center>
+            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank form-group">
+                <p:outputLabel id="otxtNdi" value="DNI:" for="txtDni"/>
+                <p:inputText id="txtDni" value="#{ctUsuarios.objUsuario.pasaporte}" required="true"
+                             requiredMessage="El DNI corresponde a la cédula o pasaporte"/>                
+                <p:outputLabel id="otxtMail" value="Correo electrónico:" for="txtMail"/>
+                <p:inputText id="txtMail" value="#{ctUsuarios.objUsuario.mail}" required="true"
+                             requiredMessage="Ingrese el correo electrónico de la persona."/>
+                <p:outputLabel id="otxtNombres" value="Nombres:" for="txtNombres"/>
+                <p:inputText id="txtNombres" value="#{ctUsuarios.objUsuario.nombres}" required="true"
+                             requiredMessage="Ingrese los nombres de la persona."/>
+                <p:outputLabel id="otxtApellidos" value="Apellidos:" for="txtApellidos"/>
+                <p:inputText id="txtApellidos" value="#{ctUsuarios.objUsuario.apellidos}" required="true"
+                             requiredMessage="Ingrese los apellidos de la persona."/>
+                <p:outputLabel value="Teléfono:"/>
+                <p:inputText value="#{ctUsuarios.objUsuario.telefono}"/>
+                <p:outputLabel value="Celular:"/>
+                <p:inputText value="#{ctUsuarios.objUsuario.celular}"/>
+                <p:outputLabel id="otxtFechaNacimiento" value="Fecha de Nacimiento:" for="txtFechaNacimiento"/>
+                <p:calendar id="txtFechaNacimiento" value="#{ctUsuarios.objUsuario.fechaNacimiento}" 
+                            pattern="dd/MM/yyy" placeholder="dd/MM/yyyy"
+                            required="true"
+                            requiredMessage="Ingrese la fecha de nacimiento."
+                            showOn="button" />
+                <p:outputLabel id="otxtGenero" value="Género:" for="txtGenero"/>
+                <p:selectOneMenu id="txtGenero" value="#{ctUsuarios.objUsuario.genero}" required="true" 
+                                 requiredMessage="Ingrese el género de la persona.">
+                    <f:selectItem itemLabel="-- Seleccione --" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                    <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Estado civil:"/>
+                <p:selectOneMenu value="#{ctUsuarios.objUsuario.estadoCivil}" >
+                    <f:selectItem itemLabel="-- Seleccione --" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItem itemLabel="Soltero(a)" itemValue="Soltero(a)"/>
+                    <f:selectItem itemLabel="Casado(a)" itemValue="Casado(a)"/>
+                    <f:selectItem itemLabel="Divorciado(a)" itemValue="Divorciado(a)"/>
+                    <f:selectItem itemLabel="Viudo(a)" itemValue="Viudo(a)"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="País:"/>
+                <p:inputText value="#{ctUsuarios.objUsuario.pais}" required="true"
+                             requiredMessage="Ingrese el País de origen de la persona."/>
+                <p:outputLabel value="Ciudad:"/>
+                <p:inputText value="#{ctUsuarios.objUsuario.ciudad}" required="true"
+                             requiredMessage="Ingrese la ciudad de origen de la persona."/>
+                <p:outputLabel value="Dirección:"/>
+                <p:inputText value="#{ctUsuarios.objUsuario.direccion}" required="true"
+                             requiredMessage="Ingrese la dirección de origen de la persona."/>
+                <p:outputLabel id="otxNick" value="Nick:" for="txNick"/>
+                <p:inputText id="txNick" value="#{ctUsuarios.objUsuario.nick}" required="true"
+                             requiredMessage="Ingrese el nick de la persona."/>
+                <p:outputLabel id="otxtContrasenia" value="Contraseña:" for="txtContrasenia"/>
+                <p:inputText id="txtContrasenia" value="#{ctUsuarios.objUsuario.password}" required="true"
+                             requiredMessage="Ingrese la contraseña de la persona."/>
+            </p:panelGrid>
+
+            <center>
+                <p:commandButton value="Guardar"
+                                 icon="ui-icon-save"
+                                 action="#{ctUsuarios.registrarUsuarios()}"
+                                 update="frmPrincipal:tblUsuarios"/>
+                <p:commandButton value="Cancelar"
+                                 update="frmPrincipal:tblUsuarios"
+                                 onclick="PF('dlgRegistrar').hide();"
+                                 process="@this"
+                                 icon="ui-icon-close"/>
+            </center> 
+        </h:form>
+    </p:dialog>
+</ui:composition>

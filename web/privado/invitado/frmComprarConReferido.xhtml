@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+       <!--<f:viewAction action="#{ctLogin.token()}" />-->
+    </f:metadata> 
+
+    <h:form id="frmConReferido" style="width: 100%">
+        <center>
+            <p:panelGrid columns="3" styleClass="ui-panelgrid-blank form-group">
+                <p:outputLabel value="Codigo Referido:"/>
+                <p:inputText value="#{ctComprarPif.codigoReferido}"/>
+                <p:commandButton value="Buscar" icon="ui-icon-search"
+                                 action="#{ctComprarPif.obtenerCuentaDadoCodigo()}"
+                                 update="frmConReferido:txtDatos,frmConReferido:txtDatosPif,
+                                 frmConReferido:txtCostoPif"/>
+            </p:panelGrid>            
+            <b>
+                <p:outputLabel id="txtDatos" value="CÓDIGO: #{ctComprarPif.objCuenta.codigo}"/>
+                <br/>
+                <p:outputLabel id="txtDatosPif" value="PIF: #{ctComprarPif.objCuenta.pif.pif}"/>
+                <br/>
+                <p:outputLabel id="txtCostoPif" value="PIF: #{ctComprarPif.objCuenta.pif.costo}"/>
+            </b>
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                <p:outputLabel value="Forma de pago:"/>
+                <p:selectOneMenu id="formaPago" value="#{ctComprarPif.idFormaPago}">
+                    <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItems value="#{ctComprarPif.lstFormasPago}" var="formaPago"
+                                   itemLabel="#{formaPago.formaPago}" itemValue="#{formaPago.idFormaPago}"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                <p:commandButton value="Comprar"
+                                 icon="ui-icon-shopping-cart"
+                                 title="Comprar un PIF"
+                                 action="#{ctComprarPif.comprarMedianteReferido()}"
+                                 update="@form"/>
+
+                <p:commandButton value="Cancelar"
+                                 icon="ui-icon-cancel"
+                                 update="@form"/>
+            </p:panelGrid>
+        </center>
+    </h:form>
+</ui:composition>

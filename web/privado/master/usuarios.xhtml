@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"                                             
+                template="../../WEB-INF/template/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="content">
+        <h:form id="frmPrincipal">
+            <p:growl id="msj" showDetail="true" autoUpdate="true"/>
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <center>
+                        <div class="card">  
+                            <h1>Gestión de usuarios</h1>
+                            <p:dataTable id="tblUsuarios" var="usuario" value="#{ctUsuarios.lstUsuarios}" rows="5"
+                                         paginator="true"  emptyMessage="No se han encontrado registros" 
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15" reflow="true"
+                                         rowKey="#{usuario.idPersona}" selectionMode="single" selection="#{ctUsuarios.usuarioSel}">
+
+                                <p:column filterBy="#{usuario.apellidos}"  headerText="Apellidos" width="10%" style="text-align: center"
+                                          filterMatchMode="contains">
+                                    <h:outputText value="#{usuario.apellidos}"/>
+                                </p:column>
+                                <p:column headerText="Nombres" width="10%" style="text-align: center"
+                                          filterBy="#{usuario.nombres}" filterMatchMode="contains">
+                                    <h:outputText value="#{usuario.nombres}"/>
+                                </p:column>
+                                <p:column headerText="Sexo" width="3%" style="text-align: center">
+                                    <h:outputText value="#{usuario.genero}"/>
+                                </p:column>
+                                <p:column headerText="Nick" width="5%" style="text-align: center">
+                                    <h:outputText value="#{usuario.nick}"/>
+                                </p:column>
+                                <p:column headerText="Mail" width="8%" style="text-align: center">
+                                    <h:outputText value="#{usuario.mail}"/>
+                                </p:column>
+                                <p:column headerText="Fecha de Registro" width="5%" style="text-align: center">
+                                    <h:outputText value="#{usuario.fechaRegistro}"/>
+                                </p:column>
+
+                                <p:column headerText="Editar" width="5%" style="text-align: center">
+                                    <p:commandButton icon="ui-icon-pencil"
+                                                     title="Editar"
+                                                     onclick="PF('dlgEditar').show();"
+                                                     update="frmEditar">
+                                        <f:setPropertyActionListener value="#{usuario}" target="#{ctUsuarios.usuarioSel}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column headerText="Eliminar" width="5%" style="text-align: center">
+                                    <p:commandButton icon="ui-icon-delete-forever"
+                                                     title="Eliminar"
+                                                     >
+                                        <f:setPropertyActionListener value="#{usuario}" target="#{ctUsuarios.usuarioSel}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:commandButton onclick="PF('dlgRegistrar').show()"
+                                                     icon="ui-icon-add"
+                                                     update="frmRegistrar"
+                                                     value="Nuevo"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </div> 
+                    </center>                                       
+                </div>                        
+            </div>  
+        </h:form>
+
+
+        <ui:include src="dlgRegistrarUsuarios.xhtml"/>  
+        <ui:include src="dlgEditarUsuario.xhtml"/> 
+    </ui:define>
+</ui:composition>

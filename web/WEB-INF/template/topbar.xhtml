@@ -1,0 +1,114 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pu="http://primefaces.org/ultima"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <div class="topbar clearfix">
+        <div class="topbar-left">  
+             <!--<p:graphicImage name="#{AtributosVistas.imagenMenu}" width="75%" library="imagenes"/>-->
+            <img src="../../resources/social/images/logo.png" alt="" width="75%"/>
+        </div>
+
+        <div class="topbar-right">
+            <a id="menu-button" href="#">
+                <i></i>
+            </a>
+
+            <a id="topbar-menu-button" href="#">
+                <i class="material-icons">menu</i>
+            </a>
+
+            <ul class="topbar-items fadeInDown animated">
+                <ui:fragment>
+                    <li class="profile-item">
+
+                    </li>
+                </ui:fragment>
+
+                <ui:fragment>
+                    <li class="profile-item">
+                        <a href="#">  
+                            <h:graphicImage id="fotoUsuario" class="profile-image" value="/cfoto?id=#{ctDatos.selectUsuario.foto}"
+                                            width="35%"/>    
+
+                            <span class="topbar-item-name">#{sessionScope.nombre}</span>
+                        </a>
+
+                        <ul class="ultima-menu animated">
+
+                            <c:choose>
+                                <c:when  test="#{sessionScope.totalRoles != 1}">
+                                    <li role="menuitem">
+                                        <a href="/SocialGroup/privado/rol.jsf">
+                                            <i class="material-icons">&#xE8A6;</i>
+                                            <span>Cambiar Rol</span>
+                                        </a>
+                                    </li>
+                                </c:when>
+                            </c:choose> 
+
+
+                            <li role="menuitem">
+                                <a href="/SocialGroup/perfil.jsf">
+                                    <i class="material-icons">&#xE32A;</i>
+                                    <span>Perfil</span>
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a href="/SocialGroup/contrasenia.jsf">
+                                    <i class="material-icons">&#xE90D;</i>
+                                    <span>Cambiar Contraseña</span>
+                                </a>
+                            </li>
+
+
+                            <li role="menuitem">
+                                <h:form>
+                                    <p:commandLink action="#{ctLogin.cerrarSesion()}">
+                                        <i class="material-icons">&#xE8AC;</i>
+                                        <span>Salir</span>
+                                    </p:commandLink>
+                                </h:form>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ui:fragment>                                 
+            </ul>    
+
+            <!--
+             <ul class="topbar-items fadeInDown animated">
+                 <ui:fragment>
+                     <li>
+                         <a href="#">
+                             <i class="topbar-icon material-icons animated swing">&#xe042;</i>
+ 
+                          <span class="topbar-badge animated rubberBand">Cuentas</span>
+                             <span class="topbar-item-name">person</span>
+ 
+                         </a>
+ 
+                         <c:forEach items="#{ctCuentas.lstCuentas}" var="cuenta">
+                             <ul class="ultima-menu animated">
+                                 <li role="menuitem">
+                                     <a href="#">
+                                         <span>#{cuenta.codigo}</span>
+                                     </a>
+                                 </li> 
+                             </ul>                                
+                         </c:forEach>
+ 
+                        
+                     </li>
+                 </ui:fragment>
+             </ul>
+            -->
+
+        </div>
+    </div>
+
+</ui:composition>

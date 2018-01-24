@@ -1,0 +1,11 @@
+@import url("CaviarDreams/stylesheet.css");
+@font-face {
+	font-family: 'CaviarDreams';
+	src: url('CaviarDreams.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'BebasNeue';
+	src: url('BebasNeue.otf') format('opentype');
+}
+

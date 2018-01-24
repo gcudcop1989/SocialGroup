@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hoja de contacto Consultas -CONTACTO-</title>
+  
+  
+  
+      <link rel="stylesheet" href="../css/form1style.css">
+
+  
+</head>
+
+<body>
+
+
+<div id="contact-form">
+	<div  align="center" style="padding-top: 20px"> <a href="../Index.html">
+		<img src="../images/logoamarillo.png"></a> <hr>
+		</div>	
+	
+	<div style="padding-top: 20px">
+		<h4>Si tienes algún problema, permitenos saberlo<br> SOCIAL GROUP lo atenderá enseguida. </h4> 
+	</div>
+		<p id="failure">Lo sentimos.. su mensaje no se ha podido enviar.</p>  
+		<p id="success">Su consulta se ha enviado satisfactoriamente</p>
+
+		   <form method="post" action="mailto:info@socialgroup.com.ec">
+			<div>
+		      <label for="name">
+		      	<span class="required">Nombre:</span>
+				  <hr>
+		      	<input type="text" id="name" name="name" value="" placeholder="Escribe aquí tu Nombre y Apellido" required="required" tabindex="1" autofocus="autofocus" />
+		      </label> 
+			</div>
+			   
+			   
+			<div>
+		      <label for="email">
+		      	<span class="required">Email:</span>
+				  <hr>
+		      	<input type="email" id="email" name="email" value="" placeholder="ejemplo: ####@socialgroup.com.ec" tabindex="2" required="required" />
+		      </label>  
+			</div>
+			   
+			   
+		    <div>
+		      <label for="phone">
+		      	<span class="required">Teléfono:</span>
+				  <hr>
+		      	<input type="phone" id="phone" name="phone" value="" placeholder="Código de area + Código de ciudad  +  Número" tabindex="2" required="required" />
+		      </label>  
+			</div>
+			
+			<div>
+		      <label for="ID">
+		      	<span class="required">Nº de C.I. o RUC:</span>
+				  <hr>
+		      	<input type="ID" id="ID" name="ID" value="" placeholder="Escribe aquí tu número de Carnet de Identidad o RUC" tabindex="2" required="required" />
+		      </label>  
+			</div>
+			   
+			   
+			<div>		          
+		      <label for="hacer">
+		      <span class="required">¿Que desea hacer?: </span>
+				  <hr>
+			      <select id="hacer" name="hacer" tabindex="4">   
+			         <option value="reactivar">Reactivar Cuenta</option>
+			         <option value="cancelar">Cancelar Cuenta</option>  
+			         <option value="recuperar">Recuperar Cuenta</option>
+			      </select>
+		      </label>
+			</div>
+			   
+		   <div>		          
+		      <label for="tipo">
+		      <span class="required">Tipo de cuenta: </span>
+				  <hr>
+			      <select id="tipo" name="tipo" tabindex="4">   
+			         <option value="tecno">Tecno</option>
+			         <option value="digital">Digital</option>  
+			         <option value="social">Social</option>
+			      </select>
+		      </label>
+			</div>
+			   
+			   
+			<div>		          
+		      <label for="message">
+		      	<span class="required">Mensaje:</span>
+				  <hr>
+		      	<textarea id="message" name="message" placeholder="Por favor detalle su consulta AQUÍ..." tabindex="5" required="required"></textarea> 
+		      </label>  
+			</div>
+			<div>		           
+		      <button name="submit" type="submit" id="submit" >ENVIAR</button> 
+			</div>
+		   </form>
+
+	</div>
+  
+  
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:pu="http://primefaces.org/ultima">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>        
+    </h:head>
+    <h:body>
+        <ui:composition template="../WEB-INF/template/template.xhtml">                                       
+            <ui:define name="title">Predios edificados</ui:define>
+            <ui:define name="content">
+
+                <h:outputStylesheet name="plugins/export/export.css" library="amcharts" />
+                <h:outputScript name="amcharts.js" library="amcharts" />
+                <h:outputScript name="pie.js" library="amcharts" />
+                <h:outputScript name="serial.js" library="amcharts" />
+                <h:outputScript name="plugins/export/export.min.js" library="amcharts" />
+                <h:outputScript name="themes/light.js" library="amcharts" />
+
+
+
+
+                <p:growl id="msj" showDetail="true" autoUpdate="true"/>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <center>
+                            <div class="card">  
+                                <h1>Bienvenido: #{sessionScope.Datos}</h1>
+                                <h:form>
+
+                                    <p:carousel numVisible="1" effect="easeInStrong" style="margin-bottom:0; border: 0px" responsive="true"
+                                                circular="true" 
+                                                autoPlayInterval="3000"  
+                                                itemStyle="border:0px;" 
+                                                headerText="Paquetes de Independecia Financiera">
+
+                                        <p:tab title="Pquete TECNO">
+                                            <center><b>Paquete TECNO</b></center>
+                                            <h:panelGrid columns="2" cellpadding="10">
+                                                <!--<p:graphicImage name="demo/images/godfather/godfather1.jpg" />-->
+                                                <img src="../resources/social/images/tecno.png" alt="" width="50%"/>
+                                                <p:outputLabel value="Su valor es de 100,00 (cien dólares americanos), 
+                                                               incluye un smartwatch y todos los beneficios de la plataforma, NO PODRÁ VENDER PAQUETES QUE NO SEAN TECNO" />
+                                            </h:panelGrid>
+                                        </p:tab>
+                                        <p:tab title="Paquete DIGITAL">
+                                            <center><b>Paquete DIGITAL</b></center>
+                                            <h:panelGrid columns="2" cellpadding="10">                                        
+                                                <img src="../resources/social/images/digi.jpg" alt="" width="90%"/>
+                                                <h:outputText value="Su valor es de 200,00 (doscientos dólares americanos), incluye una cámara
+                                                              tipo GoPRO y todos los beneficios de la plataforma, PODRA VENDER
+                                                              PAQUETES TECNO Y DIGITAL, PERO NO SOCIAL." />
+                                            </h:panelGrid>
+                                        </p:tab>
+                                        <p:tab title="Paquete SOCIAL">
+                                            <center><b>Paquete SOCIAL</b></center>
+                                            <h:panelGrid columns="2" cellpadding="10">                                        
+                                                <img src="../resources/social/images/social.jpg" alt="" width="90%"/>
+                                                <h:outputText value="Su valor es de 300,00 (trescientos dólares americanos), incluye un Drone
+                                                              Aereo Teledirigido y todos los beneficios de la plataforma, PODRA VENDER
+                                                              PAQUETES TECNO, DIGITAL Y SOCIAL." />
+                                            </h:panelGrid>
+                                        </p:tab>
+                                    </p:carousel>
+
+
+
+                                    <c:choose>
+                                        <c:when  test="#{sessionScope.idRol == 6}">
+                                            <h2><b>Balance Total</b></h2>
+                                            <h1><b>$ #{ctHomeClientes.totalSaldo}</b></h1>
+                                            <p:chart type="line" model="#{ctHomeClientes.lineModel}" style="height:350px;"/>
+                                            <br/>
+                                            <h2>Mis cuentas</h2>
+                                            <p:accordionPanel value="#{ctHomeClientes.lstCuentas}" var="cuenta">                                                                                              
+                                                <p:tab>
+                                                    <f:facet name="title">                                                        
+                                                        <b>#{cuenta.codigo}</b>
+                                                    </f:facet>
+
+                                                    <h3>
+                                                        <b>La cuenta expira en <p:commandButton value="#{cuenta.mesesVigencia}"/> meses 
+                                                            <p:commandButton value="#{cuenta.diasVigencia}"/> dias 
+                                                            <p:commandButton value="#{cuenta.horasVigencia}"/> horas</b>
+                                                    </h3>                                           
+                                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                                                        <p:panel> 
+                                                            <h3><b>CUENTA: #{cuenta.pif.pif}</b></h3>
+                                                            <h3>DIRECTA: <b>#{cuenta.comisionDirecta} USD</b></h3>
+                                                            <h3>RESIDUAL: <b>#{cuenta.comisionResidual} USD</b></h3>
+                                                            <h3>TOTAL: <b>#{cuenta.totalComision} USD</b></h3>
+                                                        </p:panel>
+
+                                                        <div id="chartdiv"></div>                                                        
+                                                    </p:panelGrid>
+                                                </p:tab>
+                                            </p:accordionPanel>
+                                        </c:when>
+                                    </c:choose>
+
+                                </h:form>
+                            </div> 
+                        </center>                                       
+                    </div>                        
+                </div> 
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"                                             
+                template="../../WEB-INF/template/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="content">
+        <h:form id="frmConReferido">
+            <p:growl autoUpdate="true"/>
+            <c:choose>
+                <c:when  test="#{sessionScope.validado == 'S'}">
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <center>
+                                <div class="card">  
+                                    <h1>Compras mediante referido</h1>     
+                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                                        <p:outputLabel value="Codigo Referido:"/>                                    
+                                        <p:selectOneMenu id="codigoReferido" value="#{ctComprasReferido.codigoReferido}" 
+                                                         effect="fold" filter="true" filterMatchMode="startsWith">
+                                            <f:selectItem itemLabel="-- Codigo de refrido --" itemValue="" />
+                                            <f:selectItems value="#{ctComprasReferido.lstCuentasActivas}" 
+                                                           var="cuenta" itemLabel="#{cuenta.codigo}" itemValue="#{cuenta.codigo}"/>
+                                            <p:ajax event="change" listener="#{ctComprasReferido.obtenerCuentaDadoCodigo()}" 
+                                                    update="frmConReferido:txtDatos,frmConReferido:txtDatosPif,
+                                                    frmConReferido:txtCostoPif, frmConReferido:idPif"/>
+                                        </p:selectOneMenu>
+                                    </p:panelGrid> 
+                                    <b>
+                                        <p:outputLabel id="txtDatos" value="CÓDIGO: #{ctComprasReferido.objCuenta.codigo}"/>
+                                        <br/>
+                                        <p:outputLabel id="txtDatosPif" value="PIF: #{ctComprasReferido.objCuenta.pif.pif}"/>
+                                        <br/>
+                                        <p:outputLabel id="txtCostoPif" value="PIF: #{ctComprasReferido.objCuenta.pif.costo}"/>
+                                    </b>
+                                    <p:panelGrid columns="4" styleClass="ui-panelgrid-blank form-group">
+                                        <p:outputLabel value="Pif a comprar:"/> 
+                                        <p:selectOneMenu id="idPif" value="#{ctComprasReferido.idPif}" 
+                                                         effect="fold" filter="true" filterMatchMode="startsWith">
+                                            <f:selectItem itemLabel="-- Seleccione --" itemValue="" />
+                                            <f:selectItems value="#{ctComprasReferido.lstPifs}" 
+                                                           var="pif" itemLabel="#{pif.pif}" itemValue="#{pif.idPif}"/>                                           
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Forma de pago:"/>  
+                                        <p:selectOneMenu id="formaPago" value="#{ctComprasReferido.idFormaPago}">
+                                            <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{ctComprasReferido.lstFormasPago}" var="formaPago"
+                                                           itemLabel="#{formaPago.formaPago}" itemValue="#{formaPago.idFormaPago}"/>
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+
+                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                                        <p:commandButton value="Comprar"
+                                                         icon="ui-icon-shopping-cart"
+                                                         title="Comprar un PIF"
+                                                         action="#{ctComprasReferido.comprarMedianteReferido()}"
+                                                         update="@form"/>
+
+                                        <p:commandButton value="Cancelar"
+                                                         icon="ui-icon-cancel"
+                                                         update="@form"/>
+                                    </p:panelGrid>
+                                </div> 
+                            </center>                                       
+                        </div>                        
+                    </div>  
+                </c:when>
+            </c:choose>
+
+            <c:choose>
+                <c:when  test="#{sessionScope.validado != 'S'}">
+                    <center>
+                        <b><h1>Su cuenta aún no está activada</h1>
+                            <h3>Active su cuenta para acceder a esta sección</h3>
+                        </b>                            
+                    </center>                            
+                </c:when>
+            </c:choose>                
+
+        </h:form>
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <!--<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />-->
+            <img src="../../resources/gifs/cargando_2.gif" alt=""/>
+        </p:dialog>  
+
+
+    </ui:define>
+</ui:composition>
+

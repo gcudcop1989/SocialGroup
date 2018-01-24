@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"                                             
+                template="../../WEB-INF/template/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="content">
+        <h:form id="frmPrincipal">
+            <p:growl autoUpdate="true"/>
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <center>
+                        <div class="card">  
+                            <h1>Roles asignados a los usuarios</h1>
+
+                            <p:dataTable id="tblUsuarios" var="ru" value="#{ctRolUsuario.lstRolesUsuarios}" rows="10"
+                                         paginator="true"  emptyMessage="No se han encontrado registros" 
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15" reflow="true"
+                                         rowKey="#{ru.usuario.idPersona}" selectionMode="single" selection="#{ctRolUsuario.rolUsuarioSel}">
+                                <p:column filterBy="#{ru.usuario.nombres}"  headerText="Nombres" width="10%" style="text-align: center"
+                                          filterMatchMode="contains">
+                                    <h:outputText value="#{ru.usuario.nombres}"/>
+                                </p:column>
+                                <p:column filterBy="#{ru.usuario.apellidos}"  headerText="Apellidos" width="10%" style="text-align: center"
+                                          filterMatchMode="contains">
+                                    <h:outputText value="#{ru.usuario.apellidos}"/>
+                                </p:column>
+                                <p:column filterBy="#{ru.usuario.nick}"  headerText="Nick" width="5%" style="text-align: center"
+                                          filterMatchMode="contains">
+                                    <h:outputText value="#{ru.usuario.nick}"/>
+                                </p:column>
+                                <p:column filterBy="#{ru.usuario.mail}"  headerText="Mail" width="10%" style="text-align: center"
+                                          filterMatchMode="contains">
+                                    <h:outputText value="#{ru.usuario.mail}"/>
+                                </p:column>
+                                <p:column filterBy="#{ru.rol.rol}"  headerText="Rol asignado" width="10%" style="text-align: center"
+                                          filterMatchMode="contains">
+                                    <h:outputText value="#{ru.rol.rol}"/>
+                                </p:column>
+                                <p:column headerText="Fecha de Registro" width="10%" style="text-align: center">
+                                    <h:outputText value="#{ru.fechaRegistro}"/>
+                                </p:column>
+
+                                <p:column headerText="Editar" width="5%" style="text-align: center">
+                                    <p:commandButton icon="ui-icon-pencil"
+                                                     title="Editar"
+                                                     onclick="PF('dlgEditar').show();"
+                                                     update="frmEditar">
+                                        <f:setPropertyActionListener value="#{ru}" target="#{ctRolUsuario.rolUsuarioSel}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column headerText="Eliminar" width="5%" style="text-align: center">
+                                    <p:commandButton icon="ui-icon-delete-forever"
+                                                     title="Eliminar"
+                                                     >
+                                        <f:setPropertyActionListener value="#{ru}" target="#{ctRolUsuario.rolUsuarioSel}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:commandButton onclick="PF('dlgInsertar').show()"
+                                                     icon="ui-icon-add"
+                                                     update="frmInsertar"
+                                                     value="Nuevo"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </div> 
+                    </center>                                       
+                </div>                        
+            </div>  
+        </h:form>
+
+        <ui:include src="dlgAsignarRol.xhtml"/>  
+        <ui:include src="dlgEditarRolUsuario.xhtml"/>  
+    </ui:define>
+</ui:composition>
+

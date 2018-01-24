@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"                
+                template="../../WEB-INF/template/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="content">        
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <c:choose>
+                    <c:when  test="#{sessionScope.validado == 'S'}">
+                        <div class="card"> 
+                            <p:growl id="msjs" life="3000" autoUpdate="true" showDetail="true"/>                    
+                            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                            <h:form id="frmPrincipal">
+                                
+                            </h:form>
+                        </div>   
+                    </c:when>
+                </c:choose>
+
+
+                <c:choose>
+                    <c:when  test="#{sessionScope.validado != 'S'}">
+                        <center>
+                            <b><h1>Su cuenta aún no está activada</h1>
+                                <h3>Active su cuenta para acceder a esta sección</h3>
+                            </b>                            
+                        </center>                            
+                    </c:when>
+                </c:choose>
+
+            </div>                        
+        </div>  
+
+    </ui:define>
+</ui:composition>

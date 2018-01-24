@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <p:dialog id="dlgEditar" widgetVar="dlgEditar" closable="false" modal="true" resizable="true" 
+              header="Editar el Rol asignado a un Usuario" showEffect="size" hideEffect="size">
+        <h:form id="frmEditar">                     
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                <p:outputLabel value="Rol:"/>
+                <p:selectOneMenu id="cmbRoles" value="#{ctRolUsuario.rolUsuarioSel.rol.idRol}" 
+                                 effect="fade" filter="true" filterMatchMode="contains"
+                                 required="true" requiredMessage="El Rol es un campo obligatorio.">                    
+                    <f:selectItems value="#{ctRolUsuario.lstRoles}" var="rol" itemValue="#{rol.idRol}" itemLabel="#{rol.rol}"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Usuario:"/>
+                <p:selectOneMenu id="cmbUsuarios" value="#{ctRolUsuario.rolUsuarioSel.usuario.idUsuario}" 
+                                 effect="fade" filter="true" filterMatchMode="contains" required="true"
+                                 requiredMessage="Seleccione un usuario">                    
+                    <f:selectItems value="#{ctRolUsuario.lstUsuarios}" var="usu" itemValue="#{usu.idUsuario}" itemLabel="#{usu.nick}"/>
+                </p:selectOneMenu>
+
+            </p:panelGrid>
+            <center>
+                <p:commandButton value="Guardar"
+                                 action="#{ctRolUsuario.editarRolUsuario()}"
+                                 update="frmPrincipal:tblUsuarios"
+                                 icon="ui-icon-save"/>
+                <p:commandButton value="Cancelar"
+                                 update="frmPrincipal:tblUsuarios"
+                                 onclick="PF('dlgEditar').hide();"
+                                 process="@this"
+                                 icon="ui-icon-close"/>
+            </center> 
+        </h:form>
+    </p:dialog>
+</ui:composition>
