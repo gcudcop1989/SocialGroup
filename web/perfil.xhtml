@@ -21,7 +21,7 @@
                                         <h:graphicImage id="idFoto" value="/cfoto?id=#{ctDatos.selectUsuario.foto}" alt="Foto" width="50%"/>
                                     </center>
                                     <center>
-                                        <p:commandButton id="btnCambiarF" value="Cambiar Logo" icon="ui-icon-pencil" update=":frmNuevaFoto" oncomplete="PF('wgNuevaFoto').show()"></p:commandButton>
+                                        <p:commandButton id="btnCambiarF" value="Cambiar Fotografía" icon="ui-icon-pencil" update=":frmNuevaFoto" oncomplete="PF('wgNuevaFoto').show()"></p:commandButton>
                                     </center>
                                 </p:panel>
                             </p:panelGrid>
@@ -44,7 +44,7 @@
                                                      value="#{ctDatos.selectUsuario.cedula}" 
                                                      title="C.I. Cliente" 
                                                      readonly="true" required="true" style="width:100%"
-                                                     requiredMessage="Ruc de la Sociedad requerido">                                 
+                                                     >                                 
                                         </p:inputText> 
                                         <label>Cédula/Pasaporte</label>
                                     </h:panelGroup> 
@@ -54,9 +54,9 @@
                                         <p:inputText id="txtNombre" 
                                                      value="#{ctDatos.selectUsuario.nombres}" 
                                                      title="Nombres" 
-                                                     required="true" style="width:100%"
+                                                     style="width:100%"
                                                      requiredMessage="Los nombres son requeridos" onkeypress="return soloLetras(event)"
-                                                     validatorMessage="Nombres, No puede ingresar números...">                                  
+                                                     readonly="true">                                  
                                         </p:inputText> 
                                         <label>Nombres</label>
                                     </h:panelGroup> 
@@ -68,7 +68,7 @@
                                                      title="Apellidos" 
                                                      required="true" style="width:100%"
                                                      requiredMessage="Los apellidos son requeridos" onkeypress="return soloLetras(event)"
-                                                     validatorMessage="Apellidos, No puede ingresar números...">                                  
+                                                     readonly="true">                                  
                                         </p:inputText> 
                                         <label>Apellidos</label>
                                     </h:panelGroup> 
@@ -127,8 +127,8 @@
 
                                 <div class="ui-g-12"> 
                                     <h:panelGroup styleClass="md-inputfield">
-                                        <p:inputText  id="personacorreo" value="#{ctDatos.selectUsuario.mail}" title="Correo Electrónico" required="true" 
-                                                      requiredMessage="El Correo Electrónico es requerido!" 
+                                        <p:inputText  id="personacorreo" value="#{ctDatos.selectUsuario.mail}" title="Correo Electrónico"  
+                                                      readonly="true"
                                                       validatorMessage="Correo Electrónico, formato inválido. Ejm: info@info.com">
                                             <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                         </p:inputText>
