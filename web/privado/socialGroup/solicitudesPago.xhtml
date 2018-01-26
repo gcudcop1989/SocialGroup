@@ -18,7 +18,7 @@
                         <p:dataTable id="tblSolicitudes" var="solicitud" value="#{ctAprobarCobros.lstSolicitudes}" rows="10"
                                      paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{solicitud.idSolicitud}"
+                                     rowsPerPageTemplate="15,20,25" reflow="true" rowKey="#{solicitud.idSolicitud}"
                                      selection="#{ctAprobarCobros.objSolicitud}" selectionMode="single">
 
                             <p:column headerText="Fecha de solicitud" width="7%" style="text-align: center">
@@ -46,20 +46,40 @@
                             <p:column headerText="Estado" width="7%" style="text-align: center">
                                 <p:outputLabel value="#{solicitud.estado.estado}"/>
                             </p:column>
-                            
+
                             <p:column headerText="Revisar" width="5%" style="text-align: center">
                                 <p:commandButton icon="ui-icon-shuffle"
-                                                 title="Revisar"/>
+                                                 title="Revisar">
+                                    <f:setPropertyActionListener value="#{solicitud}" target="#{ctAprobarCobros.objSolicitud}"/>
+                                </p:commandButton>
                             </p:column>
-                            
+
                         </p:dataTable>
                     </div>
                 </div>
             </div>
         </h:form>
 
+
+        <p:dialog id="dlgRevisar" header="Revisar Solicitud" widgetVar="wdlgRevisar" 
+                  modal="true" closable="false" resizable="false"
+                  showEffect="clip" hideEffect="fold">  
+            <h:form id="frmRevisar">
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <center>
+                    <p:commandButton icon="ui-icon-save" value="Aceptar" 
+                                     update="frmCobros:tblSolicitudes"/>
+                    <p:commandButton icon="ui-icon-cancel" value="Cancelar" 
+                                     onclick="PF('wdlgRevisar').hide();"
+                                     update="frmCobros:tblSolicitudes"
+                                     type="reset"/>
+                </center> 
+            </h:form> 
+        </p:dialog>
+
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
             <img src="../../resources/gifs/Loading.gif" alt=""/>                        
         </p:dialog>
+        
     </ui:define>
 </ui:composition>

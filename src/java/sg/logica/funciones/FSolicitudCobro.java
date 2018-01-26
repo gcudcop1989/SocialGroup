@@ -17,7 +17,7 @@ import sg.logica.entidades.SolicitudCobro;
  * @author Geovanny
  */
 public class FSolicitudCobro {
-
+    
     public static String registrarSolicitudGlobal(int idTitular, double monto, int ctaBancaria) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -42,7 +42,7 @@ public class FSolicitudCobro {
             throw e;
         }
     }
-
+    
     public static String registrarSolicitudCuenta(int idCuenta, double monto, int idCtaBancaria) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -67,7 +67,7 @@ public class FSolicitudCobro {
             throw e;
         }
     }
-
+    
     public static List<SolicitudCobro> obteneSolicitudesDadoEstado(int idEstado) throws Exception {
         List<SolicitudCobro> lst = new ArrayList<>();
         AccesoDatos accesoDatos;
@@ -83,6 +83,7 @@ public class FSolicitudCobro {
             resultSet = accesoDatos.ejecutaPrepared(stm);
             while (resultSet.next()) {
                 solicitud = new SolicitudCobro();
+                solicitud.setIdSolicitud(resultSet.getInt("id_solicitud"));
                 solicitud.getCuenta().setCodigo(resultSet.getString("chv_codigo"));
                 solicitud.getCuenta().setIdCuenta(resultSet.getInt("sr_id_cuenta"));
                 solicitud.getSocio().setIdPersona(resultSet.getInt("int_id_socio"));
@@ -105,7 +106,7 @@ public class FSolicitudCobro {
         }
         return lst;
     }
-
+    
     public static List<SolicitudCobro> obteneSolicitudesDadoSocio(int idSocio) throws Exception {
         List<SolicitudCobro> lst = new ArrayList<>();
         AccesoDatos accesoDatos;
@@ -121,6 +122,7 @@ public class FSolicitudCobro {
             resultSet = accesoDatos.ejecutaPrepared(stm);
             while (resultSet.next()) {
                 solicitud = new SolicitudCobro();
+                solicitud.setIdSolicitud(resultSet.getInt("id_solicitud"));
                 solicitud.getCuenta().setCodigo(resultSet.getString("chv_codigo"));
                 solicitud.getCuenta().setIdCuenta(resultSet.getInt("sr_id_cuenta"));
                 solicitud.getSocio().setIdPersona(resultSet.getInt("int_id_socio"));
@@ -143,5 +145,28 @@ public class FSolicitudCobro {
         }
         return lst;
     }
-
+    
+    public static String eliminarSolicitud(int idSolicitud) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_eliminar_solicitud_cobro(?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, idSolicitud);            
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
 }

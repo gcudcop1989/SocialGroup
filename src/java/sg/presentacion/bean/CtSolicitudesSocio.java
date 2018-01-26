@@ -15,6 +15,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import master.logica.entidades.Usuario;
 import master.logica.funciones.FUsuario;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.context.DefaultRequestContext;
+import recursos.Util;
 import sg.logica.entidades.SolicitudCobro;
 import sg.logica.funciones.FSolicitudCobro;
 
@@ -27,17 +30,17 @@ import sg.logica.funciones.FSolicitudCobro;
 public class CtSolicitudesSocio implements Serializable {
 
     private List<SolicitudCobro> lstSolicitudes;
-    private SolicitudCobro objSolicitud;
+    private SolicitudCobro objSolicitud;    
     private HttpServletRequest httpServletRequest;
     private FacesContext faceContext;
     private Usuario sessionUsuario;
+    private String msg;
 
-    public CtSolicitudesSocio() {
+    public CtSolicitudesSocio() {        
         objSolicitud = new SolicitudCobro();
         sessionUsuario = new Usuario();
         faceContext = FacesContext.getCurrentInstance();
-        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
-        obtenerSolicitides();
+        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();        
     }
 
     @PostConstruct
@@ -64,6 +67,25 @@ public class CtSolicitudesSocio implements Serializable {
         } catch (Exception e) {
             System.out.println(" public void obtenerSolicitides() dice: " + e.getMessage());
         }
+    }
+
+    public void eliminarSolicitud() {
+        try {
+            setMsg(FSolicitudCobro.eliminarSolicitud(getObjSolicitud().getIdSolicitud()));
+            Util.addSuccessMessage(msg);
+            objSolicitud = new SolicitudCobro();
+            obtenerSolicitides();
+            resetearDataTable("frmSolicitudes:tblSolicitudes");
+            DefaultRequestContext.getCurrentInstance().execute("PF('wdlgEliminarSolicitud').hide()");
+        } catch (Exception e) {
+            Util.addErrorMessage(e.getMessage());
+            System.out.println("public void eliminarSolicitud() dice: " + e.getMessage());
+        }
+    }
+
+    public void resetearDataTable(String id) {
+        DataTable table = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
+        table.reset();
     }
 
     /**
@@ -135,4 +157,19 @@ public class CtSolicitudesSocio implements Serializable {
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
     }
+
+    /**
+     * @return the msg
+     */
+    public String getMsg() {
+        return msg;
+    }
+
+    /**
+     * @param msg the msg to set
+     */
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
 }

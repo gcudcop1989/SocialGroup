@@ -14,7 +14,7 @@
                     <p:dataTable id="tblSolicitudes" var="solicitud" value="#{ctSolicitudesSocio.lstSolicitudes}" rows="10"
                                  paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{solicitud.idSolicitud}"
+                                 rowsPerPageTemplate="15,20,25" reflow="true" rowKey="#{solicitud.idSolicitud}"
                                  selection="#{ctSolicitudesSocio.objSolicitud}" selectionMode="single">
 
                         <p:column headerText="Fecha de solicitud" width="7%" style="text-align: center">
@@ -42,8 +42,51 @@
                         <p:column headerText="Estado" width="7%" style="text-align: center">
                             <p:outputLabel value="#{solicitud.estado.estado}"/>
                         </p:column>
+
+                        <p:column headerText="Editar" width="3%" style="text-align: center">
+                            <p:commandButton icon="ui-icon-pencil"
+                                             title="Editar">
+                                <f:setPropertyActionListener value="#{solicitud}" target="#{ctSolicitudesSocio.objSolicitud}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column headerText="Cancelar" width="3%" style="text-align: center">
+                            <p:commandButton icon="ui-icon-delete-forever"
+                                             title="Eliminar"
+                                             onclick="PF('wdlgEliminarSolicitud').show();"
+                                             update="frmEliminar">
+                                <f:setPropertyActionListener value="#{solicitud}" target="#{ctSolicitudesSocio.objSolicitud}"/>
+                            </p:commandButton>
+                        </p:column>
+
                     </p:dataTable>
                 </h:form>
+
+
+                <p:dialog id="dlgEliminarSolicitud" header="Eliminar Solicitud" widgetVar="wdlgEliminarSolicitud" 
+                          modal="true" closable="false" resizable="false"
+                          showEffect="clip" hideEffect="fold">  
+                    <h:form id="frmEliminar">
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                        <center>
+                            ¿Esta seguro que desea eliminar esta solicitud?
+                            <br/>
+                            <b> #{ctSolicitudesSocio.objSolicitud.idSolicitud}</b>
+                                               
+                        <p:commandButton icon="ui-icon-save" value="Aceptar" action="#{ctSolicitudesSocio.eliminarSolicitud()}" 
+                                         update="frmSolicitudes:tblSolicitudes"/>
+                        <p:commandButton icon="ui-icon-cancel" value="Cancelar" onclick="PF('wdlgEliminarSolicitud').hide();" type="reset"/>
+                        </center> 
+                    </h:form> 
+                </p:dialog>
+
+
+
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <!--<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />-->
+                    <img src="../../resources/gifs/cargando_2.gif" alt=""/>
+                </p:dialog>  
+
             </ui:define>
         </ui:composition>
     </h:body>
