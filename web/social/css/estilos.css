@@ -1,0 +1,1003 @@
+/* 
+
+
+
+http://www.socialgroup.com.ec
+
+*/
+
+body, html { overflow-x:hidden; }
+
+body {
+    background-color: #ffffff;
+    font-family:  'Open Sans', Arial, Helvetice Neue, sans-serif;
+    font-size: 12px;
+	
+	font-weight: 300; 
+	font-style: normal; 
+	-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+	-webkit-text-size-adjust: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, span, p { font-family: 'Caviar Dreams', Arial, Helvetice Neue, sans-serif; }
+
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
+
+
+
+
+
+
+.social_clear {
+	clear: both;
+}
+
+.height30 {
+	height: 30px;
+}
+
+.social-top-bar {
+    min-height: 40px;
+    background-color:#eeeeee;
+}
+
+.social-top-menu {
+    min-height:110px;
+    background-color:#ffffff;
+    z-index: 5000;
+    width:100%;
+}
+
+.social-top-menu .navbar-toggle {
+    margin-top: 38px;
+}
+
+.social-top-menu .navbar-brand {
+    padding: 0;
+    margin: 30px 0 0 0;
+}
+
+/* ------ Carousel ----- */
+
+#social-carousel {
+    background: url('../images/fondo') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow-x: hidden;
+    margin-bottom:0;
+    height: 500px;
+}
+
+#social-carousel .carousel-caption {
+    z-index: 10;
+}
+
+#social-carousel .item {
+    height: 500px;
+}
+#social-carousel .carousel-inner > .item > img {
+    position: absolute;
+    min-width: 100%;
+    height: 500px;
+    left: 0;
+    top: 0;
+}
+
+@media (min-width: 768px) {
+    #social-carousel .carousel-caption p {
+        margin-bottom: 20px;
+        line-height: 1.4;
+        font-size: 21px;
+    }
+
+    #social-carousel .carousel-caption {
+        padding-bottom: 140px;
+        right: 20%;
+        left: 20%;
+    }
+}
+
+@media (max-width: 768px) {
+    #social-carousel .carousel-caption {
+        padding-bottom: 120px;
+    }
+}
+
+@media (max-width: 1024px) {
+    #social-carousel {
+        background: url('../images/social_carousel_bg_s.jpg') no-repeat center center; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        overflow-x: hidden;
+        margin-bottom:0;
+        height: 500px;
+    }
+}
+
+/* ------ End of Carousel ----- */
+
+/* ------ Welcome & Slogna ------ */
+.social-welcome {
+    border-bottom: 1px solid #cccccc;
+    min-height: 230px;
+}
+
+.social-slogan {
+    font-family:  'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    margin: 20px 0;
+    color: #333333;
+}
+
+.social-service {
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.social-service-item {
+    font-family:  'Open Sans', sans-serif;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+
+.social-service-item p {
+    font-weight: lighter; 
+    text-align: justify; 
+    margin-top: 10px;
+    font-size: 14px;
+    color: #151515;
+}
+
+.subheader {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #152747;
+}
+
+
+.btn-orange {
+    background-color: #152747;
+    border-bottom:2px solid #d3ad0a;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color:#ffffff;
+}
+
+.btn-orange:hover, .btn-orange:focus, .btn-orange:active, .btn-orange.active, .open .dropdown-toggle.btn-orange {
+    background-color: #d35400;
+    color:#ffffff;
+}
+
+.btn-green {
+    background-color:#2ecc71;
+    border-bottom:2px solid #27ae60;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color:#ffffff;
+}
+
+.btn-green:hover, .btn-green:focus, .btn-green:active, .btn-green.active, .open .dropdown-toggle.btn-green {
+    background-color: #27ae60;
+    color:#ffffff;
+}
+
+.nav > li > a {
+    padding: 10px 20px;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    background-color: #152747;
+    color:#fff;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    background-color: #152747;
+    color:#fff;
+}
+
+
+.nav > li > a {
+    color: #929292;
+}
+.navbar-default {
+    background-color:#fff;
+    border:none;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    background-color: #152747;
+    color:#fff;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+
+
+
+.infosubtittles{
+	font-weight: bold;
+	font-size: 29px;
+	color: #152747
+}
+
+
+
+.social-service-item-header {
+    margin-left: 5px; 
+    padding: 16px 20px 20px; 
+    font-weight: bold;
+    display: inline-block;
+}
+
+.social-header-orange {
+    background-color:#152747;
+    min-width: 298px;
+    height: 67px;
+    color: #fff; 
+
+}
+
+.team_hr {
+    border: 1px solid #fff; 
+    width: 39.5%; 
+    float: left;
+}
+
+.team_hr_left {
+    margin-right: 10px;
+    margin-left: 10px; 
+}
+
+.team_hr_right {
+    margin-left: 10px;
+}
+
+.hr_gray {
+    border: 1px solid #cccccc; 
+}
+
+.hr_white {
+    border: 1px solid #ffffff; 
+}
+
+
+.social-team {
+    background-color: #F4BD31 ; 
+    font-family:  'Open Sans', sans-serif;
+    min-height:590px;
+    color:#ffffff;
+
+}
+.social-line-header {
+    margin-top:100px;
+    margin-bottom:80px;
+}
+
+.member-thumb:hover .thumb-overlay {
+    transition: all 0.3s ease-in-out 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+.member-thumb {
+    position: relative;
+    overflow: hidden;
+}
+
+.member-thumb .thumb-overlay {
+    background-color: rgba(220, 157, 102, 0.8);
+    position: absolute;
+    visibility: hidden;
+    padding-top: 35%;
+    padding-left: 25%;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    right: 0;
+    top: 0;
+}
+
+.thumb-overlay a {
+    float:left;
+    margin-right: 5px;
+}
+
+
+
+.team-inner {
+    margin-top:10px;
+}
+
+.team-inner-header {
+    font-family: 'Open Sans', sans-serif;
+    font-weight:600;
+    font-size:16px;
+}
+
+.team-inner-subtext {
+    font-weight:normal;
+    font-size:12px;
+}
+
+.row_team {
+    margin-left:-50px;
+    margin-top:70px;
+}
+
+.row_team li {
+    list-style: none;
+}
+
+.social-project-box {
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    cursor:pointer;
+    height: 200px;
+    width: 200px;
+}
+
+.social-project-box:hover .project-overlay {
+    transition: all 0.3s ease-in-out 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+.project-overlay {
+    background : rgba(0,0,0,.75);
+    border : 2px solid #152747;
+    visibility: hidden;
+    position: absolute;
+    text-align:center;
+    padding-top:40px;
+    color: #ffffff;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    right: 0;
+    top: 0;
+}
+
+
+.project-overlay hr {
+    width : 70%;
+	
+}
+
+.social-project-gallery li {
+    margin:15px;
+}
+
+.txt_darkgrey {
+    color: #0B0B0B;
+}
+
+
+.txt_white {
+    color: #ffffff;
+}
+
+.txt_yellow {
+    color: #d3ad0a;
+	font-weight: bold;
+}
+
+.txt_blue {
+    color: #152747;
+	
+}
+
+
+.txt_hardblue {
+    color: #152747;
+	font-weight: bold;
+}
+
+
+.txt_slogan {
+    font-size:14px; 
+    color:#929292;
+}
+
+.social-line-header span {
+    font-size: 18px; 
+    float :left; 
+    margin-top: 10px;
+}
+
+.team_box  div {
+    text-align: center; 
+    padding-top: 100px;
+}
+
+.span_blog {
+    margin-bottom: 80px;
+}
+
+.blog_post {
+    color: #333333; 
+    padding: 10px;
+}
+
+.blog_header {
+    font-weight: bold; 
+    font-size: 16px; 
+}
+
+.blog_text {
+    text-align: justify; 
+    font-size: 14px; 
+    margin-top: 20px;
+}
+
+#social-contact {
+	margin-top:100px; 
+	border-top: 1px solid #cccccc; 
+	font-size:14px;
+}
+.social-contact-map {
+    margin-bottom: 15px;
+    height: 378px;
+
+}
+
+.head_contact {
+    padding-bottom:80px; 
+    margin-bottom:0;
+}
+
+.contact_right img {
+	margin-right:5px;
+}
+
+.contact_right form {
+	padding-left:15px;
+	padding-right:15px
+}
+
+.tweet_txt {
+	border-left:2px solid #ffffff; 
+	min-height:160px;
+}
+
+.twitter_user {
+	color: #FFFF33; 
+	font-size: 14px;
+	float: right;
+}
+
+.social-partners {
+	border-top: 2px solid #cccccc;
+}
+
+.social-partners .social-partner-item {
+    margin-bottom: 5px;
+}
+
+.social-footer {
+	border-top: 2px solid #cccccc; 
+	margin-top: 100px;
+}
+
+.footer_container {
+	margin-top:20px; 
+	margin-bottom:20px;
+}
+
+.footer_bottom_content {
+	margin: auto;
+	margin-bottom: 30px;
+	font-size: 14px;
+	color:#333333;
+}
+
+.social-icon-fb {
+    background: url('../images/rs_fb__amarillo.png') no-repeat;
+    width: 42px;
+    height: 42px;
+    display: block;
+}
+
+a:hover .social-icon-fb {
+    background: url('../images/rs_fb_original.png') no-repeat;
+	transform: scale(1.1);
+}
+
+.social-icon-yt {
+    background: url('../images/rs_yt_amarillo.png') no-repeat;
+    width: 42px;
+    height: 42px;
+    display: block;
+	
+}
+
+a:hover .social-icon-yt {
+    background: url('../images/rs_yt_original.png') no-repeat;
+	transform: scale(1.1);
+}
+
+.social-icon-twitter {
+    background: url('../images/rs_tweet_amarillo.png') no-repeat;
+    width: 42px;
+    height: 42px;
+    display: block;
+}
+
+a:hover .social-icon-twitter {
+    background: url('../images/rs_tweet_original.png') no-repeat;
+	transform: scale(1.1);
+}
+
+
+
+
+
+ul.social-project-gallery  li  a img:hover {
+    border: 3px solid #152747;
+}
+
+.social-gallery-category a {
+	color:#333333; 
+}
+
+.social-gallery-category a.active {
+	color:#152747; 
+	text-decoration:none;
+}
+
+.social-gallery-category a:focus {
+	color:#152747;
+	text-decoration:none;	
+}
+
+.social-gallery-category a:hover {
+	color:#152747; 
+	text-decoration:none;
+}
+
+.link_orange:hover {
+    text-decoration:none;
+}
+.social-project-gallery {         
+    margin:0 0 0 0;
+    margin-top:30px;
+    margin-left: -40px;
+}
+.social-project-gallery li {     
+    list-style:none;
+    margin-bottom:25px;           
+}
+.social-project-gallery li img {
+  cursor: pointer;
+}
+
+.social-tweets {
+    background-color: #8996a0;
+    min-height:200px;
+    font-family:  'Open Sans', sans-serif;
+    font-size:20px;
+    color:#ffffff;
+    margin-top:100px;
+}
+
+.form-control {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    font-style: italic;
+}
+
+.btn_loadmore {
+	margin-top:30px; 
+	margin-bottom:80px;
+}
+
+.blog_box {
+	margin-left: -12px;
+}
+
+@media (min-width:991px) and (max-width:1200px) {
+    .social-project-box, .project-overlay {
+        height:170px;
+        width:170px;
+    }
+
+    .social-project-gallery {
+        margin-left: -70px;
+    }
+
+    .social-service-item-header {
+        padding: 1px 10px 20px;
+    }
+
+    .social-header-orange {
+        min-width: 230px;
+    }
+
+    .team_box,  .team_box_over {
+        height:220px;
+        width:220px;
+    }
+	
+}
+
+
+@media (max-width:991px) {
+    .team-inner {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+	
+    .social-btn-read-more {
+        float:right;
+        margin-bottom :40px; 
+    }
+}
+
+
+@media (min-width:768px) and (max-width:990px) {
+    .member-thumb .thumb-overlay {
+        padding-left: 30%;
+    }
+    .social-project-box , .project-overlay {
+       height:130px;
+       width:130px;
+       padding-top: 0px;
+    }
+
+    .social-project-gallery {
+       margin-left: 10px; 
+    }
+
+    .blog_box{
+       margin-right: -140px;
+    }
+}
+
+
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    padding-top: 9px;
+    padding-bottom: 9px;
+  } 
+}
+
+@media (max-width: 768px) {
+    .member-thumb .thumb-overlay {
+        padding-left: 40%;
+       
+    }
+    .social-btn-read-more {
+            float:right;
+            margin-bottom :40px; 
+      }
+}
+
+@media (max-width: 380px) {
+    .member-thumb .thumb-overlay {
+            padding-left: 30%;
+
+    }
+	.social-service-item-header {
+		font-size: 16px;
+		
+		padding: 23px 10px 22px;
+	}
+	.social-header-orange {
+		min-width: 0px;
+	}
+	
+}
+
+@media (min-width:991px) and (max-width: 1200px) {
+	 .team_hr {
+		width: 37%; 
+	}
+}
+
+@media (min-width:683px) and ( max-width: 991px) {
+	 .team_hr {
+		width: 33%;
+	}
+}
+
+@media (min-width:585px) and ( max-width: 683px) {
+        .member-thumb .thumb-overlay {
+            padding-left: 25%;
+
+        }
+	 .team_hr {
+		width: 30%;
+	}
+}
+
+@media (min-width:536px) and ( max-width: 585px) {
+	 .team_hr {
+		width: 28%;
+	}
+}
+
+@media  (min-width:410px) and  ( max-width: 536px) {
+	 .team_hr {
+		width: 21%;
+	}
+}
+
+@media  ( max-width: 410px) {
+	 .team_hr {
+		width: 11%;
+	}
+}
+
+
+/*  Info Section  */
+.info{
+    width: 100%;
+    overflow: hidden;
+    background: #FFFFFF;
+}
+
+.info2{
+    width: 100%;
+    overflow: hidden;
+    background: #152747;
+}
+
+.info_pic{
+    display: block;
+    width: 50%;
+    height: 600px;
+    float: left;
+    background: url('../images/fondo3.jpg') no-repeat;
+
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+
+
+.info_pic2{
+    display: block;
+    width: 50%;
+    height: 600px;
+    float: left;
+    background: url('../images/fondo4.jpg') no-repeat;
+
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+
+
+.info_details{
+    display: block;
+    width: 50%;
+    height: 245px;
+    float: left;
+    padding: 80px 0;
+}
+
+.info_details2{
+    display: block;
+    width: 50%;
+    height: 245px;
+    float: left;
+    padding: 80px 0;
+}
+
+.info_details h3{
+    color: #00000;
+   
+    font-size: 25px;
+    font-weight: bold;
+    
+    text-transform: uppercase;
+    max-width: 560px;
+    margin: 0 0 3.333333333333333% 40px;
+    letter-spacing: 1px;
+    line-height: 40px;
+}
+
+.info_details2 h3{
+    color: #d3ad0a;
+   
+    font-size: 25px;
+    font-weight: bold;
+    
+    text-transform: uppercase;
+    max-width: 560px;
+    margin: 0 0 3.333333333333333% 40px;
+    letter-spacing: 1px;
+    line-height: 40px;
+}
+
+
+
+
+.info_details p{
+    color: #000000;
+    text-align: justify;   
+    font-size: 20px;
+    max-width: 560px;
+    margin: 0 0 3.333333333333333% 40px;
+    letter-spacing: 1px;
+    line-height: 30px;
+}
+
+
+.info_details2 p{
+    color: #ffffff;
+    text-align: justify;   
+    font-size: 18px;
+    max-width: 560px;
+    margin: 0 0 3.333333333333333% 40px;
+    letter-spacing: 1px;
+    line-height: 30px;
+}
+
+
+.info_details a{
+    color: #000;
+   
+    font-size: 16px;
+    margin: 0 0 0 40px;
+    text-decoration: none;
+}
+
+
+.info_details2 a{
+    color: #fff;
+   
+    font-size: 16px;
+    margin: 0 0 0 40px;
+    text-decoration: none;
+}
+
+
+.info_details2 a span{
+    margin-left: 10px;
+}
+
+
+.info_details a span{
+    margin-left: 10px;
+}
+
+
+
+
+ /*codigo responsive imagen/texto */
+@media (max-width:1200px){
+    .wrapper{
+        padding: 0 40px;
+    }
+	
+	
+    .info_pic,
+    .info_details{
+        width: 100%;
+    }
+	.info_pic2,
+    .info_details2{
+        width: 100%;
+    }
+	
+
+    .info_details{
+        height: auto;
+        padding: 40px 0;
+    }	
+	.info_details2{
+        height: auto;
+        padding: 40px 0;
+    }
+
+    .info_details h3,
+    .info_details p,
+    .info_details a{
+        max-width: 80%;
+        display: block;
+        text-align: center;
+        margin: 40px auto;
+    }
+	.info_details2 h3,
+    .info_details2 p,
+    .info_details2 a{
+        max-width: 80%;
+        display: block;
+        text-align: center;
+        margin: 40px auto;
+    }
+	
+}
+
+
+/*codigo responsive imagen/texto */
+
+
+
+.neon {
+	color: #152747;
+    text-align: justify;   
+    font-size: 12px;
+	font-family: "Caviar Dreams";
+	font-weight: bold
+	
+}
+
+
+a:hover.neon {
+	color: #d3ad0a;
+    text-align: justify;   
+    font-size: 12px;
+	text-decoration:none;
+	
+}
+
+
+
+
+
+
+
+
+.app-download-ios {
+    background: url('../images/apple-btn.png') no-repeat;
+        width: 200px;
+    height: 61px;
+    display: block;
+   
+}
+
+a:hover .app-download-ios {
+    background: url('../images/apple-btn.png') no-repeat;
+	transform: scale(1.05);
+}
+
+.app-download-gplay {
+    background: url('../images/gplay-btn.png') no-repeat;
+        width: 200px;
+    height: 61px;
+    display: block;
+    
+}
+
+a:hover .app-download-gplay {
+    background: url('../images/gplay-btn.png') no-repeat;
+	transform: scale(1.05);
+}
+
+
+
+.wow
+{
+	
+}
