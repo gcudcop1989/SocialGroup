@@ -71,6 +71,7 @@ public class CtCuentasBancarias implements Serializable {
 
     public void registrarCuentaBanc() {
         try {
+            System.out.println("ENTIDAD" + getObjCuenta().getEntidad());
             String msg = FCuentaBancaria.insertarCteBancaria(getObjCuenta(), sessionUsuario.getIdUsuario());
             objCuenta= new CuentaBancaria();
             obtenerCuentas();
