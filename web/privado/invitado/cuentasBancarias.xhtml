@@ -21,27 +21,51 @@
                                      rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{solicitud.idSolicitud}"
                                      selection="#{ctCuentasBancarias.cuentaSel}" >
 
+                            <p:column headerText="Entidad financiera" width="5%" style="text-align: center">
+                                <p:outputLabel value="#{cuenta.entidad}"/>
+                            </p:column>
+                             <p:column headerText="Tipo" width="10%" style="text-align: center">
+                                <p:outputLabel value="#{cuenta.tipoCuenta}"/>
+                            </p:column>
+                            <p:column headerText="Cuenta" width="5%" style="text-align: center">
+                                <p:outputLabel value="#{cuenta.numeroCuenta}"/>
+                            </p:column>
                             <p:column headerText="Fecha de solicitud" width="7%" style="text-align: center">
                                 <p:outputLabel value="#{cuenta.fechaRegistro}">
                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                                 </p:outputLabel>
                             </p:column>
 
-                            <p:column headerText="Tipo" width="10%" style="text-align: center">
-                                <p:outputLabel value="#{cuenta.tipoCuenta}"/>
+                           
+
+                             <p:column headerText="Editar" width="5%" style="text-align: center">
+
+                                <p:commandButton icon="ui-icon-pencil"
+                                                 title="Editar"
+                                                 onclick="PF('dlgEditarCteBan').show();"
+                                                 update="frmEditarCteBan">
+                                    <f:setPropertyActionListener value="#{cuenta}" target="#{ctCuentasBancarias.cuentaSel}"/>
+                                </p:commandButton>
+
                             </p:column>
 
-                            <p:column headerText="Cuenta" width="5%" style="text-align: center">
-                                <p:outputLabel value="#{cuenta.numeroCuenta}"/>
+                            <p:column headerText="Eliminar" width="5%" style="text-align: center">
+
+                                <p:commandButton icon="ui-icon-delete-forever"
+                                                 title="Eliminar"
+                                                 onclick="PF('dlgEliminarCteBan').show();"
+                                                 update="frmEliminarCteBan"> 
+                                    <f:setPropertyActionListener value="#{cuenta}" target="#{ctCuentasBancarias.cuentaSel}"/>
+                                </p:commandButton>
                             </p:column>
 
-                            <p:column headerText="Entidad financiera" width="5%" style="text-align: center">
-                                <p:outputLabel value="#{cuenta.entidad}"/>
-                            </p:column>
+                            
+                            
                             
                             <f:facet name="footer">
                                 <p:commandButton value="Nueva"
-                                                 icon="ui-icon-library-add"/>
+                                                 icon="ui-icon-library-add"
+                                                 onclick="PF('dlgInsertarCteBan').show()"/>
                             </f:facet>
 
                         </p:dataTable>
@@ -53,5 +77,9 @@
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
             <img src="../../resources/gifs/Loading.gif" alt=""/>                        
         </p:dialog>
+        <ui:include src="dlgEditarCteBan.xhtml"/>
+        <ui:include src="dlgEliminarCteBan.xhtml"/> 
+        <ui:include src="dlgRegistrarCteBancaria.xhtml"/>
+
     </ui:define>
 </ui:composition>

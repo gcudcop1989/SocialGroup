@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <p:dialog id="dlgEditarCteBan" widgetVar="dlgEditarCteBan" closable="false" modal="true" resizable="false" 
+              header="Editar la Cuenta Bancaria registrada" showEffect="size" hideEffect="size"
+              width="25%">
+        <h:form id="frmEditarCteBan">                     
+            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:outputLabel value="Entidad"/>
+                <p:inputText value="#{ctCuentasBancarias.cuentaSel.entidad}"                             
+                             required="true" 
+                             requiredMessage="La entidad de la Cuenta es Requerido"/>
+                <p:outputLabel value="Tipo de Cuenta"/>
+                <p:inputTextarea value="#{ctCuentasBancarias.cuentaSel.tipoCuenta}"                             
+                                 required="true" 
+                                 requiredMessage="El tipo de Cuenta es requerido"/>                
+                <p:outputLabel value="Número de Cuenta"/>
+                <p:inputText value="#{ctCuentasBancarias.cuentaSel.numeroCuenta}"                             
+                             required="true" 
+                             requiredMessage="El número de Cuenta es requerido"/>
+            </p:panelGrid>
+            <p:separator/>
+            <center>
+                <p:commandButton value="Guardar"
+                                 action="#{ctCuentasBancarias.editarCteBan()}"
+                                 update="frmCuentas:tblCuentas,frmEditarCteBan"
+                                 icon="ui-icon-save"/>
+                <p:commandButton value="Cancelar"
+                                 update="frmCuentas:tblCuentas"
+                                 onclick="PF('dlgEditarCteBan').hide();"
+                                 process="@this"
+                                 icon="ui-icon-close"/>
+            </center>  
+        </h:form>
+    </p:dialog>
+</ui:composition>

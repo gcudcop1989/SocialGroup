@@ -46,4 +46,95 @@ public class FCuentaBancaria {
         }
         return lst;
     }
+    
+    
+    //<editor-fold defaultstate="collapsed" desc="insertar PIF">
+    public static String insertarCteBancaria(CuentaBancaria cteBan, int id) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_insertar_cuenta_bancaria(?,?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, id);
+            prstm.setString(2, cteBan.getTipoCuenta());
+            prstm.setString(3, cteBan.getNumeroCuenta());
+            prstm.setString(4, cteBan.getEntidad());
+
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="editar PIF">
+    public static String editarCteBancaria(CuentaBancaria cteBan, int id) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_actualizar_cuneta_bancaria(?,?,?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, cteBan.getIdCuenta());
+            prstm.setString(2, cteBan.getTipoCuenta());
+            prstm.setString(3, cteBan.getNumeroCuenta());
+            prstm.setString(4, cteBan.getEntidad());
+            prstm.setInt(5, id);
+
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+
+    //</editor-fold>
+ //<editor-fold defaultstate="collapsed" desc="editar PIF">
+    public static String eliminarCteBancaria(CuentaBancaria cteBan, int id) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_eliminar_cuenta_bancaria(?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, cteBan.getIdCuenta());
+            prstm.setInt(2, id);
+
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    
+    
+    
 }
