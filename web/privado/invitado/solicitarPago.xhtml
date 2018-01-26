@@ -21,7 +21,9 @@
                                 <p:inputText value="#{ctSolicitarPago.monto}" required="true"
                                              requiredMessage="Ingrese el monto a cobrar."/>
                                 <p:commandButton value="Envíar Solicitud"
-                                                 icon="ui-icon-money"/>
+                                                 icon="ui-icon-attach-money"
+                                                 action="#{ctSolicitarPago.enviarSolicitud()}"
+                                                 update="frmCobros"/>
                             </p:panelGrid>
                         </center>
                     </div>

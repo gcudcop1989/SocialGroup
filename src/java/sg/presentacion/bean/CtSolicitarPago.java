@@ -15,8 +15,13 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import master.logica.entidades.Usuario;
 import master.logica.funciones.FUsuario;
+import org.primefaces.context.DefaultRequestContext;
+import recursos.Util;
 import sg.logica.entidades.Cuenta;
+import sg.logica.entidades.CuentaBancaria;
 import sg.logica.funciones.FCuenta;
+import sg.logica.funciones.FCuentaBancaria;
+import sg.logica.funciones.FSolicitudCobro;
 
 /**
  *
@@ -33,17 +38,24 @@ public class CtSolicitarPago implements Serializable {
     private List<Cuenta> lstCuentas;
     private int band;
     private double totalSaldo;
+    private String msg;
+    private List<CuentaBancaria> lstCtasBancarias;
+    private int idCtaBancaria;
+    private int idCuenta;
+    private Cuenta objCuenta;
 
     public CtSolicitarPago() {
         sessionUsuario = new Usuario();
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
+        idCtaBancaria = 0;
     }
 
     @PostConstruct
     public void init() {
         obtenerSession();
         obtenerCuentas();
+        ObtenerCuentasBancarias();
     }
 
     public void obtenerSession() {
@@ -65,6 +77,51 @@ public class CtSolicitarPago implements Serializable {
                 setTotalSaldo(getTotalSaldo() + getLstCuentas().get(i).getTotalComision());
             }
             System.out.println("Cuentas obtenidas: " + getLstCuentas().size());
+        } catch (Exception e) {
+            System.out.println("public void obtenerCuentas() dice: " + e.getMessage());
+        }
+    }
+
+    public void enviarSolicitud() {
+        try {
+            setMsg(FSolicitudCobro.registrarSolicitudGlobal(getSessionUsuario().getIdUsuario(), getTotalSaldo(), getIdCtaBancaria()));
+            Util.addSuccessMessage(getMsg());
+            setMonto(0);
+            setIdCtaBancaria(0);
+            DefaultRequestContext.getCurrentInstance().execute("PF('wgCobrarTodo').hide()");
+        } catch (Exception e) {
+            Util.addErrorMessage(e.getMessage().replace("ERROR:", "").replace("Hint:", ""));
+            System.out.println("public void enviarSolicitud() dice: " + e.getMessage());
+        }
+    }
+
+    public void enviarSolicitudCuenta() {
+        try {
+            setMsg(FSolicitudCobro.registrarSolicitudCuenta(getIdCuenta(), getMonto(), getIdCtaBancaria()));
+            Util.addSuccessMessage(getMsg());
+            setIdCuenta(0);
+            setMonto(0);
+            setIdCtaBancaria(0);
+            objCuenta = new Cuenta();
+            DefaultRequestContext.getCurrentInstance().execute("PF('wgCobrarCuenta').hide()");
+        } catch (Exception e) {
+            Util.addErrorMessage(e.getMessage().replace("ERROR:", "").replace("Hint:", ""));
+            System.out.println("public void enviarSolicitud() dice: " + e.getMessage());
+        }
+    }
+
+    public void obtenerCuentaDadoId() {
+        try {
+            setObjCuenta(FCuenta.obtenerCuentaDadoId(getIdCuenta()));
+        } catch (Exception e) {
+            Util.addErrorMessage(e.getMessage());
+            System.out.println("public void obtenerCuentas() dice: " + e.getMessage());
+        }
+    }
+
+    public void ObtenerCuentasBancarias() {
+        try {
+            setLstCtasBancarias(FCuentaBancaria.obtenerCtasDadoSocio(getSessionUsuario().getIdUsuario()));
         } catch (Exception e) {
             System.out.println("public void obtenerCuentas() dice: " + e.getMessage());
         }
@@ -166,6 +223,76 @@ public class CtSolicitarPago implements Serializable {
      */
     public void setTotalSaldo(double totalSaldo) {
         this.totalSaldo = totalSaldo;
+    }
+
+    /**
+     * @return the msg
+     */
+    public String getMsg() {
+        return msg;
+    }
+
+    /**
+     * @param msg the msg to set
+     */
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    /**
+     * @return the lstCtasBancarias
+     */
+    public List<CuentaBancaria> getLstCtasBancarias() {
+        return lstCtasBancarias;
+    }
+
+    /**
+     * @param lstCtasBancarias the lstCtasBancarias to set
+     */
+    public void setLstCtasBancarias(List<CuentaBancaria> lstCtasBancarias) {
+        this.lstCtasBancarias = lstCtasBancarias;
+    }
+
+    /**
+     * @return the idCtaBancaria
+     */
+    public int getIdCtaBancaria() {
+        return idCtaBancaria;
+    }
+
+    /**
+     * @param idCtaBancaria the idCtaBancaria to set
+     */
+    public void setIdCtaBancaria(int idCtaBancaria) {
+        this.idCtaBancaria = idCtaBancaria;
+    }
+
+    /**
+     * @return the idCuenta
+     */
+    public int getIdCuenta() {
+        return idCuenta;
+    }
+
+    /**
+     * @param idCuenta the idCuenta to set
+     */
+    public void setIdCuenta(int idCuenta) {
+        this.idCuenta = idCuenta;
+    }
+
+    /**
+     * @return the objCuenta
+     */
+    public Cuenta getObjCuenta() {
+        return objCuenta;
+    }
+
+    /**
+     * @param objCuenta the objCuenta to set
+     */
+    public void setObjCuenta(Cuenta objCuenta) {
+        this.objCuenta = objCuenta;
     }
 
 }

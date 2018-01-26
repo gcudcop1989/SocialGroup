@@ -24,12 +24,14 @@ public class SolicitudCobro {
     private Timestamp fechaBaja;
     private Timestamp fechaActualizacion;
     private Usuario sessionUsuario;
+    private CuentaBancaria cuentaBancaria;
 
     public SolicitudCobro() {
         cuenta = new Cuenta();
         socio = new Usuario();
         sessionUsuario = new Usuario();
         estado = new EstadoSolicitud();
+        cuentaBancaria = new CuentaBancaria();
     }
 
     /**
@@ -170,6 +172,20 @@ public class SolicitudCobro {
      */
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
+    }
+
+    /**
+     * @return the cuentaBancaria
+     */
+    public CuentaBancaria getCuentaBancaria() {
+        return cuentaBancaria;
+    }
+
+    /**
+     * @param cuentaBancaria the cuentaBancaria to set
+     */
+    public void setCuentaBancaria(CuentaBancaria cuentaBancaria) {
+        this.cuentaBancaria = cuentaBancaria;
     }
 
 }

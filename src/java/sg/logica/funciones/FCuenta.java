@@ -500,4 +500,31 @@ public class FCuenta {
             throw e;
         }
     }
+
+    public static Cuenta obtenerCuentaDadoId(int codigo) throws Exception {
+        Cuenta cuenta = null;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "SELECT * FROM sch_social_group.f_obtener_cuenta_dado_id_v2(?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, codigo);
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            while (resultSet.next()) {
+                cuenta = new Cuenta();
+                cuenta.setIdCuenta(resultSet.getInt("id_cuenta"));
+                cuenta.setCodigo(resultSet.getString("codigo_cuenta"));
+                cuenta.getPif().setIdPif(resultSet.getInt("int_id_pif"));
+                cuenta.setTotalComision(resultSet.getDouble("db_total_comision"));
+            }
+            accesoDatos.desconectar();
+        } catch (Exception e) {
+            throw e;
+        }
+        return cuenta;
+    }
+
 }

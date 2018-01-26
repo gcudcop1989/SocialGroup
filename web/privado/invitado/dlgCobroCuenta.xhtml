@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">    
+    <p:dialog id="dlgCobrarCuenta" widgetVar="wgCobrarCuenta" modal="true" resizable="false" 
+              appendTo="@(body)" header="Cobrar la comisión de las cuentas" showEffect="fade" hideEffect="fade" 
+              width="40%">
+        <h:form id="frmCobroCuenta">    
+
+            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:outputLabel value="Cuenta:"/>
+                <p:selectOneMenu id="cmbCuentaPif" value="#{ctSolicitarPago.idCuenta}"
+                                 filter="true" filterMatchMode="startsWith">
+                    <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItems value="#{ctSolicitarPago.lstCuentas}" var="ctaPif"
+                                   itemLabel="#{ctaPif.codigo}" itemValue="#{ctaPif.idCuenta}"/>
+                    <p:ajax event="change" listener="#{ctSolicitarPago.obtenerCuentaDadoId()}" 
+                            update="frmCobroCuenta:totalComision"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Saldo disponible:"/>
+                <p:outputLabel id="totalComision" value="#{ctSolicitarPago.objCuenta.totalComision}"/>
+                <p:outputLabel value="Monto a cobrar:"/>
+                <p:inputText value="#{ctSolicitarPago.monto}" required="true" requiredMessage="Ingrese el monto a retirar"/>
+                <p:outputLabel value="Cuenta bancaria:"/>
+                <p:selectOneMenu id="cmbCuenta" value="#{ctSolicitarPago.idCtaBancaria}"
+                                 filter="true" filterMatchMode="startsWith">
+                    <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItems value="#{ctSolicitarPago.lstCtasBancarias}" var="cuenta"
+                                   itemLabel="#{cuenta.entidad} - #{cuenta.numeroCuenta}" itemValue="#{cuenta.idCuenta}"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+            <center>
+                <p:commandButton value="Envíar Solicitud"
+                                 icon="ui-icon-attach-money"
+                                 action="#{ctSolicitarPago.enviarSolicitudCuenta()}"
+                                 update="frmCobroCuenta"/>
+            </center>
+        </h:form>
+    </p:dialog>
+</ui:composition>
