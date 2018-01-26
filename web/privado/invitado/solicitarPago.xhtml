@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../WEB-INF/template/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:metadata>
+    </f:metadata>
+    <ui:define name="content">
+        <h:form id="frmCobros">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+            <div class="ui-g">                        
+                <div class="ui-g-12">
+                    <div class="card">
+                        <center>
+                            <h1><b>Su saldo disponible es: #{ctSolicitarPago.totalSaldo}</b></h1>
+                            <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                <p:outputLabel value="Monto a cobrar:"/>
+                                <p:inputText value="#{ctSolicitarPago.monto}" required="true"
+                                             requiredMessage="Ingrese el monto a cobrar."/>
+                                <p:commandButton value="Envíar Solicitud"
+                                                 icon="ui-icon-attach-money"
+                                                 action="#{ctSolicitarPago.enviarSolicitud()}"
+                                                 update="frmCobros"/>
+                            </p:panelGrid>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
+            <img src="../../resources/gifs/Loading.gif" alt=""/>                        
+        </p:dialog>
+    </ui:define>
+</ui:composition>

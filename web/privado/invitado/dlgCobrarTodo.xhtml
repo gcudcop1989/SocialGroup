@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">    
+    <p:dialog id="dlgCobrarTodo" widgetVar="wgCobrarTodo" modal="true" resizable="false" 
+              appendTo="@(body)" header="Cobrar toda la comisión" showEffect="fade" hideEffect="fade" 
+              width="35%">
+        <h:form id="frmCobroTotal">
+            <center>
+                <h1><b>Su saldo disponible es: #{ctSolicitarPago.totalSaldo} USD</b></h1>
+            </center>
+            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:outputLabel value="Monto a cobrar:"/>                
+                <b>#{ctSolicitarPago.totalSaldo} USD</b>
+                <p:outputLabel value="Cuenta bancaria:"/>
+                <p:selectOneMenu id="cmbCuenta" value="#{ctSolicitarPago.idCtaBancaria}">
+                    <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItems value="#{ctSolicitarPago.lstCtasBancarias}" var="cuenta"
+                                   itemLabel="#{cuenta.entidad}-#{cuenta.numeroCuenta}" itemValue="#{cuenta.idCuenta}"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+            <center>
+                <p:commandButton value="Envíar Solicitud"
+                                 icon="ui-icon-attach-money"
+                                 action="#{ctSolicitarPago.enviarSolicitud()}"
+                                 update="frmCobroTotal"/>
+            </center>
+        </h:form>
+    </p:dialog>
+</ui:composition>

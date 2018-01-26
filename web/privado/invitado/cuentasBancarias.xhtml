@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../WEB-INF/template/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:metadata>
+    </f:metadata>
+    <ui:define name="content">
+        <h:form id="frmCuentas">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+            <div class="ui-g">                        
+                <div class="ui-g-12">
+                    <div class="card">
+                        <center><h3>Gestión de Cuentas Bancarias</h3></center>
+                        <p:dataTable id="tblCuentas" var="cuenta" value="#{ctCuentasBancarias.lstCuentas}" rows="10"
+                                     paginator="true"  emptyMessage="No tiene cuentas bancarias." 
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{solicitud.idSolicitud}"
+                                     selection="#{ctCuentasBancarias.cuentaSel}" >
+
+                            <p:column headerText="Fecha de solicitud" width="7%" style="text-align: center">
+                                <p:outputLabel value="#{cuenta.fechaRegistro}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                </p:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="Tipo" width="10%" style="text-align: center">
+                                <p:outputLabel value="#{cuenta.tipoCuenta}"/>
+                            </p:column>
+
+                            <p:column headerText="Cuenta" width="5%" style="text-align: center">
+                                <p:outputLabel value="#{cuenta.numeroCuenta}"/>
+                            </p:column>
+
+                            <p:column headerText="Entidad financiera" width="5%" style="text-align: center">
+                                <p:outputLabel value="#{cuenta.entidad}"/>
+                            </p:column>
+                            
+                            <f:facet name="footer">
+                                <p:commandButton value="Nueva"
+                                                 icon="ui-icon-library-add"/>
+                            </f:facet>
+
+                        </p:dataTable>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
+            <img src="../../resources/gifs/Loading.gif" alt=""/>                        
+        </p:dialog>
+    </ui:define>
+</ui:composition>

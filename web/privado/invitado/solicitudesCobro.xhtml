@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+        <ui:composition template="../../WEB-INF/template/template.xhtml">                         
+            <ui:define name="title">Menú Coeficientes</ui:define>
+            <ui:define name="content">
+                <p:growl autoUpdate="true"/>
+                <h:form id="frmSolicitudes">
+                    <center><h1>Solicitudes enviadas</h1></center>
+                    <p:dataTable id="tblSolicitudes" var="solicitud" value="#{ctSolicitudesSocio.lstSolicitudes}" rows="10"
+                                 paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{solicitud.idSolicitud}"
+                                 selection="#{ctSolicitudesSocio.objSolicitud}" selectionMode="single">
+
+                        <p:column headerText="Fecha de solicitud" width="7%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.fechaRegistro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Socio" width="10%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.socio.nombres} #{solicitud.socio.apellidos}"/>
+                        </p:column>
+
+                        <p:column headerText="Cuenta" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.cuenta.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Monto a cobrar" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.monto}"/>
+                        </p:column>
+
+                        <p:column headerText="Tipo cobro" width="7%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.tipoSolicitud}"/>
+                        </p:column>
+
+                        <p:column headerText="Estado" width="7%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.estado.estado}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
