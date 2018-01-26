@@ -69,34 +69,52 @@ public class ctClave {
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Modificar Contraseña de la Persona">
-    public void modificarClave() throws Exception {
+     public void modificarClave() throws Exception {
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
         int intIdUsuario = (int) httpServletRequest.getSession().getAttribute("idUsuario");        
         Usuario objUsuario;
         ctClave objClave = new ctClave();
+       
         try {
-            strMensaje = FUsuario.cambiarContrasenia(intIdUsuario, getStrClaveAnterior(), getStrClaveNueva());
-            Util.addSuccessMessage(strMensaje);
+            strMensaje = FUsuario.cambiarContrasenia(intIdUsuario, getStrClaveAnterior(), getStrClaveNueva(), getStrClaveNuevaR());
+            //Util.addSuccessMessage(strMensaje);
+            if (strMensaje.isEmpty()) {
+
+            } else {
+                //ctClave.enviarMensaje(sessionUsuario.getMail(), getStrClaveNueva());
+                objClave.enviarMensaje(sessionUsuario.getMail(), strMensaje);
+
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualización exitosa", strMensaje);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                faceContext = FacesContext.getCurrentInstance();
+                faceContext.getExternalContext().getFlash().setKeepMessages(true);
+                faceContext.getExternalContext().redirect("/SocialGroup/login.jsf");
+            }
 
         } catch (Exception e) {
             System.out.println("public void modificarContrasenia() dice: " + e.getMessage());
             Util.addErrorMessage(e.getMessage());
         }
+
+
+
+
+
     }
-    // </editor-fold>  
+    // </editor-fold>   
     //<editor-fold defaultstate="collapsed" desc="Enviar Mensaje al correo">
 
-    public void cEnviarMensaje(String strEmail, String strPass) {
+    public void enviarMensaje(String strEmail, String strPass) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
-        final String strUsername = "yelouec@gmail.com";
-        final String strPassWord = "Khipucom2016";
+        final String strUsername = "njchiquita101@gmail.com";
+        final String strPassWord = "programacion";
         String To = strEmail;
-        String Subject = "Satu";
+        String Subject = "Social Group";
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
             @Override
@@ -113,7 +131,7 @@ public class ctClave {
                     + "     <div style=\"-webkit-box-shadow: 20px 20px 30px -6px rgba(0,0,0,0.3);\n"
                     + "-moz-box-shadow: 20px 20px 30px -6px rgba(0,0,0,0.3);\n"
                     + "box-shadow: 20px 20px 30px -6px rgba(0,0,0,0.3); width:600px; \">\n"
-                    + "        <div style=\"background-color:#2B2E2E; width:auto; marging-left:10px\"><img style=\"padding-left:250px; padding-top:20px; padding-bottom:20px;width:100px;\" src=\"http://64.15.146.126/WebAppYelou/resources/imagenes/logo256-only.png\">\n"
+                    + "        <div style=\"background-color:#112f54; width:auto; marging-left:10px\"><img style=\"padding-left:250px; padding-top:20px; padding-bottom:20px;width:100px;\" src=\"http://64.15.146.126/WebAppYelou/resources/imagenes/logo256-only.png\">\n"
                     + "    </div>\n"
                     + "        <div style=\"background-color:#F5F4F3;\">\n"
                     + "        <h2 style=\"text-align:center;\">CAMBIO DE CLAVE</h2>\n"
@@ -126,12 +144,12 @@ public class ctClave {
                     + "                NOTA: Debe cambiar su clave al ingresar a su perfil.\n"
                     + "                <br>\n"
                     + "                <br>\n"
-                    + "                 Ingreso al Sistema <a href=http://64.15.146.126/WepAppYelou>www.yelou.com</a></p>\n"
+                    + "                 Ingreso al Sistema <a href=http://64.15.146.126/SocialGroup>www.SocialGroup.com</a></p>\n"
                     + "            <br>\n"
                     + "                \n"
                     + "            </p>\n"
                     + "        </div>\n"
-                    + "        <div style=\"background-color:#2B2E2E; width:600px; color:#fff; padding-left:150px\">www.yelou.com - Derechos Reservados &#169;\n"
+                    + "        <div style=\"background-color:#112f54; width:600px; color:#fff; padding-left:150px\">www.SocialGroup.com - Derechos Reservados &#169;\n"
                     + "    </div>\n"
                     + "         <br>\n"
                     + "    </div>  \n"
@@ -143,6 +161,8 @@ public class ctClave {
             throw new RuntimeException(e);
         }
     }
+
+    //</editor-fold>     
 
     //</editor-fold>     
     //<editor-fold defaultstate="collapsed" desc="get and set">
