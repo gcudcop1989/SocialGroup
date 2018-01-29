@@ -527,4 +527,32 @@ public class FCuenta {
         return cuenta;
     }
 
+    public static List<Cuenta> obtenerCuentasHijas(int idPadre) throws Exception {
+        List<Cuenta> lst = new ArrayList<>();
+        AccesoDatos accesoDatos;
+        PreparedStatement stm;
+        Cuenta cuenta;
+        ResultSet resultSet;
+        String consulta;
+        try {
+            accesoDatos = new AccesoDatos();
+            consulta = "select * from sch_social_group.f_obtener_cuentas_hijas_dado_padre(?)";
+            stm = accesoDatos.creaPreparedSmt(consulta);
+            stm.setInt(1, idPadre);
+            resultSet = accesoDatos.ejecutaPrepared(stm);
+            while (resultSet.next()) {
+                cuenta = new Cuenta();
+                cuenta.setReferidoCuenta(new Cuenta());
+                //datos cuenta
+                cuenta.setIdCuenta(resultSet.getInt("sr_id_cuenta"));
+                cuenta.setCodigo(resultSet.getString("chv_codigo"));
+
+                lst.add(cuenta);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return lst;
+    }
+
 }
