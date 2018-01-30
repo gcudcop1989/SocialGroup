@@ -49,7 +49,9 @@
 
                             <p:column headerText="Revisar" width="5%" style="text-align: center">
                                 <p:commandButton icon="ui-icon-shuffle"
-                                                 title="Revisar">
+                                                 title="Revisar"
+                                                 onclick="PF('wdlgRevisar').show();"
+                                                 update="frmRevisar">
                                     <f:setPropertyActionListener value="#{solicitud}" target="#{ctAprobarCobros.objSolicitud}"/>
                                 </p:commandButton>
                             </p:column>
@@ -66,9 +68,26 @@
                   showEffect="clip" hideEffect="fold">  
             <h:form id="frmRevisar">
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-                <center>
-                    <p:commandButton icon="ui-icon-save" value="Aceptar" 
-                                     update="frmCobros:tblSolicitudes"/>
+                <center>                   
+                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                        <p:outputLabel value="Fecha de registro:"/>
+                        <p:outputLabel value="#{ctAprobarCobros.objSolicitud.fechaRegistro}"/>
+                        <p:outputLabel value="Socio:"/>
+                        <p:outputLabel value="#{ctAprobarCobros.objSolicitud.socio.nombres} #{ctAprobarCobros.objSolicitud.socio.apellidos}"/>
+                        <p:outputLabel value="Cantidad:"/>
+                        <p:outputLabel value="#{ctAprobarCobros.objSolicitud.monto}"/>  
+                        <p:outputLabel value="Observaciones"/>
+                        <p:inputTextarea value="#{ctAprobarCobros.observaciones}"/>  
+                    </p:panelGrid>
+
+                    <p:commandButton icon="ui-icon-check" value="Aprobar" 
+                                     update="frmCobros:tblSolicitudes"
+                                     action="#{ctAprobarCobros.aprobarSolicitud()}"/>
+
+                    <p:commandButton icon="ui-icon-delete-forever" value="Rechazar" 
+                                     update="frmCobros:tblSolicitudes"
+                                     action="#{ctAprobarCobros.rechazarSolicitud()}"/>
+
                     <p:commandButton icon="ui-icon-cancel" value="Cancelar" 
                                      onclick="PF('wdlgRevisar').hide();"
                                      update="frmCobros:tblSolicitudes"
@@ -80,6 +99,6 @@
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
             <img src="../../resources/gifs/Loading.gif" alt=""/>                        
         </p:dialog>
-        
+
     </ui:define>
 </ui:composition>

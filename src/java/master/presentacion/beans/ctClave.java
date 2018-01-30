@@ -52,6 +52,7 @@ public class ctClave {
     public void init() {
         obtenerSession();
     }
+
     //<editor-fold defaultstate="collapsed" desc="Obtener session">
     public void obtenerSession() {
         try {
@@ -66,18 +67,18 @@ public class ctClave {
 
         }
     }
-
     //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="Modificar Contraseña de la Persona">
-     public void modificarClave() throws Exception {
+    public void modificarClave() throws Exception {
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
-        int intIdUsuario = (int) httpServletRequest.getSession().getAttribute("idUsuario");        
+        int intIdUsuario = (int) httpServletRequest.getSession().getAttribute("idUsuario");
         Usuario objUsuario;
         ctClave objClave = new ctClave();
-       
+
         try {
-            strMensaje = FUsuario.cambiarContrasenia(intIdUsuario, getStrClaveAnterior(), getStrClaveNueva(), getStrClaveNuevaR());
+            strMensaje = FUsuario.cambiarContrasenia(intIdUsuario, getStrClaveAnterior(), getStrClaveNueva());
             //Util.addSuccessMessage(strMensaje);
             if (strMensaje.isEmpty()) {
 
@@ -96,10 +97,6 @@ public class ctClave {
             System.out.println("public void modificarContrasenia() dice: " + e.getMessage());
             Util.addErrorMessage(e.getMessage());
         }
-
-
-
-
 
     }
     // </editor-fold>   
@@ -163,10 +160,8 @@ public class ctClave {
     }
 
     //</editor-fold>     
-
     //</editor-fold>     
     //<editor-fold defaultstate="collapsed" desc="get and set">
-    
     public Usuario getObjUsuario() {
         return objUsuario;
     }
@@ -254,6 +249,6 @@ public class ctClave {
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
     }
-    
+
     //</editor-fold>
 }

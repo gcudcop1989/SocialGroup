@@ -17,7 +17,7 @@ import sg.logica.entidades.SolicitudCobro;
  * @author Geovanny
  */
 public class FSolicitudCobro {
-    
+
     public static String registrarSolicitudGlobal(int idTitular, double monto, int ctaBancaria) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -42,7 +42,7 @@ public class FSolicitudCobro {
             throw e;
         }
     }
-    
+
     public static String registrarSolicitudCuenta(int idCuenta, double monto, int idCtaBancaria) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -67,7 +67,7 @@ public class FSolicitudCobro {
             throw e;
         }
     }
-    
+
     public static List<SolicitudCobro> obteneSolicitudesDadoEstado(int idEstado) throws Exception {
         List<SolicitudCobro> lst = new ArrayList<>();
         AccesoDatos accesoDatos;
@@ -106,7 +106,7 @@ public class FSolicitudCobro {
         }
         return lst;
     }
-    
+
     public static List<SolicitudCobro> obteneSolicitudesDadoSocio(int idSocio) throws Exception {
         List<SolicitudCobro> lst = new ArrayList<>();
         AccesoDatos accesoDatos;
@@ -145,7 +145,7 @@ public class FSolicitudCobro {
         }
         return lst;
     }
-    
+
     public static String eliminarSolicitud(int idSolicitud) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -156,7 +156,32 @@ public class FSolicitudCobro {
             accesoDatos = new AccesoDatos();
             sql = "select * from sch_social_group.f_eliminar_solicitud_cobro(?)";
             prstm = accesoDatos.creaPreparedSmt(sql);
-            prstm.setInt(1, idSolicitud);            
+            prstm.setInt(1, idSolicitud);
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public static String aprobarSolicitud(int idSolicitud, String observaciones, int idUsuario) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_aprobar_solicitud_cobro(?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, idSolicitud);
+            prstm.setString(2, observaciones);
+            prstm.setInt(3, idUsuario);
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             if (resultSet.next()) {
                 respuesta = resultSet.getString(1);
@@ -169,4 +194,29 @@ public class FSolicitudCobro {
         }
     }
     
+    public static String rechazarSolicitud(int idSolicitud, String observaciones, int idUsuario) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_rechazar_solicitud(?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, idSolicitud);
+            prstm.setString(2, observaciones);
+            prstm.setInt(3, idUsuario);
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 }

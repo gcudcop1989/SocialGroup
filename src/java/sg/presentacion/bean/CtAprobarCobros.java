@@ -15,6 +15,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import master.logica.entidades.Usuario;
 import master.logica.funciones.FUsuario;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.context.DefaultRequestContext;
+import recursos.Util;
 import sg.logica.entidades.SolicitudCobro;
 import sg.logica.funciones.FSolicitudCobro;
 
@@ -31,6 +34,8 @@ public class CtAprobarCobros implements Serializable {
     private HttpServletRequest httpServletRequest;
     private FacesContext faceContext;
     private Usuario sessionUsuario;
+    private String observaciones;
+    private String msg;
 
     public CtAprobarCobros() {
         objSolicitud = new SolicitudCobro();
@@ -63,6 +68,42 @@ public class CtAprobarCobros implements Serializable {
         } catch (Exception e) {
             System.out.println(" public void obtenerSolicitides() dice: " + e.getMessage());
         }
+    }
+
+    public void aprobarSolicitud() {
+        try {
+            setMsg(FSolicitudCobro.aprobarSolicitud(getObjSolicitud().getIdSolicitud(), getObservaciones(), getSessionUsuario().getIdUsuario()));
+            Util.addSuccessMessage(getMsg());
+            setObjSolicitud(new SolicitudCobro());
+            setObservaciones("");
+            obtenerSolicitides();
+            resetearDataTable("frmCobros:tblSolicitudes");
+            DefaultRequestContext.getCurrentInstance().execute("PF('wdlgRevisar').hide()");
+        } catch (Exception e) {
+            Util.addErrorMessage(e.getMessage());
+            System.out.println(" public void aprobarSolicitud() dice: " + e.getMessage());
+        }
+    }
+    
+     public void rechazarSolicitud() {
+        try {
+            setMsg(FSolicitudCobro.rechazarSolicitud(getObjSolicitud().getIdSolicitud(), getObservaciones(), getSessionUsuario().getIdUsuario()));
+            Util.addSuccessMessage(getMsg());
+            setObjSolicitud(new SolicitudCobro());
+            setObservaciones("");
+            obtenerSolicitides();
+            resetearDataTable("frmCobros:tblSolicitudes");
+            DefaultRequestContext.getCurrentInstance().execute("PF('wdlgRevisar').hide()");
+        } catch (Exception e) {
+            Util.addErrorMessage(e.getMessage());
+            System.out.println(" public void aprobarSolicitud() dice: " + e.getMessage());
+        }
+    }
+
+
+    public void resetearDataTable(String id) {
+        DataTable table = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
+        table.reset();
     }
 
     /**
@@ -133,6 +174,34 @@ public class CtAprobarCobros implements Serializable {
      */
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
+    }
+
+    /**
+     * @return the observaciones
+     */
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    /**
+     * @param observaciones the observaciones to set
+     */
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    /**
+     * @return the msg
+     */
+    public String getMsg() {
+        return msg;
+    }
+
+    /**
+     * @param msg the msg to set
+     */
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
 }

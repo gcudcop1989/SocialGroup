@@ -34,6 +34,10 @@
                         <p:column headerText="Monto a cobrar" width="5%" style="text-align: center">
                             <p:outputLabel value="#{solicitud.monto}"/>
                         </p:column>
+                        
+                         <p:column headerText="Cta. Bancaria" width="10%" style="text-align: center">
+                             <p:outputLabel value="#{solicitud.cuentaBancaria.entidad} - N° #{solicitud.cuentaBancaria.numeroCuenta}"/>
+                        </p:column>
 
                         <p:column headerText="Tipo cobro" width="7%" style="text-align: center">
                             <p:outputLabel value="#{solicitud.tipoSolicitud}"/>
@@ -43,12 +47,14 @@
                             <p:outputLabel value="#{solicitud.estado.estado}"/>
                         </p:column>
 
+                        <!--
                         <p:column headerText="Editar" width="3%" style="text-align: center">
                             <p:commandButton icon="ui-icon-pencil"
                                              title="Editar">
                                 <f:setPropertyActionListener value="#{solicitud}" target="#{ctSolicitudesSocio.objSolicitud}"/>
                             </p:commandButton>
                         </p:column>
+                        -->
 
                         <p:column headerText="Cancelar" width="3%" style="text-align: center">
                             <p:commandButton icon="ui-icon-delete-forever"

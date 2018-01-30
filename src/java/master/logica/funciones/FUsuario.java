@@ -370,7 +370,7 @@ public class FUsuario {
             prstm.setString(9, objUsuario.getPais());
             prstm.setString(10, objUsuario.getNick());
             prstm.setInt(11, objUsuario.getIdPersona());
-            
+
             //prstm.setString(12, objRolUsuario.getUsuario().getMail().toLowerCase());
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             if (resultSet.next()) {
@@ -731,8 +731,8 @@ public class FUsuario {
         }
         return lst;
     }
-    
-        public static String cambiarContrasenia(int intIdUsr, String strClaveAnt, String strClaveN ) throws Exception {
+
+    public static String cambiarContrasenia(int intIdUsr, String strClaveAnt, String strClaveN) throws Exception {
         AccesoDatos accesoDatos;
         PreparedStatement prstm;
         String sql, respuesta;
@@ -757,6 +757,4 @@ public class FUsuario {
     }
 
     //</editor-fold>
-    
-    
 }

@@ -175,7 +175,29 @@
                             }
                         }
 
-                        var treeData =#{ctRed.json};
+                        var treeData =
+                                {
+                                    "name": "BU Head",
+                                    "children": [
+                                        {
+                                            "name": "Manager",
+                                            "children": [
+                                                {
+                                                    "name": "Team Lead",
+                                                    "children": []
+                                                },
+                                                {
+                                                    "name": "Team Lead",
+                                                    "children": []
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "Manager",
+                                            "children": []
+                                        }
+                                    ]
+                                };
                         BuildVerticaLTree(treeData, "#tree");
                     });
                 </script>

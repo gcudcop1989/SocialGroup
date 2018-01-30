@@ -555,4 +555,27 @@ public class FCuenta {
         return lst;
     }
 
+    public static String devolverJson(int codigo) {
+        String json = "";
+        try {
+            Cuenta padre = new Cuenta();
+            padre = FCuenta.obtenerCuentaDadoId(codigo);
+            List<Cuenta> lst = FCuenta.obtenerCuentasHijas(codigo);
+            json = "{'name':'" + padre.getCodigo() + "',";
+            json = json + "'children':[";
+            for (int i = 0; i < lst.size(); i++) {
+                json = json + "{'name':'" + lst.get(i).getCodigo() + "',";
+                json = json + "'children':[]";
+                if (i != lst.size() - 1) {
+                    json = json + "},";
+                } else {
+                    json = json + "}]";
+                }
+            }
+            json = json + "}";
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return json;
+    }
 }
