@@ -24,9 +24,11 @@ public class CtRegistro implements Serializable {
     private int aceptar;
     private HttpServletRequest httpServletRequest;
     private FacesContext faceContext;
+    private int tipoPersona;
 
     public CtRegistro() {
-        objPersona = new Usuario();
+        tipoPersona=1;
+        objPersona = new Usuario();        
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
         obtenerTiposPersonas();
@@ -43,14 +45,14 @@ public class CtRegistro implements Serializable {
 
     public void registrar() {
         try {
-            String msg = FUsuario.registrarUsuarioVisitante(objPersona);
+            String msg = FUsuario.registrarUsuarioVisitante(getObjPersona());
             Util.addSuccessMessage(msg);
 
             System.out.println("registrar dice: " + msg);
 
             Util.addSuccessMessage("Ud se ha registrado exitosamente.");
-            faceContext.getExternalContext().redirect("login.jsf");
-            objPersona = new Usuario();
+            getFaceContext().getExternalContext().redirect("login.jsf");
+            setObjPersona(new Usuario());
 
         } catch (Exception e) {
             System.out.println("public void registrar() dice: " + e.getMessage());
@@ -126,6 +128,20 @@ public class CtRegistro implements Serializable {
      */
     public void setFaceContext(FacesContext faceContext) {
         this.faceContext = faceContext;
+    }
+
+    /**
+     * @return the tipoPersona
+     */
+    public int getTipoPersona() {
+        return tipoPersona;
+    }
+
+    /**
+     * @param tipoPersona the tipoPersona to set
+     */
+    public void setTipoPersona(int tipoPersona) {
+        this.tipoPersona = tipoPersona;
     }
 
 }

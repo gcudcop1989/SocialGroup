@@ -31,6 +31,7 @@
                     <p:growl id="msg" autoUpdate="true" showDetail="true"/>
                     <!--<p:messages id="msg" autoUpdate="true" showDetail="true"/>-->
                     <center>
+                        <!--
                         <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group"  >
                             <p:outputLabel value="Tipo de Persona:"/>
                             <p:selectOneMenu id="tipoPersona" 
@@ -45,10 +46,11 @@
                                                itemValue="#{tipo.idTipoPersona}" />
                                 <p:ajax event="change" process="@this" update="pnlPersonaJuridica,pnlPersonaNatural"/>
                             </p:selectOneMenu>
-                        </p:panelGrid>
+                        </p:panelGrid>                        
+                        -->
 
                         <p:panel id="pnlPersonaNatural" 
-                                 visible="#{ctRegistro.objPersona.tipoPersona.idTipoPersona==1}" 
+                                 visible="#{ctRegistro.tipoPersona==1}" 
                                  style="border: none">
 
                             <p:separator/>
@@ -146,24 +148,41 @@
                             <br/>
                             <p:scrollPanel style="height:150px">
                                 <p>
-                                    Actualmente estoy montando una tienda en prestashop 1.6, y ahora me surge el problema 
-                                    de forzar que el usuario cuando se registre indique que acepta las politicas de privacidad 
-                                    expilcadas en la web, ya sea mediante un checkbox o algo parecido.
+                                    La aceptación de este campo es requisito imprescindible para el uso de la plataforma y 
+                                    compra de paquetes y productos ofertados, es necesario que lea y acepte los siguientes 
+                                    Términos y Condiciones que a continuación se redactan. 
                                 </p>
 
                                 <p>
-                                    Segun he estado leyendo, he visto que para versiones anteriores habia algun modulo gratuito, 
-                                    y tambien he encontrado como añadir un nuevo check en versión 1.5, que segun este foro hay 1 
-                                    comentario que parece que tambien funciona para la 1.6 pero no queda muy claro:
-
-                                    http://www.prestashop.com/forums/topic/244467-adaptar-el-formulario-de-contacto-a-la-lopd-con-un-check/
+                                    El uso de nuestros servicios, así como la compra de nuestros productos implicará que usted ha 
+                                    leído y aceptado los Términos y Condiciones de Uso en el presente documento. 
+                                    Todos los productos que son ofrecidos por nuestro sitio web son cobrados en 
+                                    efectivo o mediante transferencia bancaria. Los productos comprados en la plataforma 
+                                    pudieran ser enviados por una empresa tercera y en tal caso estarían sujetas a sus propios 
+                                    Términos y Condiciones. En todos los casos, para adquirir un paquete con el producto 
+                                    especificado, será necesario el registro por parte del usuario, con ingreso de datos personales 
+                                    fidedignos y definición de una contraseña.
                                 </p>
 
-                                <p>
-                                    He encontrado tambien un modulo de pago para esta finalidad, por ahora he encontrado:
-
-                                    http://www.innova-modules.com/modulos-prestashop/cumplimiento-de-la-lopd/deluxe-lopd-registro/
-
+                                <b>CONDICIONES DE USO</b>
+                                <p>                                    
+                                    Todas las compras y transacciones que se lleven a cabo por medio de esta plataforma, 
+                                    están sujetas a un proceso de confirmación y verificación, el cual podría incluir la 
+                                    verificación del stock y disponibilidad de producto, validación de la forma de pago, 
+                                    validación de la factura (en caso de existir) y el cumplimiento de las condiciones 
+                                    requeridas por el medio de pago seleccionado. 
+                                    En algunos casos puede que se requiera una verificación por medio de correo electrónico.
+                                </p>
+                                <p> 
+                                    Los precios de los paquetes son válidos únicamente en las compras realizadas en esta plataforma. 
+                                    SOCIAL GROUP S.A. no ofrece sus servicios en sitios web de terceros y las compras indirectas 
+                                    dentro de la plataforma se realizan exclusivamente con código de usuario referido. Una vez que un 
+                                    usuario realiza una compra se suscribe al contrato con las condiciones especificadas en este.
+                                </p>
+                                <p> 
+                                    Los usuarios pueden cambiar sus contraseñas e información no legal en cualquier 
+                                    momento dentro de la plataforma, SOCIAL GROUP S.A. no asume la responsabilidad 
+                                    si los usuarios facilitan sus datos de seguridad a terceros.
                                 </p>
 
                                 <p>
@@ -196,7 +215,7 @@
                                                  action="#{ctRegistro.registrar()}"
                                                  update="@form"/>      
                             </p:panel>
-                            
+
                             <p:panel id="idCancelar" 
                                      visible="#{ctRegistro.aceptar==0}" 
                                      style="border: none">
@@ -209,11 +228,13 @@
 
                         </p:panel>
 
+                        <!--
                         <p:panel id="pnlPersonaJuridica" 
                                  visible="#{ctRegistro.objPersona.tipoPersona.idTipoPersona==2}" 
                                  style="border: none">
                             <p:outputLabel value="Persona Jurídica"/>
                         </p:panel>
+                        -->
                     </center>
                 </h:form>
             </div>
