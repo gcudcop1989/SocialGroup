@@ -6,8 +6,7 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <p:dialog id="dlgEditarCteBan" widgetVar="dlgEditarCteBan" closable="false" modal="true" resizable="false" 
-              header="Editar la Cuenta Bancaria registrada" showEffect="size" hideEffect="size"
-              width="25%">
+              header="Editar la Cuenta Bancaria registrada" showEffect="size" hideEffect="size" appendTo="@(body)">
         <h:form id="frmEditarCteBan">                     
             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
                 <p:outputLabel value="Entidad"/>

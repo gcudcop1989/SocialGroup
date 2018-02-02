@@ -13,18 +13,46 @@
             <ui:define name="title">Predios edificados</ui:define>            
             <ui:define name="content">  
 
-                <script src="../../resources/amcharts/amcharts.js" type="text/javascript"></script>
-                <script src="../../resources/amcharts/serial.js" type="text/javascript"></script>
-                <script src="../../resources/amcharts/plugins/export/export.min.js" type="text/javascript"></script>
-                <link href="../../resources/amcharts/plugins/export/export.css" rel="stylesheet" type="text/css"/>
-                <script src="../../resources/amcharts/themes/light.js" type="text/javascript"></script>
-                <script src="../../resources/amcharts/plugins/responsive/responsive.min.js" type="text/javascript"></script>
-                <script src="../../resources/amcharts/pie.js" type="text/javascript"></script>
+                <h:outputStylesheet name="plugins/export/export.css" library="amcharts" />
+                <h:outputScript name="amcharts.js" library="amcharts" />
+                <h:outputScript name="pie.js" library="amcharts" />
+                <h:outputScript name="serial.js" library="amcharts" />
+                <h:outputScript name="plugins/export/export.min.js" library="amcharts" />
+                <h:outputScript name="themes/light.js" library="amcharts" />
+                <h:outputScript name="themes/black.js" library="amcharts" />
+                <h:outputScript name="themes/chalk.js" library="amcharts" />
+                <h:outputScript name="themes/dark.js" library="amcharts" />
+                <h:outputScript name="themes/patterns.js" library="amcharts" />
 
-                <style>
+                <style>                    
                     #chartdiv {
                         width: 100%;
                         height: 350px;
+                        background: #0e2031;                          
+
+                    }
+
+                    .amcharts-export-menu-top-right {
+                        top: 10px;
+                        right: 0;
+                    }
+                </style>
+
+
+
+                <style>
+                    #chartdiv2 {
+                        width: 100%;
+                        height: 350px;
+                        background: #0e2031;          
+                    }
+                </style>
+
+                <style>
+                    #chartdiv3 {
+                        width: 100%;
+                        height: 350px;
+                        background: #0e2031;          
                     }
 
                     .amcharts-export-menu-top-right {
@@ -34,36 +62,103 @@
                 </style>
 
                 <style>
-                    #chartdiv2 {
+                    #chartdiv4 {
                         width: 100%;
                         height: 350px;
+                        background: #0e2031;          
                     }
                 </style>
 
                 <script>
                     var chart = AmCharts.makeChart("chartdiv", {
                         "type": "serial",
-                        "theme": "light",
+                        "theme": "dark",
                         "marginRight": 70,
                         "dataProvider": #{ctEstadisticasVentas.json},
                         "valueAxes": [{
                                 "axisAlpha": 0,
                                 "position": "left",
-                                "title": "Paquetes vendidos"
+                                "title": "Paquetes vendidos",
+                                "color": "#fff"
                             }],
                         "startDuration": 1,
                         "graphs": [{
                                 "balloonText": "<b>[[category]]: [[value]]</b>",
                                 "fillColorsField": "color",
+                                "fontSize": 14,
                                 "fillAlphas": 0.9,
                                 "lineAlpha": 0.2,
                                 "type": "column",
-                                "valueField": "Total"
+                                "color": "#fff",
+                                "valueField": "Total",
+                                "labelText": "[[value]]"
                             }],
                         "chartCursor": {
                             "categoryBalloonEnabled": false,
                             "cursorAlpha": 0,
                             "zoomable": false
+                        },
+                        "categoryField": "pif",
+                        "categoryAxis": {
+                            "gridPosition": "start",
+                            "color": "#fff",
+                            "labelRotation": 45
+                        },
+                        "export": {
+                            "enabled": true
+                        },
+                        "responsive": {
+                            "enabled": true
+                        }
+
+                    });
+                </script>
+
+                <script>
+                    var chart = AmCharts.makeChart("chartdiv2", {
+                        "type": "pie",
+                        "theme": "dark",
+                        "dataProvider": #{ctEstadisticasVentas.json},
+                        "valueField": "Total",
+                        "titleField": "pif",
+                        "balloon": {
+                            "fixedPosition": true
+                        },
+                        "responsive": {
+                            "enabled": true
+                        },
+                        "export": {
+                            "enabled": true
+                        }
+                    });
+                </script>
+
+                <script>
+                    var chart = AmCharts.makeChart("chartdiv3", {
+                        "type": "serial",
+                        "theme": "black",
+                        "marginRight": 70,
+                        "dataProvider": #{ctEstadisticasVentas.json2},
+                        "valueAxes": [{
+                                "axisAlpha": 0,
+                                "position": "left",
+                                "title": "Total de Ingresos"
+                            }],
+                        "startDuration": 3,
+                        "graphs": [{
+                                "balloonText": "<b>[[category]]: $[[value]]</b>",
+                                "fillColorsField": "color",
+                                "fontSize": 14,
+                                "fillAlphas": 0.8,
+                                "lineAlpha": 0.3,
+                                "type": "column",
+                                "valueField": "Total",
+                                "labelText": "$[[value]]"
+                            }],
+                        "chartCursor": {
+                            "categoryBalloonEnabled": false,
+                            "cursorAlpha": 0,
+                            "zoomable": true
                         },
                         "categoryField": "pif",
                         "categoryAxis": {
@@ -81,10 +176,10 @@
                 </script>
 
                 <script>
-                    var chart = AmCharts.makeChart("chartdiv2", {
+                    var chart = AmCharts.makeChart("chartdiv4", {
                         "type": "pie",
-                        "theme": "light",
-                        "dataProvider": #{ctEstadisticasVentas.json},
+                        "theme": "black",
+                        "dataProvider": #{ctEstadisticasVentas.json2},
                         "valueField": "Total",
                         "titleField": "pif",
                         "balloon": {
@@ -100,19 +195,31 @@
                 </script>
 
 
-
                 <center><h1>Resumen General</h1></center>
-                <div class="ui-g">   
+
+
+
+                <center><b>Paquetes Vendidos</b></center>
+                <div class="ui-g">                      
                     <div class="ui-g-12 ui-md-6 ui-lg-6">
-                        <div class="card">
-                            <div id="chartdiv" ></div>
-                        </div>                            
+
+                        <div id="chartdiv" ></div>
+
                     </div>
 
                     <div class="ui-g-12 ui-md-6 ui-lg-6">
-                        <div class="card">
-                            <div id="chartdiv2" ></div>
-                        </div>                            
+
+                        <div id="chartdiv2" ></div>
+                    </div>
+                </div>
+                <center><b>Total de Ingresos</b></center>
+                <div class="ui-g"> 
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <div id="chartdiv3" ></div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                        <div id="chartdiv4" ></div>
                     </div>
                 </div>
             </ui:define>

@@ -13,7 +13,7 @@
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
             <div class="ui-g">                        
                 <div class="ui-g-12">
-                    <div class="card">
+                   
                         <center><h3>Solicitudes por activar</h3></center>
                         <p:dataTable id="tblSolicitudes" var="solicitud" value="#{ctAprobarCobros.lstSolicitudes}" rows="10"
                                      paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
@@ -57,7 +57,7 @@
                             </p:column>
 
                         </p:dataTable>
-                    </div>
+                    
                 </div>
             </div>
         </h:form>

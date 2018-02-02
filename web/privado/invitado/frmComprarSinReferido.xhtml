@@ -14,22 +14,12 @@
                     var="pif"
                     numVisible="3" effect="easeInStrong" headerText="Paquetes de independecia financiera" style="margin-bottom:0">
 
-            <h:panelGrid columns="2" style="width:100%" columnClasses="label,value">                               
-                <p:lightBox id="lightPif" styleClass="imagebox" >  
-                    <h:outputLink value="../..#{pif.foto}" title="#{pif.pif}">  
-                        <p:graphicImage value="#{pif.foto}" width="80" title="#{pif.pif}"/>
-                    </h:outputLink>
-                </p:lightBox>
 
-                <p:panel style="border: none">
-                    <b>#{pif.pif}</b>
-                    <p>
-                        <b>Descripción:</b> 
-                        #{pif.descripcion}
-                    </p>   
-                    <b>Costo: #{pif.costo} USD</b>
-                </p:panel>                             
-            </h:panelGrid>
+            <p:lightBox id="lightPif" styleClass="imagebox" >  
+                <h:outputLink value="../..#{pif.foto}" title="#{pif.pif}">  
+                    <p:graphicImage value="#{pif.foto}" width="80" title="#{pif.pif}"/>
+                </h:outputLink>
+            </p:lightBox>               
             <center>
                 <!--
                 <p:commandButton icon="ui-icon-info"

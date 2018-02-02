@@ -8,68 +8,68 @@
     <f:metadata>
     </f:metadata>
     <ui:define name="content">
-        <h:form id="frmCuentas">
+        <h:form id="frmCuentas" >
             <p:growl autoUpdate="true" showDetail="true"/>
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
             <div class="ui-g">                        
                 <div class="ui-g-12">
-                    <div class="card">
-                        <center><h3>Gestión de Cuentas Bancarias</h3></center>
-                        <p:dataTable id="tblCuentas" var="cuenta" value="#{ctCuentasBancarias.lstCuentas}" rows="10"
-                                     paginator="true"  emptyMessage="No tiene cuentas bancarias." 
-                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{solicitud.idSolicitud}"
-                                     selection="#{ctCuentasBancarias.cuentaSel}" >
 
-                            <p:column headerText="Entidad financiera" width="5%" style="text-align: center">
-                                <p:outputLabel value="#{cuenta.entidad}"/>
-                            </p:column>
-                             <p:column headerText="Tipo" width="10%" style="text-align: center">
-                                <p:outputLabel value="#{cuenta.tipoCuenta}"/>
-                            </p:column>
-                            <p:column headerText="Cuenta" width="5%" style="text-align: center">
-                                <p:outputLabel value="#{cuenta.numeroCuenta}"/>
-                            </p:column>
-                            <p:column headerText="Fecha de solicitud" width="7%" style="text-align: center">
-                                <p:outputLabel value="#{cuenta.fechaRegistro}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
-                                </p:outputLabel>
-                            </p:column>
+                    <center><h3>Gestión de Cuentas Bancarias</h3></center>
+                    <p:dataTable id="tblCuentas" var="cuenta" value="#{ctCuentasBancarias.lstCuentas}" rows="10"
+                                 paginator="true"  emptyMessage="No tiene cuentas bancarias." 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{solicitud.idSolicitud}"
+                                 selection="#{ctCuentasBancarias.cuentaSel}">
 
-                           
+                        <p:column headerText="Entidad financiera" width="10%" style="text-align: center">
+                            <p:outputLabel value="#{cuenta.entidad}"/>
+                        </p:column>
+                        <p:column headerText="Tipo" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{cuenta.tipoCuenta}"/>
+                        </p:column>
+                        <p:column headerText="N° de Cuenta" width="10%" style="text-align: center">
+                            <p:outputLabel value="#{cuenta.numeroCuenta}"/>
+                        </p:column>
+                        <p:column headerText="Fecha de registro" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{cuenta.fechaRegistro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
 
-                             <p:column headerText="Editar" width="5%" style="text-align: center">
 
-                                <p:commandButton icon="ui-icon-pencil"
-                                                 title="Editar"
-                                                 onclick="PF('dlgEditarCteBan').show();"
-                                                 update="frmEditarCteBan">
-                                    <f:setPropertyActionListener value="#{cuenta}" target="#{ctCuentasBancarias.cuentaSel}"/>
-                                </p:commandButton>
 
-                            </p:column>
+                        <p:column headerText="Editar" width="5%" style="text-align: center">
 
-                            <p:column headerText="Eliminar" width="5%" style="text-align: center">
+                            <p:commandButton icon="ui-icon-pencil"
+                                             title="Editar"
+                                             onclick="PF('dlgEditarCteBan').show();"
+                                             update="frmEditarCteBan">
+                                <f:setPropertyActionListener value="#{cuenta}" target="#{ctCuentasBancarias.cuentaSel}"/>
+                            </p:commandButton>
 
-                                <p:commandButton icon="ui-icon-delete-forever"
-                                                 title="Eliminar"
-                                                 onclick="PF('dlgEliminarCteBan').show();"
-                                                 update="frmEliminarCteBan"> 
-                                    <f:setPropertyActionListener value="#{cuenta}" target="#{ctCuentasBancarias.cuentaSel}"/>
-                                </p:commandButton>
-                            </p:column>
+                        </p:column>
 
-                            
-                            
-                            
-                            <f:facet name="footer">
-                                <p:commandButton value="Nueva"
-                                                 icon="ui-icon-library-add"
-                                                 onclick="PF('dlgInsertarCteBan').show()"/>
-                            </f:facet>
+                        <p:column headerText="Eliminar" width="5%" style="text-align: center">
 
-                        </p:dataTable>
-                    </div>
+                            <p:commandButton icon="ui-icon-delete-forever"
+                                             title="Eliminar"
+                                             onclick="PF('dlgEliminarCteBan').show();"
+                                             update="frmEliminarCteBan"> 
+                                <f:setPropertyActionListener value="#{cuenta}" target="#{ctCuentasBancarias.cuentaSel}"/>
+                            </p:commandButton>
+                        </p:column>
+
+
+
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Nueva"
+                                             icon="ui-icon-library-add"
+                                             onclick="PF('dlgInsertarCteBan').show()"/>
+                        </f:facet>
+
+                    </p:dataTable>
+
                 </div>
             </div>
         </h:form>
@@ -77,6 +77,7 @@
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
             <img src="../../resources/gifs/Loading.gif" alt=""/>                        
         </p:dialog>
+
         <ui:include src="dlgEditarCteBan.xhtml"/>
         <ui:include src="dlgEliminarCteBan.xhtml"/> 
         <ui:include src="dlgRegistrarCteBancaria.xhtml"/>

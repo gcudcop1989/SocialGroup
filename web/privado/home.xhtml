@@ -13,99 +13,279 @@
             <ui:define name="title">Predios edificados</ui:define>
             <ui:define name="content">
 
+
+
                 <h:outputStylesheet name="plugins/export/export.css" library="amcharts" />
                 <h:outputScript name="amcharts.js" library="amcharts" />
                 <h:outputScript name="pie.js" library="amcharts" />
                 <h:outputScript name="serial.js" library="amcharts" />
                 <h:outputScript name="plugins/export/export.min.js" library="amcharts" />
                 <h:outputScript name="themes/light.js" library="amcharts" />
-
-
-
+                <h:outputScript name="themes/black.js" library="amcharts" />
+                <h:outputScript name="themes/chalk.js" library="amcharts" />
+                <h:outputScript name="themes/dark.js" library="amcharts" />
+                <h:outputScript name="themes/patterns.js" library="amcharts" />                
 
                 <p:growl id="msj" showDetail="true" autoUpdate="true"/>
+
                 <div class="ui-g">
                     <div class="ui-g-12">
                         <center>
-                            <div class="card">  
-                                <h1>Bienvenido: #{sessionScope.Datos}</h1>
-                                <h:form>
 
-                                    <p:carousel numVisible="1" effect="easeInStrong" style="margin-bottom:0; border: 0px" responsive="true"
-                                                circular="true" 
-                                                autoPlayInterval="3000"  
-                                                itemStyle="border:0px;" 
-                                                headerText="Paquetes de Independecia Financiera">
+                            <h1>Bienvenido: #{sessionScope.Datos}</h1>
+                            <h:form>
 
-                                        <p:tab title="Pquete TECNO">
-                                            <center><b>Paquete TECNO</b></center>
-                                            <h:panelGrid columns="2" cellpadding="10">
-                                                <!--<p:graphicImage name="demo/images/godfather/godfather1.jpg" />-->
-                                                <img src="../resources/social/images/tecno.png" alt="" width="50%"/>
-                                                <p:outputLabel value="Su valor es de 100,00 (cien dólares americanos), 
-                                                               incluye un smartwatch y todos los beneficios de la plataforma, NO PODRÁ VENDER PAQUETES QUE NO SEAN TECNO" />
-                                            </h:panelGrid>
-                                        </p:tab>
-                                        <p:tab title="Paquete DIGITAL">
-                                            <center><b>Paquete DIGITAL</b></center>
-                                            <h:panelGrid columns="2" cellpadding="10">                                        
-                                                <img src="../resources/social/images/digi.jpg" alt="" width="90%"/>
-                                                <h:outputText value="Su valor es de 200,00 (doscientos dólares americanos), incluye una cámara
-                                                              tipo GoPRO y todos los beneficios de la plataforma, PODRA VENDER
-                                                              PAQUETES TECNO Y DIGITAL, PERO NO SOCIAL." />
-                                            </h:panelGrid>
-                                        </p:tab>
-                                        <p:tab title="Paquete SOCIAL">
-                                            <center><b>Paquete SOCIAL</b></center>
-                                            <h:panelGrid columns="2" cellpadding="10">                                        
-                                                <img src="../resources/social/images/social.jpg" alt="" width="90%"/>
-                                                <h:outputText value="Su valor es de 300,00 (trescientos dólares americanos), incluye un Drone
-                                                              Aereo Teledirigido y todos los beneficios de la plataforma, PODRA VENDER
-                                                              PAQUETES TECNO, DIGITAL Y SOCIAL." />
-                                            </h:panelGrid>
-                                        </p:tab>
-                                    </p:carousel>
+                                <p:carousel numVisible="1" effect="easeInStrong" style="margin-bottom:0; border: 0px" responsive="true"
+                                            circular="true" 
+                                            autoPlayInterval="3000"  
+                                            itemStyle="border:0px;">
+
+                                    <p:tab title="Pquete TECNO">                                                                                
+                                        <img src="../resources/social/images/tech.jpg" alt=""  width="90%"/>
+                                    </p:tab>
+                                    <p:tab title="Paquete DIGITAL">
+                                        <img src="../resources/social/images/digi.jpg" alt="" width="90%"/>
+                                    </p:tab>
+                                    <p:tab title="Paquete SOCIAL">
+                                        <img src="../resources/social/images/social.jpg" alt="" width="90%"/>
+                                    </p:tab>
+                                </p:carousel>
+
+                            </h:form>
 
 
 
-                                    <c:choose>
-                                        <c:when  test="#{sessionScope.idRol == 6}">
-                                            <h2><b>Balance Total</b></h2>
-                                            <h1><b>$ #{ctHomeClientes.totalSaldo}</b></h1>
-                                            <p:chart type="line" model="#{ctHomeClientes.lineModel}" style="height:350px;"/>
-                                            <br/>
-                                            <h2>Mis cuentas</h2>
-                                            <p:accordionPanel value="#{ctHomeClientes.lstCuentas}" var="cuenta">                                                                                              
-                                                <p:tab>
-                                                    <f:facet name="title">                                                        
-                                                        <b>#{cuenta.codigo}</b>
-                                                    </f:facet>
-
-                                                    <h3>
-                                                        <b>La cuenta expira en <p:commandButton value="#{cuenta.mesesVigencia}"/> meses 
-                                                            <p:commandButton value="#{cuenta.diasVigencia}"/> dias 
-                                                            <p:commandButton value="#{cuenta.horasVigencia}"/> horas</b>
-                                                    </h3>                                           
-                                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
-                                                        <p:panel> 
-                                                            <h3><b>CUENTA: #{cuenta.pif.pif}</b></h3>
-                                                            <h3>DIRECTA: <b>#{cuenta.comisionDirecta} USD</b></h3>
-                                                            <h3>RESIDUAL: <b>#{cuenta.comisionResidual} USD</b></h3>
-                                                            <h3>TOTAL: <b>#{cuenta.totalComision} USD</b></h3>
-                                                        </p:panel>
-
-                                                        <div id="chartdiv"></div>                                                        
-                                                    </p:panelGrid>
-                                                </p:tab>
-                                            </p:accordionPanel>
-                                        </c:when>
-                                    </c:choose>
-
-                                </h:form>
-                            </div> 
                         </center>                                       
                     </div>                        
                 </div> 
+
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <c:choose>
+                            <c:when  test="#{sessionScope.idRol == 6}">                                
+                                <style>                    
+                                    #chartdiv {
+                                        width: 100%;
+                                        height: 350px;                         
+                                    }
+
+                                    .amcharts-export-menu-top-right {
+                                        top: 10px;
+                                        right: 0;
+                                    }
+                                </style>
+
+                                <style>
+                                    #chartdiv3 {
+                                        width: 100%;
+                                        height: 350px;         
+                                    }
+
+                                    .amcharts-export-menu-top-right {
+                                        top: 10px;
+                                        right: 0;
+                                    }
+                                </style>
+
+                                <style>
+                                    #chartdiv4 {
+                                        width: 100%;
+                                        height: 350px;         
+                                    }
+                                </style>
+
+                                <script>
+                                    var chart = AmCharts.makeChart("chartdiv", {
+                                        "type": "serial",
+                                        "theme": "black",
+                                        "marginRight": 70,
+                                        "dataProvider": #{ctHomeClientes.json},
+                                        "valueAxes": [{
+                                                "gridColor": "#152747",
+                                                "axisAlpha": 0,
+                                                "position": "left",
+                                                "title": "Paquetes vendidos"
+                                            }],
+                                        "startDuration": 1,
+                                        "graphs": [{
+                                                "balloonText": "<b>[[category]]: [[value]]</b>",
+                                                "fillColorsField": "color",
+                                                "fontSize": 14,
+                                                "fillAlphas": 0.9,
+                                                "lineAlpha": 0.2,
+                                                "type": "column",
+                                                "color": "#152747",
+                                                "valueField": "comision",
+                                                "labelText": "$ [[value]]"
+                                            }],
+                                        "chartCursor": {
+                                            "categoryBalloonEnabled": false,
+                                            "cursorAlpha": 0,
+                                            "zoomable": false
+                                        },
+                                        "categoryField": "cuenta",
+                                        "categoryAxis": {
+                                            "gridPosition": "start",
+                                            "color": "#152747",
+                                            "labelRotation": 45
+                                        },
+                                        "responsive": {
+                                            "enabled": true
+                                        }
+
+                                    });
+                                </script>
+
+                                <script>
+                                    var chart = AmCharts.makeChart("chartdiv3", {
+                                        "type": "serial",
+                                        "theme": "light",
+                                        "dataProvider": [{
+                                                "comision": "Directa",
+                                                "total": #{ctHomeClientes.totalDirecto}
+                                            }, {
+                                                "comision": "Residual",
+                                                "total": #{ctHomeClientes.totalResidual}
+                                            }],
+                                        "valueAxes": [{
+                                                "gridColor": "#152747",
+                                                "gridAlpha": 0.2,
+                                                "dashLength": 0
+                                            }],
+                                        "gridAboveGraphs": true,
+                                        "startDuration": 1,
+                                        "graphs": [{
+                                                "balloonText": "[[category]]: <b>[[value]]</b>",
+                                                "fillAlphas": 0.8,
+                                                "lineAlpha": 0.2,
+                                                "type": "column",
+                                                "valueField": "total",
+                                                "labelText": "$ [[value]]"
+                                            }],
+                                        "chartCursor": {
+                                            "categoryBalloonEnabled": false,
+                                            "cursorAlpha": 0,
+                                            "zoomable": false
+                                        },
+                                        "categoryField": "comision",
+                                        "categoryAxis": {
+                                            "gridPosition": "start",
+                                            "gridAlpha": 0,
+                                            "tickPosition": "start",
+                                            "tickLength": 20
+                                        },
+                                        "responsive": {
+                                            "enabled": true
+                                        },
+                                        "export": {
+                                            "enabled": true
+                                        }
+
+                                    });
+                                </script>
+
+
+                                <script>
+                                    var chart = AmCharts.makeChart("chartdiv4", {
+                                        "type": "pie",
+                                        "theme": "light",
+                                        "dataProvider": [{
+                                                "comision": "Directa",
+                                                "total": #{ctHomeClientes.totalDirecto}
+                                            }, {
+                                                "comision": "Residual",
+                                                "total": #{ctHomeClientes.totalResidual}
+                                            }],
+                                        "valueField": "total",
+                                        "titleField": "comision",
+                                        "balloon": {
+                                            "fixedPosition": true
+                                        },
+                                        "export": {
+                                            "enabled": true
+                                        },
+                                        "responsive": {
+                                            "enabled": true
+                                        }
+                                    });
+                                </script>
+
+
+                                <center><h1>Saldo Total: $ #{ctHomeClientes.totalSaldo}</h1></center>                               
+
+                                <div class="ui-g">                      
+                                    <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                        <div id="chartdiv" ></div>
+                                    </div>                                   
+                                </div>
+
+                                <center><h1>Detalle de Ingresos</h1></center>
+                                
+                                <div class="ui-g"> 
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div id="chartdiv3" ></div>
+                                    </div>
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                        <div id="chartdiv4" ></div>
+                                    </div>
+                                </div>
+
+
+                            </c:when>
+                        </c:choose>
+                    </div>
+                </div>
+
+                <c:choose>
+                    <c:when  test="#{sessionScope.idRol == 6}">
+                        <center><h1>Mis cuentas</h1></center>
+                        <div class="ui-g dashboard fadeInDown animated">
+                            <div class="ui-g-12">
+                                <h:form id="frmCuentas">
+
+                                    <ui:repeat  value="#{ctHomeClientes.lstCuentas}" var="cuenta" varStatus="status">
+                                        <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                            <div class="ui-g card colorbox colorbox-6 fadeInDown animated">
+                                                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                    <!--<img src="../social/images/visionsmall.png" alt="" width="80%"/>-->
+                                                    <!--<img src="../media/imagen/PaqueteTecno.png" alt="" width="85%"/>-->
+                                                    <p:graphicImage id="griPrevisualizar" value="#{cuenta.iconoCorto}" 
+                                                                    width="85%"/>
+                                                </div>
+                                                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                    <center>                                                        
+                                                        <span class="colorbox-name" style="color: #152747">Cuenta</span>                                                        
+                                                        <span class="colorbox-count" style="color: #152747">#{cuenta.codigo}</span>                                                        
+                                                        <h3>DIRECTA: <b>#{cuenta.comisionDirecta} USD</b></h3>
+                                                        <h3>RESIDUAL: <b>#{cuenta.comisionResidual} USD</b></h3>
+                                                        <h3>TOTAL: <b>#{cuenta.totalComision} USD</b></h3>
+                                                        <b>Caduca en #{cuenta.mesesVigencia} meses, #{cuenta.diasVigencia} días, #{cuenta.horasVigencia} horas</b>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ui:repeat>
+
+                                </h:form>
+                            </div>
+                        </div>
+                    </c:when>
+                </c:choose>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             </ui:define>
         </ui:composition>

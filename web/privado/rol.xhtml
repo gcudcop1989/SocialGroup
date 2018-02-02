@@ -35,8 +35,8 @@
             </div>
 
             <div style="margin-top: 85px">
-                <center>                    
-                    <img src="../media/imagen/roles_select.png" alt="" width="8%"/>
+                <center>                                        
+                    <img src="../resources/imagenes/iconos_roles.png" alt="" width="10%"/>
                     <br/>
                     <span class="overview-detail">Bienvenido: <b> #{sessionScope.Datos} </b></span>
                     <br/>
@@ -48,7 +48,8 @@
                     <div class="ui-g-12">
                         <h:form id="frmRoles">
                             <p:growl id="msj"  life="10000" autoUpdate="true"/>                            
-                            <ui:repeat  value="#{ctSelectRol.lstRoles}" var="rol" varStatus="status">                                
+                            <ui:repeat  value="#{ctSelectRol.lstRoles}" var="rol" varStatus="status"> 
+
                                 <div class="ui-g-12 ui-md-6 ui-lg-3">
                                     <div class="ui-g card colorbox colorbox-6 fadeInDown animated" style="height: 120px">
                                         <div class="ui-g-4">    
@@ -60,9 +61,9 @@
 
                                         <div class="ui-g-8">   
                                             <b><span>#{rol.rol.rol}</span></b>
+                                      
                                             <p>
-                                                <h:outputLabel value="#{rol.rol.descripcion}"/>
-                                                <br/><br/>
+                                                <!--<h:outputLabel value="#{rol.rol.descripcion}"/>-->                                                
                                                 <p:commandButton value="Seleccionar"
                                                                  action="#{ctLogin.loginRol()}">
                                                     <f:setPropertyActionListener value="#{rol}" target="#{ctLogin.rolUsuarioSel}"/>

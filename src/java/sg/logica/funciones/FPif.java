@@ -33,6 +33,7 @@ public class FPif {
                 pif.setFechaBaja(resultSet.getTimestamp("ts_fecha_baja"));
                 pif.setSessionUsuario(FUsuario.obtenerUsuarioDadoCodigo(resultSet.getInt("int_id_usuario")));
                 pif.setFoto(resultSet.getString("chv_imagen"));
+                pif.setIconoCorto(resultSet.getString("chv_icono_corto"));
                 lst.add(pif);
 
             }

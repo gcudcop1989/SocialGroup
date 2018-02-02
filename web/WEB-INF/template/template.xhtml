@@ -28,11 +28,13 @@
         <h:outputScript name="utiles.js" library="js" />
         <ui:insert name="head"/>
     </h:head>
-    <h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}" style="background-color: #fff;" onload="nobackbutton();">   
+    <!--<h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}" style="background-color: #152747;" onload="nobackbutton();">   -->
+        <h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}" style="background-color: #fff;" onload="nobackbutton();">   
         <div class="layout-wrapper #{guestPreferences.menuLayout}">
             <ui:include src="topbar.xhtml" />
             <ui:include src="menu.xhtml" />
-            <div class="layout-main">
+            <!--<div class="layout-main" style="background-color: #152747;">-->
+            <div class="layout-main" style="background-color: #fff;">
                 <ui:insert name="content"/>
                 <ui:include src="./footer.xhtml" />
             </div>

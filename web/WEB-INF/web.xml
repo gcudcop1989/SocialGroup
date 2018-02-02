@@ -7,7 +7,7 @@
     
     <context-param>  
         <param-name>primefaces.THEME</param-name>  
-        <param-value>ultima-blue</param-value>  
+        <param-value>ultima-dark-green</param-value>  
     </context-param>
     
     <context-param>

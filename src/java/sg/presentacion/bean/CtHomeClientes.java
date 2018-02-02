@@ -31,8 +31,11 @@ public class CtHomeClientes implements Serializable {
     private FacesContext faceContext;
     private Usuario sessionUsuario;
     private LineChartModel lineModel;
+    private String json;
 
     private double totalSaldo;
+    private double totalDirecto;
+    private double totalResidual;
 
     public CtHomeClientes() {
         comision = new CuentaComision();
@@ -69,7 +72,31 @@ public class CtHomeClientes implements Serializable {
 
             for (int i = 0; i < getLstCuentas().size(); i++) {
                 setTotalSaldo(getTotalSaldo() + getLstCuentas().get(i).getTotalComision());
+                setTotalResidual(getTotalResidual() + getLstCuentas().get(i).getComisionResidual());
+                setTotalDirecto(getTotalDirecto() + getLstCuentas().get(i).getComisionDirecta());
             }
+            setJson("[");
+            for (int j = 0; j < getLstCuentas().size(); j++) {
+                setJson(getJson() + "{'cuenta':'" + getLstCuentas().get(j).getCodigo() + "',");
+                setJson(getJson() + "'comision':'" + getLstCuentas().get(j).getTotalComision() + "',");
+
+                if (getLstCuentas().get(j).getPif().getIdPif() == 3) {
+                    setJson(getJson() + "'color':'" + "#FF6663" + "'");
+                } else if (getLstCuentas().get(j).getPif().getIdPif() == 4) {
+                    setJson(getJson() + "'color':'" + "#58a595" + "'");
+                } else {
+                    setJson(getJson() + "'color':'" + "#78c6d3" + "'");
+                }
+
+                if (j != getLstCuentas().size() - 1) {
+                    setJson(getJson() + "},");
+                } else {
+                    setJson(getJson() + "}");
+                }
+            }
+            setJson(getJson() + "]");
+            System.out.println("json: " + getJson());
+
         } catch (Exception e) {
             System.out.println("public void obtenerCuentas() dice: " + e.getMessage());
             Util.addErrorMessage("public void obtenerCuentas() dice: " + e.getMessage());
@@ -85,11 +112,10 @@ public class CtHomeClientes implements Serializable {
         getLineModel().setAnimate(true);
 
         getLineModel().setZoom(true);
-        lineModel.setLegendCols(5);
-        
-        lineModel.setSeriesColors("58BA27,FFCC33,F74A4A,F52F2F,A30303");
+        getLineModel().setLegendCols(5);
 
-                
+        getLineModel().setSeriesColors("58BA27,FFCC33,F74A4A,F52F2F,A30303");
+
         getLineModel().getAxes().put(AxisType.X, new CategoryAxis("Paquetes adquiridos"));
 
         Axis yAxis = getLineModel().getAxis(AxisType.Y);
@@ -109,7 +135,7 @@ public class CtHomeClientes implements Serializable {
             ChartSeries directa = new ChartSeries();
             directa.setLabel("Comisión Directa");
             for (int i = 0; i < lst.size(); i++) {
-                directa.set(String.valueOf(lst.get(i).getCodigo()), lst.get(i).getComisionDirecta());                
+                directa.set(String.valueOf(lst.get(i).getCodigo()), lst.get(i).getComisionDirecta());
             }
 
             ChartSeries residual = new ChartSeries();
@@ -123,7 +149,7 @@ public class CtHomeClientes implements Serializable {
             for (int i = 0; i < lst.size(); i++) {
                 total.set(String.valueOf(lst.get(i).getCodigo()), lst.get(i).getTotalComision());
             }
-            
+
             model.addSeries(directa);
             model.addSeries(residual);
             model.addSeries(total);
@@ -244,6 +270,48 @@ public class CtHomeClientes implements Serializable {
      */
     public void setLineModel(LineChartModel lineModel) {
         this.lineModel = lineModel;
+    }
+
+    /**
+     * @return the json
+     */
+    public String getJson() {
+        return json;
+    }
+
+    /**
+     * @param json the json to set
+     */
+    public void setJson(String json) {
+        this.json = json;
+    }
+
+    /**
+     * @return the totalDirecto
+     */
+    public double getTotalDirecto() {
+        return totalDirecto;
+    }
+
+    /**
+     * @param totalDirecto the totalDirecto to set
+     */
+    public void setTotalDirecto(double totalDirecto) {
+        this.totalDirecto = totalDirecto;
+    }
+
+    /**
+     * @return the totalResidual
+     */
+    public double getTotalResidual() {
+        return totalResidual;
+    }
+
+    /**
+     * @param totalResidual the totalResidual to set
+     */
+    public void setTotalResidual(double totalResidual) {
+        this.totalResidual = totalResidual;
     }
 
 }

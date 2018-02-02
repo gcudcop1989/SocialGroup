@@ -21,6 +21,7 @@ import sg.logica.entidades.SolicitudCobro;
 import sg.logica.funciones.FCuentaBancaria;
 import recursos.Util;
 import org.primefaces.context.DefaultRequestContext;
+
 /**
  *
  * @author Geovanny Cudco
@@ -38,6 +39,8 @@ public class CtCuentasBancarias implements Serializable {
     private Usuario sessionUsuario;
 
     public CtCuentasBancarias() {
+        objCuenta = new CuentaBancaria();
+        cuentaSel = new CuentaBancaria();
         sessionUsuario = new Usuario();
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
@@ -73,22 +76,22 @@ public class CtCuentasBancarias implements Serializable {
         try {
             System.out.println("ENTIDAD" + getObjCuenta().getEntidad());
             String msg = FCuentaBancaria.insertarCteBancaria(getObjCuenta(), sessionUsuario.getIdUsuario());
-            objCuenta= new CuentaBancaria();
+            objCuenta = new CuentaBancaria();
             obtenerCuentas();
-            Util.addSuccessMessage(msg);   
+            Util.addSuccessMessage(msg);
             resetearDataTable("frmCuentas:tblCuentas");
             DefaultRequestContext.getCurrentInstance().execute("PF('dlgInsertarCteBan').hide()");
 
-        } catch (Exception e) { 
-             System.out.println("public void RegistrarCtebancaria dice: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("public void RegistrarCtebancaria dice: " + e.getMessage());
             Util.addErrorMessage(e.getMessage());
         }
     }
-    
-     //<editor-fold defaultstate="collapsed" desc="Editar PIF">
+
+    //<editor-fold defaultstate="collapsed" desc="Editar PIF">
     public void editarCteBan() {
         try {
-            
+
             //cuentaSel.setSessionUsuario(sessionUsuario);
             String msg = FCuentaBancaria.editarCteBancaria(cuentaSel, sessionUsuario.getIdUsuario());
             Util.addSuccessMessage(msg);
@@ -102,16 +105,15 @@ public class CtCuentasBancarias implements Serializable {
         }
     }
     //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Eliminar PIF">
 
+    //<editor-fold defaultstate="collapsed" desc="Eliminar PIF">
     public void eliminarCteBan() {
         try {
-            
+
             String msg = FCuentaBancaria.eliminarCteBancaria(cuentaSel, sessionUsuario.getIdUsuario());
             Util.addSuccessMessage(msg);
             cuentaSel = new CuentaBancaria();
-            resetearDataTable("frmCuentas:tblCuentas"); 
+            resetearDataTable("frmCuentas:tblCuentas");
             DefaultRequestContext.getCurrentInstance().execute("PF('dlgEliminarCteBan').hide()");
             obtenerCuentas();
         } catch (Exception e) {
@@ -120,7 +122,6 @@ public class CtCuentasBancarias implements Serializable {
         }
     }
     //</editor-fold>
-    
 
     public void resetearDataTable(String id) {
         DataTable table = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
@@ -218,8 +219,5 @@ public class CtCuentasBancarias implements Serializable {
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
     }
-
-  
-    
 
 }

@@ -23,6 +23,7 @@ public class Pif {
     private Timestamp fechaBaja;
     private Usuario sessionUsuario;
     private String foto;
+    private String iconoCorto;
 
     public Pif() {
         sessionUsuario = new Usuario();
@@ -152,6 +153,20 @@ public class Pif {
      */
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    /**
+     * @return the iconoCorto
+     */
+    public String getIconoCorto() {
+        return iconoCorto;
+    }
+
+    /**
+     * @param iconoCorto the iconoCorto to set
+     */
+    public void setIconoCorto(String iconoCorto) {
+        this.iconoCorto = iconoCorto;
     }
 
 }

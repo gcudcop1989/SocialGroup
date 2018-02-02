@@ -8,11 +8,12 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:form id="menuform"> 
-        <div class="layout-menu">
+        <div class="layout-menu layout-menu-dark" style="background-color: #0e2031;">
+        <!--<div class="layout-menu">-->
             <div class="nano">
                 <div class="nano-content menu-scroll-content">
                     <ui:fragment rendered="#{guestPreferences.profileMode == 'inline' and guestPreferences.menuLayout != 'menu-layout-static menu-layout-horizontal'}">
-                        <div class="profile" >
+                        <div class="profile" style="background-color: #0e2031;">
 
                             <!--<p:graphicImage name="/imagenes/login.png" width="90%" library="resources"  class="profile-image" />   --> 
                             <h:graphicImage id="idFoto" styleClass="fotoredondo " 
@@ -21,13 +22,13 @@
 
                             <br/>                           
                             <a id="profile-options" href="#">
-                                <span class="topbar-item-name" style="color: #212121">#{sessionScope.Datos}</span>
+                                <span class="topbar-item-name" style="color: #fff">#{sessionScope.Datos}</span>
                                 <i class="material-icons">&#xE313;</i>
                             </a>
 
                         </div>
 
-                        <ul id="profile-menu" class="ultima-menu">
+                        <ul id="profile-menu" class="ultima-menu" style="background-color: #0e2031;">
                             <li role="menuitem">
                                 <a href="/SocialGroup/perfil.xhtml">
                                     <i class="material-icons">&#xE8B9;</i>

@@ -444,6 +444,7 @@ public class FCuenta {
                 cuenta.setMesesVigencia(resultSet.getInt("meses"));
                 cuenta.setDiasVigencia(resultSet.getInt("dias"));
                 cuenta.setHorasVigencia(resultSet.getInt("horas"));
+                cuenta.setIconoCorto(resultSet.getString("chv_icono_corto"));
             }
         } catch (Exception e) {
             throw e;

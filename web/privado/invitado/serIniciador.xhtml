@@ -5,88 +5,87 @@
                 xmlns:p="http://primefaces.org/ui"                
                 template="../../WEB-INF/template/template.xhtml"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <ui:define name="content">        
+    <ui:define name="content">    
+
+
+
         <div class="ui-g">
             <div class="ui-g-12">
 
                 <c:choose>
                     <c:when  test="#{sessionScope.validado == 'S'}">
-                        <div class="card"> 
-                            <p:growl id="msjs" life="3000" autoUpdate="true" showDetail="true"/>                    
-                            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 
+                        <p:growl id="msjs" life="3000" autoUpdate="true" showDetail="true"/>                    
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 
-                            <h:form id="frmSinReferido" style="width: 100%">
+                        <h:form id="frmSinReferido">                            
+                            <center><h2 style="color: #152747; font-weight: bold">Escoja el Paque de su preferencia</h2></center>
+                            <div class="ui-g dashboard fadeInDown animated">
+                                <div class="ui-g-12">
+                                    <ui:repeat  value="#{ctComprarPif.lstPifs}" var="pif" varStatus="status">
+                                        <div class="ui-g-12 ui-md-6 ui-lg-6">
+                                            <div class="ui-g card colorbox colorbox-6 fadeInDown animated">
+                                                <div class="ui-g-6 ui-md-6 ui-lg-6" style="align-content: center; align-items: center">
+                                                    <p:lightBox id="lightPif" styleClass="imagebox" >  
+                                                        <h:outputLink value="../..#{pif.iconoCorto}" title="#{pif.pif}">  
+                                                            <p:graphicImage value="#{pif.iconoCorto}" title="#{pif.pif}" width="80%"/>
+                                                        </h:outputLink>
+                                                    </p:lightBox>
+                                                </div>
+                                                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                                                    <span class="colorbox-name" style="color: #152747">Costo</span>     
+                                                    <span class="colorbox-count" style="color: #152747">#{pif.costo}</span> 
+                                                    <br/>
+                                                    <b>#{pif.descripcion}</b>
+                                                    <br/>
+                                                    <p:commandButton icon="ui-icon-local-grocery-store"
+                                                                     title="Comprar"
+                                                                     value="Comprar"
+                                                                     onclick="PF('dlgComprarIniciador').show()"
+                                                                     update="frmComprarIniciador"
+                                                                     style="background: #d3ad0a; font-size: 20px">
+                                                        <f:setPropertyActionListener value="#{pif}" target="#{ctComprarPif.pifSel}"/>
+                                                    </p:commandButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ui:repeat>
+                                </div>
+                            </div>
 
-                                <p:carousel value="#{ctComprarPif.lstPifs}" 
-                                            var="pif"
-                                            numVisible="2" effect="easeInStrong" headerText="Paquetes de independecia financiera" style="margin-bottom:0">
+                        </h:form>
 
-                                    <h:panelGrid columns="2" style="width:100%" columnClasses="label,value">                               
-                                        <p:lightBox id="lightPif" styleClass="imagebox" >  
-                                            <h:outputLink value="../..#{pif.foto}" title="#{pif.pif}">  
-                                                <p:graphicImage value="#{pif.foto}" width="80" title="#{pif.pif}"/>
-                                            </h:outputLink>
-                                        </p:lightBox>
+                        <p:dialog id="dlgComprarIniciador" widgetVar="dlgComprarIniciador" closable="false" modal="true" resizable="true" 
+                                  header="Efectuar compra" showEffect="size" hideEffect="size" appendTo="@(body)">
 
-                                        <p:panel style="border: none">
-                                            <b>#{pif.pif}</b>
-                                            <p>
-                                                <b>Descripción:</b> 
-                                                #{pif.descripcion}
-                                            </p>   
-                                            <b>Costo: #{pif.costo} USD</b>
-                                        </p:panel>                             
-                                    </h:panelGrid>
-                                    <center>
-                                        <!--
-                                        <p:commandButton icon="ui-icon-info"
-                                                         title="Información"
-                                                         value="Información"/>
-                                        -->
-                                        <p:commandButton icon="ui-icon-local-grocery-store"
-                                                         title="Comprar"
-                                                         value="Comprar"
-                                                         onclick="PF('dlgComprarIniciador').show()"
-                                                         update="frmComprarIniciador">
-                                            <f:setPropertyActionListener value="#{pif}" target="#{ctComprarPif.pifSel}"/>
-                                        </p:commandButton>
-                                    </center>
-                                </p:carousel>
+                            <h:form id="frmComprarIniciador">    
+
+                                <center>
+                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                                        <p:outputLabel value="Forma de pago:"/>
+                                        <p:selectOneMenu id="formaPago" value="#{ctComprarPif.idFormaPago}">
+                                            <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{ctComprarPif.lstFormasPago}" var="formaPago"
+                                                           itemLabel="#{formaPago.formaPago}" itemValue="#{formaPago.idFormaPago}"/>
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+
+                                    <br/>
+
+                                    <p:commandButton value="Aceptar"
+                                                     action="#{ctComprarPif.comprarPifIniciador()}"
+                                                     update="frmSinReferido"
+                                                     icon="ui-icon-save"/>
+                                    <p:commandButton value="Cancelar"
+                                                     update="frmSinReferido"
+                                                     onclick="PF('dlgComprarIniciador').hide();"
+                                                     process="@this"
+                                                     icon="ui-icon-close"/>  
+                                </center>
 
                             </h:form>
+                        </p:dialog>
 
-                            <p:dialog id="dlgComprarIniciador" widgetVar="dlgComprarIniciador" closable="false" modal="true" resizable="true" 
-                                      header="Efectuar compra" showEffect="size" hideEffect="size" >
-
-                                <h:form id="frmComprarIniciador">    
-
-                                    <center>
-                                        <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
-                                            <p:outputLabel value="Forma de pago:"/>
-                                            <p:selectOneMenu id="formaPago" value="#{ctComprarPif.idFormaPago}">
-                                                <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" noSelectionOption="true"/>
-                                                <f:selectItems value="#{ctComprarPif.lstFormasPago}" var="formaPago"
-                                                               itemLabel="#{formaPago.formaPago}" itemValue="#{formaPago.idFormaPago}"/>
-                                            </p:selectOneMenu>
-                                        </p:panelGrid>
-
-                                        <br/>
-
-                                        <p:commandButton value="Aceptar"
-                                                         action="#{ctComprarPif.comprarPifIniciador()}"
-                                                         update="frmSinReferido"
-                                                         icon="ui-icon-save"/>
-                                        <p:commandButton value="Cancelar"
-                                                         update="frmSinReferido"
-                                                         onclick="PF('dlgComprarIniciador').hide();"
-                                                         process="@this"
-                                                         icon="ui-icon-close"/>  
-                                    </center>
-
-                                </h:form>
-                            </p:dialog>
-                        </div>   
                     </c:when>
                 </c:choose>
 

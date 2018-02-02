@@ -5,37 +5,59 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"> 
 
-    <p:dialog id="dlgInsertarCteBan" widgetVar="dlgInsertarCteBan" closable="false" modal="true" resizable="true" 
-              header="Nueva Cuenta Bancaria" showEffect="size" hideEffect="size"
-              width="25%">
-        <h:form id="frmInsertarCteBan">                     
-            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-                <p:outputLabel value="Entidad Financiera"/>
-                <p:inputText value="#{ctCuentasBancarias.objCuenta.entidad}"                                                       
-                             required="true" 
-                             requiredMessage="El nombre de la Entidad Bancaria es requerido"/>
-                <p:outputLabel value="Número Cuenta"/>
-                <p:inputTextarea value="#{ctCuentasBancarias.objCuenta.numeroCuenta}"                             
-                             required="true" 
-                             requiredMessage="El número de la Cuenta es requerido"/>                
-                <p:outputLabel value="Tipo de Cuenta"/>
-                <p:inputTextarea value="#{ctCuentasBancarias.objCuenta.tipoCuenta}"                             
-                             required="true" 
-                             requiredMessage="El tipo de Cuenta es Requerido"/>                
-                
-            </p:panelGrid>
-            <center>
-                <p:commandButton value="Guardar"
-                                 action="#{ctCuentasBancarias.registrarCuentaBanc()}"
-                                 update="frmCuentas:tblCuentas,frmInsertarCteBan"
-                                 icon="ui-icon-save"/>
-                <p:commandButton value="Cancelar"
-                                 update="frmCuentas:tblCuentas"
-                                 onclick="PF('dlgInsertarCteBan').hide();"
-                                 process="@this"
-                                 icon="ui-icon-close"/>
-            </center>            
+    <p:dialog id="dlgInsertarCteBan" widgetVar="dlgInsertarCteBan" closable="true" modal="true" resizable="false" 
+              header="Nueva Cuenta Bancaria" showEffect="size" hideEffect="size" appendTo="@(body)">
+
+        <h:form id="frmInsertarCteBan">     
+            <div class="ui-g">
+                <br/>
+                <div class="ui-g-12">
+                    <h:panelGroup styleClass="md-inputfield">
+                        <p:inputText value="#{ctCuentasBancarias.objCuenta.entidad}"                                                       
+                                     required="true" 
+                                     requiredMessage="El nombre de la Entidad Bancaria es requerido"/>
+                        <label>* Entidad Financiera</label>
+                    </h:panelGroup>
+                </div>
+
+                <br/>
+                <div class="ui-g-12">
+                    <p:selectOneMenu value="#{ctCuentasBancarias.objCuenta.tipoCuenta}"                             
+                                     required="true" 
+                                     requiredMessage="El tipo de Cuenta es Requerido">
+                        <f:selectItem  itemLabel="* Seleccione su perfil" itemValue="#{null}" noSelectionOption="true"/> 
+                        <f:selectItem  itemLabel="Ahorros" itemValue="Ahorros"/>
+                        <f:selectItem  itemLabel="Corriente" itemValue="Corriente"/>
+                    </p:selectOneMenu>
+                </div>
+                <br/>
+                <div class="ui-g-12">
+                    <h:panelGroup styleClass="md-inputfield">
+                        <p:inputText value="#{ctCuentasBancarias.objCuenta.numeroCuenta}"                             
+                                     required="true" 
+                                     requiredMessage="El número de la Cuenta es requerido"/> 
+                        <label>* Número de Cuenta</label>
+                    </h:panelGroup>
+                </div>
+
+                <br/>
+                <div class="ui-g-12">
+                    <p:commandButton value="Guardar"
+                                     action="#{ctCuentasBancarias.registrarCuentaBanc()}"
+                                     update="frmCuentas:tblCuentas,frmInsertarCteBan"
+                                     icon="ui-icon-save"/>
+                </div>
+            </div>
+
+
+            <!--
+            <p:commandButton value="Cancelar"
+                             update="frmCuentas:tblCuentas"
+                             onclick="PF('dlgInsertarCteBan').hide();"
+                             process="@this"
+                             icon="ui-icon-close"/>
+            -->
+
         </h:form>
     </p:dialog>
-    
 </ui:composition>

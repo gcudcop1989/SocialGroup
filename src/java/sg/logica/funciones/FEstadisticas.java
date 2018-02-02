@@ -38,4 +38,27 @@ public class FEstadisticas {
         }
         return lst;
     }
+
+    public static List<Estadisticas> obtenerVentasActivasTotalVendido() throws Exception {
+        List<Estadisticas> lst = new ArrayList<>();
+        AccesoDatos accesoDatos;
+        Estadisticas estadistica;
+        ResultSet resultSet;
+        String sql;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "SELECT * FROM sch_social_group.f_obtener_pifs_vendidos_total();";
+            resultSet = accesoDatos.ejecutaQuery(sql);
+            while (resultSet.next()) {
+                estadistica = new Estadisticas();
+                estadistica.setDescripcion1(resultSet.getString("_pif"));
+                estadistica.setTotalInt1(resultSet.getInt("out_total"));
+                estadistica.setTotalDouble1(resultSet.getDouble("_total_vendido"));
+                lst.add(estadistica);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return lst;
+    }
 }

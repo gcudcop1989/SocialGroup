@@ -26,6 +26,9 @@ public class Cuenta {
     private int diasVigencia;
     private int horasVigencia;
 
+    //iconos cortos
+    private String iconoCorto;
+
     public Cuenta() {
         estadoCuenta = new EstadoCuenta();
         lider = new Usuario();
@@ -270,6 +273,20 @@ public class Cuenta {
      */
     public void setHorasVigencia(int horasVigencia) {
         this.horasVigencia = horasVigencia;
+    }
+
+    /**
+     * @return the iconoCorto
+     */
+    public String getIconoCorto() {
+        return iconoCorto;
+    }
+
+    /**
+     * @param iconoCorto the iconoCorto to set
+     */
+    public void setIconoCorto(String iconoCorto) {
+        this.iconoCorto = iconoCorto;
     }
 
 }

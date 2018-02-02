@@ -44,10 +44,11 @@
                             
                             
 
-                            <p:column headerText="Previsualización" width="5%" style="text-align: center">
-                                <p:commandButton icon="ui-icon-pencil"
+                            <p:column headerText="Activar" width="5%" style="text-align: center">
+                                <p:commandButton icon="ui-icon-pencil" value="Activar"
                                                  onclick="PF('dlgActivarCuenta').show();"
-                                                 update="frmActivar">
+                                                 update="frmActivar"
+                                                 styleClass="amber-btn flat" >
                                     <f:setPropertyActionListener value="#{cliente}" target="#{ctActvarCuentas.objCliente}"/>
                                 </p:commandButton>
                             </p:column>
