@@ -41,14 +41,10 @@
                                     </f:facet>
                                 </p:lightBox>
                             </p:column>
-                            
-                            
-
                             <p:column headerText="Activar" width="5%" style="text-align: center">
-                                <p:commandButton icon="ui-icon-pencil" value="Activar"
+                                <p:commandButton icon="ui-icon-check-circle"
                                                  onclick="PF('dlgActivarCuenta').show();"
-                                                 update="frmActivar"
-                                                 styleClass="amber-btn flat" >
+                                                 update="frmActivar">
                                     <f:setPropertyActionListener value="#{cliente}" target="#{ctActvarCuentas.objCliente}"/>
                                 </p:commandButton>
                             </p:column>

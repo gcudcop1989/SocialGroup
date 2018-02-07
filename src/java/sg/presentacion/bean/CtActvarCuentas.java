@@ -2,11 +2,19 @@ package sg.presentacion.bean;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import master.logica.entidades.Usuario;
 import master.logica.funciones.FUsuario;
@@ -53,6 +61,8 @@ public class CtActvarCuentas implements Serializable {
         try {
             String msg = FUsuario.validarCuenta(objCliente.getIdUsuario(), sessionUsuario.getIdPersona());
             Util.addSuccessMessage(msg);
+             CtActvarCuentas objCtActvarCuentas = new CtActvarCuentas();
+            objCtActvarCuentas.enviarMensajeActivacionCuenta(objCliente.getMail(), objCliente.getNombres());
             obtenerSolicitudes();
             objCliente = new Usuario();
             resetearDataTable("frmPrincipal:tblSolicitudes");
@@ -72,7 +82,63 @@ public class CtActvarCuentas implements Serializable {
             Util.addErrorMessage("public void obtenerSolicitudes() dice: " + e.getMessage());
         }
     }
-
+public void enviarMensajeActivacionCuenta(String strEmail,  String nombreUsuario ) {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        final String strUsername = "njchiquita101@gmail.com";
+        final String strPassWord = "programacion";
+        String To = strEmail;
+        String Subject = "Social Group";
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(strUsername, strPassWord);
+            }
+        });
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(strUsername));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(To));
+            message.setSubject(Subject);
+            message.setContent(" <html style=\"font-family:calibri\">\n"
+                    + "     <div style=\"-webkit-box-shadow: 20px 20px 30px -6px rgba(0,0,0,0.3);\n"
+                    + "-moz-box-shadow: 20px 20px 30px -6px rgba(0,0,0,0.3);\n"
+                    + "box-shadow: 20px 20px 30px -6px rgba(0,0,0,0.3); width:600px; \">\n"
+                    + "        <div style=\"background-color:#112f54; width:auto; marging-left:10px\"><img style=\"padding-left:250px; padding-top:20px; padding-bottom:20px;width:100px;\" src=\"http://localhost:8080/SocialGroup/resources/imagenes/logo.png\">\n"
+                    + "    </div>\n"
+                    + "        <div style=\"background-color:#F5F4F3;\">\n"
+                    + "        <h2 style=\"text-align:center;\">Activación de Cuenta </h2>\n"
+                    + "            <p style=\"padding-left:40px; padding-right:40; text-align:justify;\">\n"
+                    + "                ESTIMADO@: " + nombreUsuario + "\n"
+                    + "                <br>\n"
+                    + "                <br>\n"
+                    + "                SU CUENTA HA SIDO VERIFICADA Y ACTIVADA EXITOSAMENTE\n" 
+                    + "                <br>\n"
+                    + "                <br>\n"
+                    + "                SocialGroup agradece por su confianza.\n"
+                    + "                <br>\n"
+                    + "                <br>\n"
+                    + "                 Ingreso al Sistema <a href=http://64.15.146.126/SocialGroup>www.SocialGroup.com</a></p>\n"
+                    + "            <br>\n"
+                    + "                \n"
+                    + "            </p>\n"
+                    + "        </div>\n"
+                    + "        <div style=\"background-color:#112f54; width:auto;  color:#fff; padding-left:120px; \">www.SocialGroup.com - Derechos Reservados &#169;\n"
+                    + "    </div>\n"
+                    + "         <br>\n"
+                    + "    </div>  \n"
+                    + "    \n"
+                    + "</html>", "text / html");
+            Transport.send(message);
+        } catch (MessagingException e) {
+            Util.addErrorMessage("Problemas de conexión a Internet, no se ha enviado su correo electrónico, Intentelo más tarde.");
+            throw new RuntimeException(e);
+        }
+    }
     public void resetearDataTable(String id) {
         DataTable table = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
         table.reset();
