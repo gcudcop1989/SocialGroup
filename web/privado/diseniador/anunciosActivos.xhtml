@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+    <ui:define name="content">
+        <h:form id="frmPrincipal">
+            <p:growl autoUpdate="true"/>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6 ui-lg-12">            
+                    <center><h1>Anuncios Activos</h1></center>
+                    <p:dataTable id="tblSolicitudes" var="solicitud" value="#{ctPublicidadSocialGroup.anunciosActivos}" rows="10"
+                                 paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="15,20,25" reflow="true" rowKey="#{solicitud.idPublicidad}"
+                                 selection="#{ctPublicidadSocialGroup.publicidadSel}" selectionMode="single">
+
+                        <p:column headerText="Fecha de solicitud" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.fechaSolicitud}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        
+                        <p:column headerText="Fecha de aprobaciòn" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.fechaAprobacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Fecha de finalizacion" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.fechaFinalizacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+
+                        <p:column headerText="Titular Cuenta" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.cuenta.persona.nombres} #{solicitud.cuenta.persona.apellidos}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Cuenta" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.cuenta.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Anuncio" width="10%" style="text-align: center">
+                            <p:lightBox styleClass="imagebox" >  
+                                <h:outputLink value="../..#{solicitud.adjunto}" title="#{solicitud.adjunto}">  
+                                    <p:graphicImage value="#{solicitud.adjunto}" width="100%" title="#{solicitud.adjunto}"/>
+                                </h:outputLink>
+                            </p:lightBox>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
+            <img src="../../resources/gifs/Loading.gif" alt=""/>                        
+        </p:dialog>
+    </ui:define>
+</ui:composition>

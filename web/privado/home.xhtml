@@ -11,20 +11,21 @@
     <h:body>
         <ui:composition template="../WEB-INF/template/template.xhtml">                                       
             <ui:define name="title">Predios edificados</ui:define>
-            <ui:define name="content">
+            <ui:define name="content">  
 
+                <script src="../resources/amcharts/amcharts.js" type="text/javascript"></script>
+                <script src="../resources/amcharts/serial.js" type="text/javascript"></script>
+                <script src="../resources/amcharts/pie.js" type="text/javascript"></script>
+                <script src="../resources/amcharts/plugins/export/export.js" type="text/javascript"></script>
+                <script src="../resources/amcharts/plugins/export/export.min.js" type="text/javascript"></script>
+                <script src="../resources/amcharts/plugins/export/lang/es.js" type="text/javascript"></script>
+                <link href="../resources/amcharts/plugins/export/export.css" rel="stylesheet" type="text/css"/>
+                <script src="../resources/amcharts/themes/patterns.js" type="text/javascript"></script>
+                <script src="../resources/amcharts/themes/black.js" type="text/javascript"></script>
+                <script src="../resources/amcharts/themes/chalk.js" type="text/javascript"></script>
+                <script src="../resources/amcharts/themes/dark.js" type="text/javascript"></script>
+                <script src="../resources/amcharts/themes/light.js" type="text/javascript"></script>
 
-
-                <h:outputStylesheet name="plugins/export/export.css" library="amcharts" />
-                <h:outputScript name="amcharts.js" library="amcharts" />
-                <h:outputScript name="pie.js" library="amcharts" />
-                <h:outputScript name="serial.js" library="amcharts" />
-                <h:outputScript name="plugins/export/export.min.js" library="amcharts" />
-                <h:outputScript name="themes/light.js" library="amcharts" />
-                <h:outputScript name="themes/black.js" library="amcharts" />
-                <h:outputScript name="themes/chalk.js" library="amcharts" />
-                <h:outputScript name="themes/dark.js" library="amcharts" />
-                <h:outputScript name="themes/patterns.js" library="amcharts" />                
 
                 <p:growl id="msj" showDetail="true" autoUpdate="true"/>
 
@@ -52,7 +53,6 @@
                                 </p:carousel>
 
                             </h:form>
-
 
 
                         </center>                                       
@@ -130,6 +130,25 @@
                                             "color": "#152747",
                                             "labelRotation": 45
                                         },
+                                        "export": {
+                                            "enabled": true,
+                                            "libs": {
+                                                "path": "https://www.amcharts.com/lib/3/plugins/export/libs/"
+                                            },
+                                            "menu": [{
+                                                    class: "export-main",
+                                                    label: "Export",
+                                                    menu: [{
+                                                            "format": "JPG",
+                                                            "label": "JPG",
+                                                            "title": "Exportar a JPG",
+                                                        }, {
+                                                            "format": "XLSX",
+                                                            "label": "Excel",
+                                                            "title": "Descargar a excel",
+                                                        }]
+                                                }]
+                                        },
                                         "responsive": {
                                             "enabled": true
                                         }
@@ -179,7 +198,23 @@
                                             "enabled": true
                                         },
                                         "export": {
-                                            "enabled": true
+                                            "enabled": true,
+                                            "libs": {
+                                                "path": "https://www.amcharts.com/lib/3/plugins/export/libs/"
+                                            },
+                                            "menu": [{
+                                                    class: "export-main",
+                                                    label: "Export",
+                                                    menu: [{
+                                                            "format": "JPG",
+                                                            "label": "JPG",
+                                                            "title": "Exportar a JPG",
+                                                        }, {
+                                                            "format": "XLSX",
+                                                            "label": "Excel",
+                                                            "title": "Descargar a excel",
+                                                        }]
+                                                }]
                                         }
 
                                     });
@@ -203,7 +238,23 @@
                                             "fixedPosition": true
                                         },
                                         "export": {
-                                            "enabled": true
+                                            "enabled": true,
+                                            "libs": {
+                                                "path": "https://www.amcharts.com/lib/3/plugins/export/libs/"
+                                            },
+                                            "menu": [{
+                                                    class: "export-main",
+                                                    label: "Export",
+                                                    menu: [{
+                                                            "format": "JPG",
+                                                            "label": "JPG",
+                                                            "title": "Exportar a JPG",
+                                                        }, {
+                                                            "format": "XLSX",
+                                                            "label": "Excel",
+                                                            "title": "Descargar a excel",
+                                                        }]
+                                                }]
                                         },
                                         "responsive": {
                                             "enabled": true
@@ -214,14 +265,14 @@
 
                                 <center><h1>Saldo Total: $ #{ctHomeClientes.totalSaldo}</h1></center>                               
 
-                                <div class="ui-g">                      
+                                <div class="ui-g">                                     
                                     <div class="ui-g-12 ui-md-12 ui-lg-12">
                                         <div id="chartdiv" ></div>
                                     </div>                                   
                                 </div>
 
                                 <center><h1>Detalle de Ingresos</h1></center>
-                                
+
                                 <div class="ui-g"> 
                                     <div class="ui-g-12 ui-md-6 ui-lg-6">
                                         <div id="chartdiv3" ></div>
@@ -249,20 +300,21 @@
                                         <div class="ui-g-12 ui-md-6 ui-lg-6">
                                             <div class="ui-g card colorbox colorbox-6 fadeInDown animated">
                                                 <div class="ui-g-6 ui-md-6 ui-lg-6">
-                                                    <!--<img src="../social/images/visionsmall.png" alt="" width="80%"/>-->
-                                                    <!--<img src="../media/imagen/PaqueteTecno.png" alt="" width="85%"/>-->
                                                     <p:graphicImage id="griPrevisualizar" value="#{cuenta.iconoCorto}" 
                                                                     width="85%"/>
                                                 </div>
                                                 <div class="ui-g-6 ui-md-6 ui-lg-6">
-                                                    <center>                                                        
-                                                        <span class="colorbox-name" style="color: #152747">Cuenta</span>                                                        
-                                                        <span class="colorbox-count" style="color: #152747">#{cuenta.codigo}</span>                                                        
-                                                        <h3>DIRECTA: <b>#{cuenta.comisionDirecta} USD</b></h3>
-                                                        <h3>RESIDUAL: <b>#{cuenta.comisionResidual} USD</b></h3>
-                                                        <h3>TOTAL: <b>#{cuenta.totalComision} USD</b></h3>
-                                                        <b>Caduca en #{cuenta.mesesVigencia} meses, #{cuenta.diasVigencia} días, #{cuenta.horasVigencia} horas</b>
-                                                    </center>
+                                                    <span class="colorbox-name" style="color: #152747">Cuenta</span>                                                        
+                                                    <span class="colorbox-count" style="color: #152747">#{cuenta.codigo}</span>  
+                                                    <p:separator/>
+                                                    <h3>DIRECTA: <b>#{cuenta.comisionDirecta} USD</b></h3>
+                                                    <p:separator/>
+                                                    <h3>RESIDUAL: <b>#{cuenta.comisionResidual} USD</b></h3>
+                                                    <p:separator/>
+                                                    <h3>TOTAL: <b>#{cuenta.totalComision} USD</b></h3>
+                                                    <p:separator/>
+                                                    <b>Caduca en #{cuenta.mesesVigencia} meses, #{cuenta.diasVigencia} días, #{cuenta.horasVigencia} horas</b>
+
                                                 </div>
                                             </div>
                                         </div>

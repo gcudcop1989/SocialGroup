@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+    <ui:define name="content">
+        <h:form id="frmPrincipal">
+            <p:growl autoUpdate="true"/>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6 ui-lg-12">            
+                    <center><h1>Mis Anuncios</h1></center>
+                    <p:dataTable id="tblSolicitudes" var="solicitud" value="#{ctPublicidadSocio.lstSolicitudes}" rows="10"
+                                 paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="15,20,25" reflow="true" rowKey="#{solicitud.idPublicidad}"
+                                 selection="#{ctPublicidadSocio.publicidadSel}" selectionMode="single">
+
+
+                        <p:column headerText="Fecha de solicitud" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.fechaSolicitud}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Estado" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.estado.estado}"/>
+                        </p:column>
+                        <p:column headerText="Fecha de aprobaciòn" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.fechaAprobacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Fecha de finalizacion" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.fechaFinalizacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+
+                        <p:column headerText="Cuenta" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.cuenta.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Anuncio" width="10%" style="text-align: center">
+                            <p:lightBox styleClass="imagebox" >  
+                                <h:outputLink value="../..#{solicitud.adjunto}" title="#{solicitud.adjunto}">  
+                                    <p:graphicImage value="#{solicitud.adjunto}" width="100%" title="#{solicitud.adjunto}"/>
+                                </h:outputLink>
+                            </p:lightBox>
+                        </p:column>
+
+                        <p:column headerText="Observaciones" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.observaciones}"/>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="Nueva Solicitud"
+                                             icon="ui-icon-add-to-photos"
+                                             onclick="PF('wdlgNuevo').show();"
+                                             update="frmNuevo" style="background:  #1ab394; font-size: 14px"/>
+                        </f:facet>
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+
+
+        <p:dialog id="dlgNuevo" widgetVar="wdlgNuevo" closable="true" modal="true" resizable="true" 
+                  header="Nuevo anuncio" showEffect="size" hideEffect="size" appendTo="@(body)">
+
+            <h:form id="frmNuevo">
+                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                    <p:outputLabel value="Titulo:"/>
+                    <p:inputText value="#{ctPublicidadSocio.objPublicidad.publicidad}" 
+                                 placeholder="Ej. Acbs S. A." required="true"
+                                 requiredMessage="Ingrese el título de su anuncio"/>
+                    <p:outputLabel value="Descripción corta:"/>
+                    <p:inputText value="#{ctPublicidadSocio.objPublicidad.descripcion}" 
+                                 placeholder="Ej. Acbs S. A."/>
+                    <p:outputLabel value="Cuenta a publicitar:"/>
+                    <p:selectOneMenu value="#{ctPublicidadSocio.idCuenta}"
+                                     effect="fade" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="* Cuenta" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems  value="#{ctPublicidadSocio.lstCuentas}" var="cuenta" itemLabel="#{cuenta.codigo}"
+                                        itemValue="#{cuenta.idCuenta}"/>                         
+                    </p:selectOneMenu>                    
+                </p:panelGrid>
+                <p:panelGrid id="pngSubirArchivo" columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                    <p:fileUpload fileUploadListener="#{ctPublicidadSocio.cargarArchivoDocumento}"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Abrir" mode="advanced"  
+                                  update="pngSubirArchivo,pngDatos" uploadLabel="Subir" cancelLabel="Cancelar"   
+                                  value="#{ctPublicidadSocio.archivoDocumento}"
+                                  required="true" requiredMessage="Cargar Documento!!" />                                                              
+                </p:panelGrid>
+                <p:panelGrid id="pngDatos" columns="2" styleClass="ui-panelgrid-blank form-group">
+                    <p:outputLabel value="Archivo adjunto:"/>
+                    <p:outputLabel id ="txtRutaDocumento" value="#{ctPublicidadSocio.nombreDocumento}"/>                    
+                </p:panelGrid>
+                <center>
+                    <p:commandButton value="Aceptar"
+                                     icon="ui-icon-save"
+                                     action="#{ctPublicidadSocio.registrarPublicidad()}"
+                                     update="frmPrincipal:tblSolicitudes,frmNuevo"/>
+                </center>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
+            <img src="../../resources/gifs/Loading.gif" alt=""/>                        
+        </p:dialog>
+    </ui:define>
+</ui:composition>

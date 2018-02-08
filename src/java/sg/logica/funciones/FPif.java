@@ -35,7 +35,7 @@ public class FPif {
                 pif.setFoto(resultSet.getString("chv_imagen"));
                 pif.setIconoCorto(resultSet.getString("chv_icono_corto"));
                 lst.add(pif);
-
+                
             }
         } catch (Exception e) {
             throw e;
@@ -46,7 +46,7 @@ public class FPif {
 
     //<editor-fold defaultstate="collapsed" desc="obtener PIF dado Codigo">
     public static Pif obtenerPifDadoId(int codigo) throws Exception {
-
+        
         AccesoDatos accesoDatos;
         Pif pif = null;
         ResultSet resultSet;
@@ -122,7 +122,7 @@ public class FPif {
             prstm.setDouble(3, pif.getCosto());
             prstm.setInt(4, pif.getSessionUsuario().getIdPersona());
             prstm.setInt(5, pif.getIdPif());
-
+            
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             if (resultSet.next()) {
                 respuesta = resultSet.getString(1);
@@ -134,7 +134,7 @@ public class FPif {
             throw e;
         }
     }
-
+    
     public static String eliminarPif(Pif pif) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -157,7 +157,7 @@ public class FPif {
         } catch (Exception e) {
             throw e;
         }
-
+        
     }
     //</editor-fold>
 
@@ -185,7 +185,7 @@ public class FPif {
         } catch (Exception e) {
             throw e;
         }
-
+        
     }
     //</editor-fold>
 
@@ -212,6 +212,7 @@ public class FPif {
                 pif.setFechaRegistro(resultSet.getTimestamp("ts_fecha_registro"));
                 pif.setFechaBaja(resultSet.getTimestamp("ts_fecha_baja"));
                 pif.setFoto(resultSet.getString("chv_imagen"));
+                pif.setIconoCorto(resultSet.getString("chv_icono_corto"));
                 lst.add(pif);
             }
         } catch (Exception e) {
@@ -243,7 +244,7 @@ public class FPif {
                 pif.setSessionUsuario(FUsuario.obtenerUsuarioDadoCodigo(resultSet.getInt("int_id_usuario")));
                 pif.setFoto(resultSet.getString("chv_imagen"));
                 lst.add(pif);
-
+                
             }
         } catch (Exception e) {
             throw e;
@@ -251,6 +252,5 @@ public class FPif {
         return lst;
     }
     //</editor-fold>
-    
     
 }

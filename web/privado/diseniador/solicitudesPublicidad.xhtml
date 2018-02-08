@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+    <ui:define name="content">
+        <h:form id="frmPrincipal">
+            <p:growl autoUpdate="true"/>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6 ui-lg-12">            
+                    <center><h1>Solicitudes pendientes</h1></center>
+                    <p:dataTable id="tblSolicitudes" var="solicitud" value="#{ctPublicidadSocialGroup.lstSolicitudes}" rows="10"
+                                 paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="15,20,25" reflow="true" rowKey="#{solicitud.idPublicidad}"
+                                 selection="#{ctPublicidadSocialGroup.publicidadSel}" selectionMode="single">
+
+                        <p:column headerText="Fecha de solicitud" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.fechaSolicitud}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Estado" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.estado.estado}"/>
+                        </p:column>
+                        <!--
+                        <p:column headerText="Fecha de aprobaciòn" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.fechaAprobacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>-->
+
+                        <!--
+                                                <p:column headerText="Fecha de finalizacion" width="5%" style="text-align: center">
+                                                    <p:outputLabel value="#{solicitud.fechaFinalizacion}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                                    </p:outputLabel>
+                                                </p:column>
+                        -->
+
+                        <p:column headerText="Cuenta" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.cuenta.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Titular Cuenta" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{solicitud.cuenta.persona.nombres} #{solicitud.cuenta.persona.apellidos}"/>
+                        </p:column>
+
+                        <p:column headerText="Anuncio" width="5%" style="text-align: center">
+                            <p:lightBox styleClass="imagebox" >  
+                                <h:outputLink value="../..#{solicitud.adjunto}" title="#{solicitud.adjunto}">  
+                                    <p:graphicImage value="#{solicitud.adjunto}" width="100%" title="#{solicitud.adjunto}"/>
+                                </h:outputLink>
+                            </p:lightBox>
+                        </p:column>
+
+                        <p:column headerText="Revisar" width="3%" style="text-align: center">
+                            <p:commandButton icon="ui-icon-shuffle"
+                                             title="Revisar"
+                                             onclick="PF('wdlgAprobar').show();"
+                                             update="frmAprobar">
+                                <f:setPropertyActionListener value="#{solicitud}" target="#{ctPublicidadSocialGroup.publicidadSel}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+
+        <p:dialog id="dlgAprobar" widgetVar="wdlgAprobar" closable="true" modal="true" resizable="true" 
+                  header="Aprobar o rechazar anuncio" showEffect="size" hideEffect="size" appendTo="@(body)">
+            <h:form id="frmAprobar">
+                <center>
+                    <p:lightBox styleClass="imagebox" >  
+                        <h:outputLink value="../..#{ctPublicidadSocialGroup.publicidadSel.adjunto}" title="#{ctPublicidadSocialGroup.publicidadSel.adjunto}">  
+                            <p:graphicImage value="#{ctPublicidadSocialGroup.publicidadSel.adjunto}" width="30%" title="#{ctPublicidadSocialGroup.publicidadSel.adjunto}"/>
+                        </h:outputLink>
+                    </p:lightBox>
+                </center>
+
+                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                    <p:outputLabel value="Observaciones:"/>
+                    <p:inputTextarea value="#{ctPublicidadSocialGroup.observaciones}" 
+                                     placeholder="Ingrese un texto"/>
+                </p:panelGrid>
+
+                <center>
+                    <p:commandButton value="Aprobar"
+                                     icon="ui-icon-check-box"
+                                     title="Aprobar Solicitud"
+                                     action="#{ctPublicidadSocialGroup.aprobarPublicidad()}"
+                                     update="frmPrincipal:tblSolicitudes"/>
+                    <p:commandButton value="Rechazar"
+                                     icon="ui-icon-delete-forever"
+                                     title="Rechazar Solicitud"
+                                     action="#{ctPublicidadSocialGroup.rechazarPublicidad()}"
+                                     update="frmPrincipal:tblSolicitudes"/>
+                </center>
+            </h:form>
+        </p:dialog>
+
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="true" header="Procesando">
+            <img src="../../resources/gifs/Loading.gif" alt=""/>                        
+        </p:dialog>
+    </ui:define>
+</ui:composition>

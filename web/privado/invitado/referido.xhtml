@@ -1,0 +1,132 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"                
+                template="../../WEB-INF/template/template.xhtml" 
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="content">
+        <p:growl id="msj"  autoUpdate="true"/>     
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+        <h:form id="frmPrincipal">     
+
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6 ui-lg-4">                    
+                    <center>
+                        <center><h1>Código Referido</h1></center>
+                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                            <p:outputLabel style="font-size: 16px"  value="Código Referido"/>
+                            <p:selectOneMenu value="#{ctReferidos.idCuenta}"
+                                             effect="fade" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="* Código Referido" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems  value="#{ctReferidos.lstCuentas}" var="cuenta" itemLabel="#{cuenta.codigo}"
+                                                itemValue="#{cuenta.idCuenta}"/> 
+                                <p:ajax event="change" listener="#{ctReferidos.buscarCuenta()}" 
+                                        update="frmPrincipal"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </center>
+                </div>
+
+                <div class="ui-g-12 ui-md-6 ui-lg-8">
+                    <center>
+                        <h1>Datos Referido</h1>                   
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="card">
+                                <h3>Cuenta:</h3>
+                                <h2>#{ctReferidos.objCuenta.codigo}</h2>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="card">
+                                <h2>Pif: #{ctReferidos.objCuenta.pif.pif}</h2>
+                                <h2>Costo: #{ctReferidos.objCuenta.pif.costo}</h2>
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 ui-lg-4">
+                            <div class="card">
+                                <h3>Titular:</h3>
+                                <h2>#{ctReferidos.objCuenta.persona.nombres} #{ctReferidos.objCuenta.persona.apellidos}</h2>
+                            </div>
+                        </div>
+                    </center> 
+                </div>
+            </div>
+
+            <div class="ui-g dashboard fadeInDown animated">
+                <div class="ui-g-12">
+                    <center><b>Escoja el Pif a comprar</b></center>
+                    <ui:repeat  value="#{ctReferidos.lstPifs}" var="pif" varStatus="status">
+                        <div class="ui-g-12 ui-md-6 ui-lg-6">
+                            <div class="ui-g card colorbox colorbox-6 fadeInDown animated">
+                                <div class="ui-g-6 ui-md-6 ui-lg-6" style="align-content: center; align-items: center">
+                                    <p:lightBox id="lightPif" styleClass="imagebox" >  
+                                        <h:outputLink value="../..#{pif.iconoCorto}" title="#{pif.pif}">  
+                                            <p:graphicImage value="#{pif.iconoCorto}" title="#{pif.pif}" width="80%"/>
+                                        </h:outputLink>
+                                    </p:lightBox>
+                                </div>
+                                <div class="ui-g-6 ui-md-6 ui-lg-6" style="text-align: justify">
+                                    <span class="colorbox-name" style="color: #152747; text-align: center">Costo</span>     
+                                    <center>
+                                        <span class="colorbox-count" style="color: #152747;">#{pif.costo}</span>                                        
+                                    </center>
+
+                                    <br/>
+                                    <b>#{pif.descripcion}</b>                                        
+                                    <br/>
+                                    <center>
+                                        <p:commandButton icon="ui-icon-local-grocery-store"
+                                                         title="Comprar"
+                                                         value="Comprar"
+                                                         onclick="PF('dlgComprar').show()"
+                                                         update="frmComprar"
+                                                         style="background: #d3ad0a; font-size: 20px;">
+                                            <f:setPropertyActionListener value="#{pif}" target="#{ctReferidos.pifSel}"/>
+                                        </p:commandButton>
+                                    </center>
+
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>                    
+            </div>
+
+        </h:form>
+
+        <p:dialog id="dlgComprar" widgetVar="dlgComprar" closable="true" modal="true" resizable="true" 
+                  header="Efectuar compra" showEffect="size" hideEffect="size" appendTo="@(body)">
+            <h:form id="frmComprar">
+
+                <center>
+                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                        <p:outputLabel value="Forma de pago:"/>
+                        <p:selectOneMenu id="formaPago" value="#{ctReferidos.idFormaPago}">
+                            <f:selectItem itemLabel="-- Seleccionar --" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{ctReferidos.lstFormasPago}" var="formaPago"
+                                           itemLabel="#{formaPago.formaPago}" itemValue="#{formaPago.idFormaPago}"/>
+                        </p:selectOneMenu>
+
+                        <p:commandButton value="Aceptar"
+                                         actionListener="#{ctReferidos.comprarPif()}"
+                                         update="frmComprar,frmPrincipal"
+                                         icon="ui-icon-save"
+                                         oncomplete="init();"/>
+                        <p:commandButton value="Cancelar"
+                                         update="frmComprar"
+                                         onclick="PF('dlgComprar').hide();"
+                                         process="@this"
+                                         icon="ui-icon-close"/>  
+                    </p:panelGrid>
+                </center>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <!--<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />-->
+            <img src="../../resources/gifs/cargando_2.gif" alt=""/>
+        </p:dialog>
+    </ui:define>
+</ui:composition>

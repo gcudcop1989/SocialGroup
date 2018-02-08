@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d3af3b63-422f-4b66-aac4-73742793033b">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pid_cuenta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select *
+from sch_social_group.v_datos_cuenta
+where id_cuenta=$P{pid_cuenta}]]>
+	</queryString>
+	<field name="id_cuenta" class="java.lang.Integer"/>
+	<field name="codigo_cuenta" class="java.lang.String"/>
+	<field name="id_titular" class="java.lang.Integer"/>
+	<field name="int_id_referido" class="java.lang.Integer"/>
+	<field name="int_id_pif" class="java.lang.Integer"/>
+	<field name="int_id_estado_cuenta" class="java.lang.Integer"/>
+	<field name="ts_fecha_registro" class="java.sql.Timestamp"/>
+	<field name="ts_fecha_activacion" class="java.sql.Timestamp"/>
+	<field name="ts_fecha_caducidad" class="java.sql.Timestamp"/>
+	<field name="id_session_usuario" class="java.lang.Integer"/>
+	<field name="id_cuenta_referido" class="java.lang.Integer"/>
+	<field name="codigo_cuenta_referido" class="java.lang.String"/>
+	<field name="id_titular_referido" class="java.lang.Integer"/>
+	<field name="id_pif_referido" class="java.lang.Integer"/>
+	<field name="estado_cuenta_referido" class="java.lang.Integer"/>
+	<field name="fecha_registro_referido" class="java.sql.Timestamp"/>
+	<field name="fecha_activacion_referido" class="java.sql.Timestamp"/>
+	<field name="fecha_caducidad_referido" class="java.sql.Timestamp"/>
+	<field name="sr_id_pif" class="java.lang.Integer"/>
+	<field name="chv_pif" class="java.lang.String"/>
+	<field name="desc_estado_pif" class="java.lang.String"/>
+	<field name="db_costo" class="java.lang.Double"/>
+	<field name="sr_id_estado_cuenta" class="java.lang.Integer"/>
+	<field name="estado_cuenta" class="java.lang.String"/>
+	<field name="desc_estado_cuenta" class="java.lang.String"/>
+	<field name="id_usuario_sess" class="java.lang.Integer"/>
+	<field name="chv_nick" class="java.lang.String"/>
+	<field name="sr_id_persona" class="java.lang.Integer"/>
+	<field name="chv_cedula" class="java.lang.String"/>
+	<field name="chv_ruc" class="java.lang.String"/>
+	<field name="chv_pasaporte" class="java.lang.String"/>
+	<field name="chv_nombres" class="java.lang.String"/>
+	<field name="chv_apellidos" class="java.lang.String"/>
+	<field name="chv_telefono" class="java.lang.String"/>
+	<field name="chv_celular" class="java.lang.String"/>
+	<field name="chv_foto" class="java.lang.String"/>
+	<field name="dt_fecha_nacimiento" class="java.sql.Date"/>
+	<field name="ch_genero" class="java.lang.String"/>
+	<field name="chv_estado_civil" class="java.lang.String"/>
+	<field name="chv_ciudad" class="java.lang.String"/>
+	<field name="chv_direccion" class="java.lang.String"/>
+	<field name="chv_pais" class="java.lang.String"/>
+	<field name="id_tipo_persona" class="java.lang.Integer"/>
+	<field name="edad_completa" class="org.postgresql.util.PGInterval"/>
+	<field name="edad" class="java.lang.Double"/>
+	<field name="id_per_referido" class="java.lang.Integer"/>
+	<field name="cedula_referido" class="java.lang.String"/>
+	<field name="ruc_referido" class="java.lang.String"/>
+	<field name="pasaporte_referido" class="java.lang.String"/>
+	<field name="nombres_referido" class="java.lang.String"/>
+	<field name="apellidos_referido" class="java.lang.String"/>
+	<field name="telefono_referido" class="java.lang.String"/>
+	<field name="celular_referido" class="java.lang.String"/>
+	<field name="ciudad_referido" class="java.lang.String"/>
+	<field name="direccion_referido" class="java.lang.String"/>
+	<field name="pais_referido" class="java.lang.String"/>
+	<field name="sr_id_comision" class="java.lang.Integer"/>
+	<field name="int_id_cuenta" class="java.lang.Integer"/>
+	<field name="ch_estado_logico_com" class="java.lang.String"/>
+	<field name="db_comision_directa" class="java.lang.Double"/>
+	<field name="db_comision_residual" class="java.lang.Double"/>
+	<field name="db_total_comision" class="java.lang.Double"/>
+	<field name="ts_fecha_registro_com" class="java.sql.Timestamp"/>
+	<field name="ts_fecha_actualizacion_com" class="java.sql.Timestamp"/>
+	<field name="ts_fecha_baja_com" class="java.sql.Timestamp"/>
+	<field name="meses" class="java.lang.Double"/>
+	<field name="dias" class="java.lang.Double"/>
+	<field name="horas" class="java.lang.Double"/>
+	<field name="chv_icono_corto" class="java.lang.String"/>
+	<field name="socio" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<image>
+				<reportElement x="156" y="0" width="188" height="47" uuid="9c097c5a-2d43-449a-8f5f-6f2f800d213d"/>
+				<imageExpression><![CDATA["C:\\Software\\SocialGroup\\web\\resources\\imagenes\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="47" width="61" height="15" uuid="0e7aa573-517c-4c23-b685-f1ad571345f1"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true" isItalic="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATO ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="389" y="47" width="166" height="15" uuid="fac26afe-ce97-4679-b495-7db7fe9e7d50"/>
+				<textElement>
+					<font isBold="true" isItalic="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{socio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="136" y="47" width="253" height="15" uuid="d0ecf0ab-a164-4e27-8c54-560fe82b769f"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="false" isItalic="false" pdfFontName="Helvetica" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[DE AFILIACION A SOCIAL GROUP S.A. ECUADOR Y ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="61" y="47" width="75" height="15" uuid="caa59f39-9fbc-4005-a650-35817d8d8185"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_cuenta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="554" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="34" uuid="4a49d9d1-0e46-4065-b7ff-f18d52b2f5bb"/>
+				<textElement textAlignment="Justified">
+					<font size="10" pdfFontName="Helvetica" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Entre los suscritos a saber, por una parte, SOCIAL GROUP S.A ECUADOR, con domicilio principal en Ambato, Ecuador, quien en adelante se denominará el “ASOCIADOR”, y por la otra ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="6" width="255" height="20" uuid="b6eb2bd1-0dee-46eb-a428-cb7e04c95afe"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{socio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="22" width="104" height="18" uuid="45f71b96-c415-4d0c-a163-c4d4983d2418"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{chv_pasaporte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="26" width="100" height="18" uuid="f2db4ae2-85d2-4df0-945c-22d52d75c511"/>
+				<textElement>
+					<font size="10" pdfFontName="Helvetica" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[identificado(a) con CC ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="26" width="220" height="14" uuid="ba3293b4-2a7a-4ab9-8778-8c6bd4094e67"/>
+				<text><![CDATA[quien en adelante se le denominara el “SOCIO”.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="44" width="555" height="56" uuid="38d8e36e-e352-4e86-b5ad-3eb5a90d1f7a"/>
+				<textElement textAlignment="Justified">
+					<font pdfFontName="Helvetica" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Acuerdan celebrar el presente CONTRATO DE AFILIACION A SOCIAL GROUP S.A. ECUADOR. El cual se regirá por las siguientes clausulas, y en lo contemplado en ellas por la normatividad vigente para tales efectos, o las normas que la complementen, adicionen o deroguen.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

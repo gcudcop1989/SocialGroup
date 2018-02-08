@@ -1,0 +1,34 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pu="http://primefaces.org/ultima"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:form id="menuform2"> 
+        <div class="layout-menu layout-menu-dark" style="background-color: #0e2031;">
+            <!--<div class="layout-menu">-->
+            <div class="nano">
+                <div class="nano-content menu-scroll-content">                   
+
+
+                    <ui:fragment>
+                        <p:imageSwitch effect="fade" id="fadeEffect">
+                            <ui:repeat value="#{ctPublicidad.lstPifs}" var="pif" id="fadeEffectImages">
+                                <p:lightBox id="lightPif" styleClass="imagebox" >  
+                                    <h:outputLink value="../..#{pif.iconoCorto}" title="#{pif.pif}">  
+                                        <p:graphicImage value="#{pif.iconoCorto}" title="#{pif.pif}" width="100%"/>
+                                    </h:outputLink>
+                                </p:lightBox>
+                            </ui:repeat>
+                        </p:imageSwitch>                          
+                    </ui:fragment>
+
+                </div>
+            </div>
+
+        </div>
+    </h:form>
+</ui:composition>

@@ -9,13 +9,14 @@
 
     <h:form id="menuform"> 
         <div class="layout-menu layout-menu-dark" style="background-color: #0e2031;">
-        <!--<div class="layout-menu">-->
+            <!--<div class="layout-menu">-->
             <div class="nano">
                 <div class="nano-content menu-scroll-content">
                     <ui:fragment rendered="#{guestPreferences.profileMode == 'inline' and guestPreferences.menuLayout != 'menu-layout-static menu-layout-horizontal'}">
-                        <div class="profile" style="background-color: #0e2031;">
 
-                            <!--<p:graphicImage name="/imagenes/login.png" width="90%" library="resources"  class="profile-image" />   --> 
+                        <div class="profile" style="background-color: #0e2031;
+                             background: url('../resources/imagenes/fondoquien.png') no-repeat center; background-size: cover">                             
+
                             <h:graphicImage id="idFoto" styleClass="fotoredondo " 
                                             value="/cfoto?id=#{ctDatos.selectUsuario.foto}"
                                             width="40%" height="80%" alt="#{AtributosVistas.msjAltImagen}"/>
@@ -30,7 +31,7 @@
 
                         <ul id="profile-menu" class="ultima-menu" style="background-color: #0e2031;">
                             <li role="menuitem">
-                                <a href="/SocialGroup/perfil.xhtml">
+                                <a href="/SocialGroup/privado/perfil.xhtml">
                                     <i class="material-icons">&#xE8B9;</i>
                                     <span>Cambiar Datos</span>
                                 </a>
@@ -40,12 +41,23 @@
 
                     </ui:fragment>
 
-                    <pu:menu widgetVar="me" model="#{ctMenuTemplate.menu}">
-                    </pu:menu>
+                    <pu:menu widgetVar="me" model="#{ctMenuTemplate.menu}"/>
 
+                    <ui:fragment>
+                        <p:imageSwitch effect="fade" id="fadeEffect">
+                            <ui:repeat value="#{ctPublicidad.lstAnuncios}" var="anuncio" id="fadeEffectImages">
+                                <p:lightBox id="lightPif" styleClass="imagebox" >  
+                                    <h:outputLink value="../..#{anuncio.adjunto}" title="#{anuncio.adjunto}">  
+                                        <p:graphicImage value="#{anuncio.adjunto}" title="#{anuncio.adjunto}" width="100%"/>
+                                    </h:outputLink>
+                                </p:lightBox>
+                            </ui:repeat>
+                        </p:imageSwitch>                          
+                    </ui:fragment>
 
                 </div>
             </div>
+
         </div>
     </h:form>
 </ui:composition>

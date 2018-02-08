@@ -29,16 +29,17 @@
         <ui:insert name="head"/>
     </h:head>
     <!--<h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}" style="background-color: #152747;" onload="nobackbutton();">   -->
-        <h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}" style="background-color: #fff;" onload="nobackbutton();">   
+    <h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}" style="background-color: #fff;" onload="nobackbutton();">   
         <div class="layout-wrapper #{guestPreferences.menuLayout}">
             <ui:include src="topbar.xhtml" />
             <ui:include src="menu.xhtml" />
             <!--<div class="layout-main" style="background-color: #152747;">-->
             <div class="layout-main" style="background-color: #fff;">
                 <ui:insert name="content"/>
-                <ui:include src="./footer.xhtml" />
-            </div>
+                <ui:include src="./footer.xhtml" />              
+            </div>             
         </div>
+        
         <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:7px;bottom:7px">
             <f:facet name="start">
                 <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
@@ -46,7 +47,8 @@
             <f:facet name="complete">
                 <h:outputText value="" />
             </f:facet>
-        </p:ajaxStatus>                
+        </p:ajaxStatus>   
+        
         <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout" />
         <h:outputStylesheet name="css/animate.css" library="ultima-layout" />
         <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />

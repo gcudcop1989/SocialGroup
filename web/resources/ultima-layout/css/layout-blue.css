@@ -740,7 +740,7 @@ body {
     background: url("#{resource['ultima-layout:images/logo.png']}") top left no-repeat; }
   .layout-wrapper .topbar .topbar-left {
     box-sizing: border-box;
-    padding: 20px;
+    padding: 5px 15px 5px 5px;
     height: 75px;
     width: 250px;
     background-color: #0277BD;
@@ -1712,10 +1712,10 @@ body.layout-compact {
       width: 20px;
       margin-top: -8px; }
   body.layout-compact .ui-selectonemenu .ui-selectonemenu-label {
-    font-size: 11px; }
+    font-size: 14px; }
   body.layout-compact .ui-selectonemenu-panel .ui-selectonemenu-item {
-    font-size: 11px;
-    padding: 6px 11px; }
+    font-size: 14px;
+    padding: 6px 14px; }
   body.layout-compact .ui-selectonemenu-panel .ui-selectonemenu-item-group {
     padding: 8px; }
   body.layout-compact .ui-selectcheckboxmenu .ui-selectcheckboxmenu-label-container .ui-selectcheckboxmenu-label {

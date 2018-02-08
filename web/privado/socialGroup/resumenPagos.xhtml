@@ -6,8 +6,68 @@
                 template="../../WEB-INF/template/template.xhtml"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="content">
+
+        <p:growl id="msjs" life="3000" autoUpdate="true"/>                    
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
         <h:form id="frmPrincipal">
-            
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6 ui-lg-12">
+                    <center><h1>Resumen de Pagos</h1></center>
+                    <!--
+                    <p:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                        <p:outputLabel value="Fecha de Inicio:"/>
+                        <p:calendar id="fechaInicio" value="#{ctResumenPagos.fechaInicio}" showOn="button" 
+                                    required="true" placeholder="dd-MM-yyyy" pattern="dd-MM-yyyy"/>
+                        <p:outputLabel value="Fecha de Fin:"/>
+                        <p:calendar id="fechaFin" value="#{ctResumenPagos.fechaInicio}" showOn="button" 
+                                    required="true" placeholder="dd-MM-yyyy" pattern="dd-MM-yyyy"/>
+                        <p:commandButton value="Buscar" icon="ui-icon-search"
+                                         actionListener="#{ctResumenPagos.obtenerPagosPorFechas()}"
+                                         update="frmPrincipal:tblPagos"/>
+                    </p:panelGrid>
+                    -->
+
+                    <p:dataTable id="tblPagos" var="pago" value="#{ctResumenPagos.lstPagos}" rows="10"
+                                 paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="15,20,25,30,35" reflow="true" rowKey="#{pago.idPago}"
+                                 selection="#{ctResumenPagos.objPago}" selectionMode="single">
+
+                        <p:column headerText="Fecha de pago" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{pago.fechaRegistro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Socio" width="10%" style="text-align: center">
+                            <p:outputLabel value="#{pago.socio.nombres} #{pago.socio.apellidos}"/>
+                        </p:column>
+
+                        <p:column headerText="Cuenta" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{pago.cuenta.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Cuenta de pago" width="10%" style="text-align: center">
+                            <p:outputLabel value="#{pago.solicitud.cuentaBancaria.entidad} - Cta. #{pago.solicitud.cuentaBancaria.tipoCuenta} - N° #{pago.solicitud.cuentaBancaria.numeroCuenta}"/>
+                        </p:column>
+
+                        <p:column headerText="Tipo de pago" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{pago.tipoPago}"/>
+                        </p:column>
+
+                        <p:column headerText="Monto" width="5%" style="text-align: center">
+                            <p:outputLabel value="$ #{pago.monto}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+            </div>
         </h:form>
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <!--<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />-->
+            <img src="../../resources/gifs/cargando_2.gif" alt=""/>
+        </p:dialog>
     </ui:define>
 </ui:composition>

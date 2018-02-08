@@ -6,58 +6,63 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"> 
 
     <p:dialog id="dlgInsertarCteBan" widgetVar="dlgInsertarCteBan" closable="true" modal="true" resizable="false" 
-              header="Nueva Cuenta Bancaria" showEffect="size" hideEffect="size" appendTo="@(body)">
+              header="Nueva Cuenta Bancaria" showEffect="size" hideEffect="size" appendTo="@(body)"
+              width="17%">
 
-        <h:form id="frmInsertarCteBan">     
-            <div class="ui-g">
-                <br/>
-                <div class="ui-g-12">
-                    <h:panelGroup styleClass="md-inputfield">
-                        <p:inputText value="#{ctCuentasBancarias.objCuenta.entidad}"                                                       
-                                     required="true" 
-                                     requiredMessage="El nombre de la Entidad Bancaria es requerido"/>
-                        <label>* Entidad Financiera</label>
-                    </h:panelGroup>
+        <center>
+            <h:form id="frmInsertarCteBan">     
+                <div class="ui-g">
+                    
+                    <div class="ui-g-12">
+                        <p:selectOneMenu value="#{ctCuentasBancarias.objCuenta.tipoCuenta}"                             
+                                         required="true" 
+                                         requiredMessage="El tipo de Cuenta es Requerido">
+                            <f:selectItem  itemLabel="* Tipo de Cuenta" itemValue="#{null}" noSelectionOption="true"/> 
+                            <f:selectItem  itemLabel="Ahorros" itemValue="Ahorros"/>
+                            <f:selectItem  itemLabel="Corriente" itemValue="Corriente"/>
+                        </p:selectOneMenu>
+                    </div>
+                    <br/>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{ctCuentasBancarias.objCuenta.entidad}"                                                       
+                                         required="true" 
+                                         requiredMessage="El nombre de la Entidad Bancaria es requerido"/>
+                            <label>* Entidad Financiera</label>
+                        </h:panelGroup>
+                    </div>
+
+                    
+                    <br/>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{ctCuentasBancarias.objCuenta.numeroCuenta}"                             
+                                         required="true" 
+                                         requiredMessage="El número de la Cuenta es requerido"/> 
+                            <label>* Número de Cuenta</label>
+                        </h:panelGroup>
+                    </div>
+
+                    <br/>
+                    <div class="ui-g-12">
+                        <p:commandButton value="Guardar"
+                                         action="#{ctCuentasBancarias.registrarCuentaBanc()}"
+                                         update="frmCuentas:tblCuentas,frmInsertarCteBan"
+                                         icon="ui-icon-save"/>
+                    </div>
                 </div>
 
-                <br/>
-                <div class="ui-g-12">
-                    <p:selectOneMenu value="#{ctCuentasBancarias.objCuenta.tipoCuenta}"                             
-                                     required="true" 
-                                     requiredMessage="El tipo de Cuenta es Requerido">
-                        <f:selectItem  itemLabel="* Seleccione su perfil" itemValue="#{null}" noSelectionOption="true"/> 
-                        <f:selectItem  itemLabel="Ahorros" itemValue="Ahorros"/>
-                        <f:selectItem  itemLabel="Corriente" itemValue="Corriente"/>
-                    </p:selectOneMenu>
-                </div>
-                <br/>
-                <div class="ui-g-12">
-                    <h:panelGroup styleClass="md-inputfield">
-                        <p:inputText value="#{ctCuentasBancarias.objCuenta.numeroCuenta}"                             
-                                     required="true" 
-                                     requiredMessage="El número de la Cuenta es requerido"/> 
-                        <label>* Número de Cuenta</label>
-                    </h:panelGroup>
-                </div>
 
-                <br/>
-                <div class="ui-g-12">
-                    <p:commandButton value="Guardar"
-                                     action="#{ctCuentasBancarias.registrarCuentaBanc()}"
-                                     update="frmCuentas:tblCuentas,frmInsertarCteBan"
-                                     icon="ui-icon-save"/>
-                </div>
-            </div>
+                <!--
+                <p:commandButton value="Cancelar"
+                                 update="frmCuentas:tblCuentas"
+                                 onclick="PF('dlgInsertarCteBan').hide();"
+                                 process="@this"
+                                 icon="ui-icon-close"/>
+                -->
 
+            </h:form>
+        </center>
 
-            <!--
-            <p:commandButton value="Cancelar"
-                             update="frmCuentas:tblCuentas"
-                             onclick="PF('dlgInsertarCteBan').hide();"
-                             process="@this"
-                             icon="ui-icon-close"/>
-            -->
-
-        </h:form>
     </p:dialog>
 </ui:composition>

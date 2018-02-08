@@ -28,7 +28,7 @@
                 <center><h3>Nueva Cuenta</h3></center>
                 <h:form id="frmRegistrar">
                     <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />       
-                    <p:growl id="msg" autoUpdate="true" showDetail="true"/>
+                    <p:growl id="msg" autoUpdate="true"/>
                     <!--<p:messages id="msg" autoUpdate="true" showDetail="true"/>-->
                     <center>
                         <!--
@@ -146,14 +146,14 @@
                             <p:separator/>
                             <b>Términos y condiciones</b>
                             <br/>
-                            <p:scrollPanel style="height:150px">
-                                <p>
+                            <p:scrollPanel style="height:150px" mode="native" >
+                                <p style="text-align: justify;">
                                     La aceptación de este campo es requisito imprescindible para el uso de la plataforma y 
                                     compra de paquetes y productos ofertados, es necesario que lea y acepte los siguientes 
                                     Términos y Condiciones que a continuación se redactan. 
                                 </p>
 
-                                <p>
+                                <p style="text-align: justify;">
                                     El uso de nuestros servicios, así como la compra de nuestros productos implicará que usted ha 
                                     leído y aceptado los Términos y Condiciones de Uso en el presente documento. 
                                     Todos los productos que son ofrecidos por nuestro sitio web son cobrados en 
@@ -165,7 +165,7 @@
                                 </p>
 
                                 <b>CONDICIONES DE USO</b>
-                                <p>                                    
+                                <p style="text-align: justify;">                                    
                                     Todas las compras y transacciones que se lleven a cabo por medio de esta plataforma, 
                                     están sujetas a un proceso de confirmación y verificación, el cual podría incluir la 
                                     verificación del stock y disponibilidad de producto, validación de la forma de pago, 
@@ -173,30 +173,83 @@
                                     requeridas por el medio de pago seleccionado. 
                                     En algunos casos puede que se requiera una verificación por medio de correo electrónico.
                                 </p>
-                                <p> 
+                                <p style="text-align: justify;"> 
                                     Los precios de los paquetes son válidos únicamente en las compras realizadas en esta plataforma. 
                                     SOCIAL GROUP S.A. no ofrece sus servicios en sitios web de terceros y las compras indirectas 
                                     dentro de la plataforma se realizan exclusivamente con código de usuario referido. Una vez que un 
                                     usuario realiza una compra se suscribe al contrato con las condiciones especificadas en este.
                                 </p>
-                                <p> 
+                                <p style="text-align: justify;"> 
                                     Los usuarios pueden cambiar sus contraseñas e información no legal en cualquier 
                                     momento dentro de la plataforma, SOCIAL GROUP S.A. no asume la responsabilidad 
                                     si los usuarios facilitan sus datos de seguridad a terceros.
                                 </p>
-
-                                <p>
-
-                                    Mi pregunta es la siguiente, a ver si alguien me puede echar una mano.
-
-                                    En primer lugar, es si alguien sabe de algún módulo gratuito que nos ayude con esto para PS 1.6, seria lo mejor :D.
-
-                                    Pero sino, si alguien tiene algo detallado de como hacerlo, o el articulo de antes es fiable para 1.6.
-
-                                    Por otro lado, he visto que el actual formulario de registro, hay dos checks, uno para las newsletters, y otro para las ofertas. Otra opción es, que no se si es mas dificil o menos, dejar el de newsletter, y cambiar el otro para utilizarlo como el de privacidad, segun he visto luego se puedo marcar como obligatorio. Es viable?
+                                <b>LICENCIA</b>
+                                <p style="text-align: justify;">                                    
+                                    SOCIAL GROUP S.A. a través de su sitio web concede una licencia para que los usuarios 
+                                    utilicen los productos y servicios de la plataforma de acuerdo a los Términos y 
+                                    Condiciones que se describen en este documento.
+                                </p>
 
 
-                                    Gracias a todos,
+                                <b>PERMISOS</b>
+                                <p style="text-align: justify;">
+                                    El usuario de la plataforma tendrá acceso temporal de 7 días en los cuales deberá realizar el 
+                                    proceso de validación de datos y compra, de un producto, una vez realizado este proceso podrá 
+                                    acceder a los beneficios especificados en el contrato de compra. Si una cuenta con permiso 
+                                    temporal no realiza el proceso de validación y compra durante el tiempo especificado, esta será
+                                    bloqueada por motivos de seguridad.
+                                </p>
+
+                                <p style="text-align: justify;">
+                                    Si un usuario con una cuenta bloqueada que no ha realizado la validación y 
+                                    compra en el tiempo prudencial deberá contactarse con la empresa en la sección de
+                                    CONTACTOS de la página principal www.socialgroup.ec para solicitar un nuevo acceso de 48 
+                                    horas para realizarla. Si el usuario no realiza la compra en el nuevo plazo la cuenta será
+                                    bloqueada permanentemente.
+                                </p>
+                                <b>USO NO AUTORIZADO</b>
+                                <p style="text-align: justify;">
+
+                                    Los usuarios de la plataforma no podrán copiar, replicar o alterar el software de la misma con ningún fin. 
+                                    El intento o uso de software que busque alterar los protocolos de seguridad de la plataforma o interceptar datos encriptados está prohibido y puede conllevar un delito informático penado según el Código Orgánico de cada región.
+                                    Los usuarios de la plataforma no podrán copiar, replicar o alterar contenido textual o gráfico que no esté permitido en la plataforma.
+                                    El usuario no puede utilizar la plataforma para acosar, molestar o intentar contactar directa o indirectamente a los demás usuarios de la plataforma con fines que no sean los especificados en el contrato. Dado el caso los usuarios podrán denunciar al infractor y la empresa tomará las acciones competentes.
+
+                                </p>
+
+                                <b>PROPIEDAD</b>
+                                <p style="text-align: justify;">
+
+                                    El usuario no puede declarar propiedad intelectual o exclusiva a ninguno de nuestros productos o servicios, modificado o sin modificar. Todos los productos son propiedad de los proveedores y SOCIAL GROUP S.A. posee la propiedad sobre los servicios ofertados y software licenciado. En caso de que no se especifique lo contrario, los productos podrán perder su garantía, expresa o implícita, y el acceso a la cuenta será suspendido. En ningún caso esta compañía será responsables de ningún daño incluyendo, pero no limitado a, daños directos, indirectos, especiales, fortuitos o consecuentes u otras pérdidas resultantes del uso o de la imposibilidad de utilizar nuestros productos o servicios.
+
+                                </p>
+
+                                <b>REEMBOLSO Y GARANTIA DE PRODUCTOS</b>
+                                <p style="text-align: justify;">
+
+                                    En el caso de productos que sean  mercancías irrevocables no-tangibles, no realizamos reembolsos después de que se envíe el producto, usted tiene la responsabilidad de entender antes de comprarlo.  Le pedimos que lea las descripciones cuidadosamente antes de comprarlo. Hay algunos productos que pudieran tener garantía y posibilidad de reembolso pero este será especificado al comprar el producto. En tales casos la garantía solo cubrirá fallas de fábrica y sólo se hará efectiva cuando el producto se haya usado correctamente. La garantía no cubre averías o daños ocasionados por uso indebido. Los términos de la garantía están asociados a fallas de fabricación y funcionamiento en condiciones normales de los productos y sólo se harán efectivos estos términos si el equipo ha sido usado correctamente. Esto incluye:
+                                    De acuerdo a las especificaciones técnicas indicadas para cada producto.
+                                    <br/><br/>
+                                    En condiciones ambientales acorde con las especificaciones indicadas por el fabricante.
+                                    En uso específico para la función con que fue diseñado de fábrica.
+                                    En condiciones de operación eléctricas acorde con las especificaciones y tolerancias indicadas.
+                                </p>
+
+                                <b>VERIFICACION DE DATOS</b>
+                                <p style="text-align: justify;">                                    
+                                    Las compras de los usuarios pueden ser aplazadas para la verificación de los datos y detección de fraudes; de igual manera, las cuentas, transacciones y envíos de productos comprados por el usuario en la plataforma asociadas a sus datos podrán ser suspendidas durante la investigación, para evitar transacciones fraudulentas.
+                                </p>
+
+                                <b>PRIVACIDAD</b>
+                                <p style="text-align: justify;">
+
+                                    SOCIAL GROUP S.A.  garantiza que la información personal que usted envía cuenta con la seguridad necesaria. Los datos ingresados por usuario; o en el caso de requerir una validación de los pedidos, no serán entregados a terceros, salvo que deba ser revelada en cumplimiento a una orden judicial o requerimientos legales.
+
+                                    Durante el proceso de compra y validación podría requerirse información que verificará y validará dichas compras. El usuario facilitará únicamente dicha información en la plataforma por medio del formato solicitado; en esta instancia deberá aceptar el contrato de compra con las condiciones específicas de Privacidad y Divulgación.
+                                    La suscripción a boletines de correos electrónicos publicitarios es voluntaria y podría ser seleccionada al momento de crear su cuenta. La empresa se reserva el derecho a promocionar los servicios de los usuarios suscritos, así como los propios en los espacios de la plataforma.
+                                    SOCIAL GROUP S.A se reserva los derechos de cambiar o de modificar estos términos sin previo aviso.
+
                                 </p>
                             </p:scrollPanel>
 
@@ -219,10 +272,13 @@
                             <p:panel id="idCancelar" 
                                      visible="#{ctRegistro.aceptar==0}" 
                                      style="border: none">
+                                <!--
                                 <p:commandButton value="Cancelar"
                                                  icon="ui-icon-close"
                                                  action="Index.html?faces-redirect=true"
-                                                 process="@this"/>      
+                                                 process="@this"/> 
+                                -->
+                                <p:button value="Cancelar" href="Index.html" styleClass="amber-btn flat"/>
                             </p:panel>
 
 

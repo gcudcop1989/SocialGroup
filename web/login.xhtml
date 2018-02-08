@@ -39,18 +39,20 @@ and open the template in the editor.
         <h:outputStylesheet name="font-awesome.min.css" library="css" />   
         <h:outputStylesheet name="font-awesome.css" library="css" />        
         <h:outputStylesheet name="estilos-menus.css" library="css" />
-        
+
     </h:head>
-    <h:body>
+    <h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}"
+            style="background: url('resources/social/images/pexelcontacto.jpeg') no-repeat center; background-size: cover">
         <p:growl autoUpdate="true" showDetail="true"/>
         <section id="login-container">
             <div class="row">
                 <div class="col-md-3" id="login-wrapper">
                     <div class="panel panel-primary animated flipInY">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">     
-                                Iniciar Sesión
-                            </h3> 
+                        <div class="panel-heading">                            
+                            <img src="resources/imagenes/logo.png" alt=""/>
+                            <!-- <h3 class="panel-title">     
+                                 Iniciar Sesión
+                             </h3> -->
                         </div>
                         <div class="panel-body">
                             <p> Ingrese sus datos para acceder a su cuenta.</p>
@@ -84,13 +86,14 @@ and open the template in the editor.
                                     <div class="col-md-12">                                        
                                         <p:commandButton value="Iniciar Sesión"
                                                          class="btn btn-primary btn-block"
-                                                         action="#{ctLogin.login()}"/>
+                                                         action="#{ctLogin.login()}"
+                                                         icon="ui-icon-key"/>
                                         <hr />                                        
                                         <p:commandButton value="Registrarse"
                                                          class="btn btn-default btn-block"
                                                          action="registro.jsf?faces-redirect=true"
                                                          process="@this"
-                                                         />
+                                                         style="background: #d3ad0a; font-size:15px"/>
                                     </div>
                                 </div>
                             </h:form>

@@ -30,6 +30,7 @@ import sg.logica.funciones.FSolicitudCobro;
 public class CtAprobarCobros implements Serializable {
 
     private List<SolicitudCobro> lstSolicitudes;
+    private List<SolicitudCobro> lstSolRechazadas;
     private SolicitudCobro objSolicitud;
     private HttpServletRequest httpServletRequest;
     private FacesContext faceContext;
@@ -43,6 +44,7 @@ public class CtAprobarCobros implements Serializable {
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
         obtenerSolicitides();
+        obtenerSolRechazadas();
     }
 
     @PostConstruct
@@ -70,8 +72,21 @@ public class CtAprobarCobros implements Serializable {
         }
     }
 
+    public void obtenerSolRechazadas() {
+        try {
+            setLstSolRechazadas(FSolicitudCobro.obteneSolicitudesDadoEstado(5));
+        } catch (Exception e) {
+            System.out.println(" public void obtenerSolRechazadas() dice: " + e.getMessage());
+        }
+    }
+
     public void aprobarSolicitud() {
         try {
+
+            System.out.println("datos: SOLICITUD " + getObjSolicitud().getIdSolicitud()
+                    + ", OBSERVACIONES: " + getObservaciones()
+                    + ", USUARIO " + getSessionUsuario().getIdUsuario());
+
             setMsg(FSolicitudCobro.aprobarSolicitud(getObjSolicitud().getIdSolicitud(), getObservaciones(), getSessionUsuario().getIdUsuario()));
             Util.addSuccessMessage(getMsg());
             setObjSolicitud(new SolicitudCobro());
@@ -80,12 +95,13 @@ public class CtAprobarCobros implements Serializable {
             resetearDataTable("frmCobros:tblSolicitudes");
             DefaultRequestContext.getCurrentInstance().execute("PF('wdlgRevisar').hide()");
         } catch (Exception e) {
-            Util.addErrorMessage(e.getMessage());
             System.out.println(" public void aprobarSolicitud() dice: " + e.getMessage());
+            Util.addErrorMessage(e.getMessage());
+
         }
     }
-    
-     public void rechazarSolicitud() {
+
+    public void rechazarSolicitud() {
         try {
             setMsg(FSolicitudCobro.rechazarSolicitud(getObjSolicitud().getIdSolicitud(), getObservaciones(), getSessionUsuario().getIdUsuario()));
             Util.addSuccessMessage(getMsg());
@@ -99,7 +115,6 @@ public class CtAprobarCobros implements Serializable {
             System.out.println(" public void aprobarSolicitud() dice: " + e.getMessage());
         }
     }
-
 
     public void resetearDataTable(String id) {
         DataTable table = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
@@ -202,6 +217,20 @@ public class CtAprobarCobros implements Serializable {
      */
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    /**
+     * @return the lstSolRechazadas
+     */
+    public List<SolicitudCobro> getLstSolRechazadas() {
+        return lstSolRechazadas;
+    }
+
+    /**
+     * @param lstSolRechazadas the lstSolRechazadas to set
+     */
+    public void setLstSolRechazadas(List<SolicitudCobro> lstSolRechazadas) {
+        this.lstSolRechazadas = lstSolRechazadas;
     }
 
 }

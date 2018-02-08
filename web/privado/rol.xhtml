@@ -22,7 +22,8 @@
     </h:head>
 
 
-    <h:body  styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}" onload="nobackbutton();">
+    <h:body  styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}" 
+             style="background: url('../resources/social/images/pexelcontacto.jpeg') no-repeat center; background-size: cover">
 
         <div class="layout-wrapper #{guestPreferences.menuLayout}">
             <ui:include src="topRol.xhtml" />
@@ -38,9 +39,9 @@
                 <center>                                        
                     <img src="../resources/imagenes/iconos_roles.png" alt="" width="10%"/>
                     <br/>
-                    <span class="overview-detail">Bienvenido: <b> #{sessionScope.Datos} </b></span>
+                    <span class="overview-detail" style="font-size: 22px; color: #FFFFFF">Bienvenido: <b> #{sessionScope.Datos} </b></span>
                     <br/>
-                    <b>Seleccione un Rol para ingresar</b>
+                    <b style="font-size: 18px; color: #FFFFFF">Seleccione un Rol para ingresar</b>
                     <br/>
                 </center>
 
@@ -51,21 +52,23 @@
                             <ui:repeat  value="#{ctSelectRol.lstRoles}" var="rol" varStatus="status"> 
 
                                 <div class="ui-g-12 ui-md-6 ui-lg-3">
-                                    <div class="ui-g card colorbox colorbox-6 fadeInDown animated" style="height: 120px">
+                                    <div class="ui-g card colorbox colorbox-4 fadeInDown animated" style="height: 120px">
                                         <div class="ui-g-4">    
 
                                             <p:graphicImage id="griPrevisualizar" value="#{rol.rol.icono}" 
-                                                            width="85%"/>
+                                                            width="100%" height="100%"/>
                                             <!--<img src="../resources/imagenes/excel.png" alt=""/>-->
                                         </div>
 
-                                        <div class="ui-g-8">   
-                                            <b><span>#{rol.rol.rol}</span></b>
-                                      
+                                        <div class="ui-g-8">
+                                            <br/>
+                                            <h:outputLabel value="#{rol.rol.rol}" style="font-size: 20px"/>
+
                                             <p>
                                                 <!--<h:outputLabel value="#{rol.rol.descripcion}"/>-->                                                
                                                 <p:commandButton value="Seleccionar"
-                                                                 action="#{ctLogin.loginRol()}">
+                                                                 action="#{ctLogin.loginRol()}"
+                                                                 style="background: #d3ad0a; font-size:15px">
                                                     <f:setPropertyActionListener value="#{rol}" target="#{ctLogin.rolUsuarioSel}"/>
                                                 </p:commandButton>   
                                                 <br/>
@@ -81,10 +84,22 @@
             </div>
         </div>
 
+        <!--
         <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout" />
         <h:outputStylesheet name="css/animate.css" library="ultima-layout" />
         <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />        
         <h:outputStylesheet name="css/layout-yelou.css" library="ultima-layout" />    
-        <h:outputStylesheet name="css/layout-blue.css" library="ultima-layout" />   
+        <h:outputStylesheet name="css/layout-blue.css" library="ultima-layout" />  
+        -->
+
+        <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout" />
+        <h:outputStylesheet name="css/animate.css" library="ultima-layout" />
+        <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
+        <h:outputStylesheet name="css/layout-yelou.css" library="ultima-layout" />
+        <h:outputStylesheet name="tema.css" library="css" />
+        <!--<h:outputStylesheet name="css/yelou.css" library="yelou-fonts" />     -->
+        <h:outputStylesheet name="styles.css" library="css" />                
+        <h:outputStylesheet name="css/layout-blue.css" library="ultima-layout" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     </h:body>
 </html>

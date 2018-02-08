@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import master.logica.funciones.FUsuario;
 import sg.logica.entidades.Cuenta;
 
 public class FCuenta {
@@ -518,7 +519,8 @@ public class FCuenta {
                 cuenta = new Cuenta();
                 cuenta.setIdCuenta(resultSet.getInt("id_cuenta"));
                 cuenta.setCodigo(resultSet.getString("codigo_cuenta"));
-                cuenta.getPif().setIdPif(resultSet.getInt("int_id_pif"));
+                cuenta.setPif(FPif.obtenerPifDadoId(resultSet.getInt("int_id_pif")));
+                cuenta.setPersona(FUsuario.obtenerUsuarioDadoId(resultSet.getInt("id_titular")));
                 cuenta.setTotalComision(resultSet.getDouble("db_total_comision"));
             }
             accesoDatos.desconectar();
@@ -556,6 +558,35 @@ public class FCuenta {
         return lst;
     }
 
+    public static List<Cuenta> obtenerCuentasHijasV2(int idPadre) throws Exception {
+        List<Cuenta> lst = new ArrayList<>();
+        AccesoDatos accesoDatos;
+        PreparedStatement stm;
+        Cuenta cuenta;
+        ResultSet resultSet;
+        String consulta;
+        try {
+            accesoDatos = new AccesoDatos();
+            consulta = "select * from sch_social_group.f_obtener_cuentas_hijas_dado_padre_2(?)";
+            stm = accesoDatos.creaPreparedSmt(consulta);
+            stm.setInt(1, idPadre);
+            resultSet = accesoDatos.ejecutaPrepared(stm);
+            while (resultSet.next()) {
+                cuenta = new Cuenta();
+                cuenta.setReferidoCuenta(new Cuenta());
+                //datos cuenta
+                cuenta.setIdCuenta(resultSet.getInt("id_cuenta"));
+                cuenta.setCodigo(resultSet.getString("codigo_cuenta"));
+                cuenta.getPersona().setNick(resultSet.getString("nick_socio"));
+
+                lst.add(cuenta);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return lst;
+    }
+
     public static String devolverJson(int codigo) {
         String json = "";
         try {
@@ -578,5 +609,31 @@ public class FCuenta {
             System.out.println("Error: " + e.getMessage());
         }
         return json;
+    }
+
+    public static List<Cuenta> obtenerCuentasNoTitular(int idTitular) throws Exception {
+        List<Cuenta> lst = new ArrayList<>();
+        AccesoDatos accesoDatos;
+        PreparedStatement stm;
+        Cuenta cuenta;
+        ResultSet resultSet;
+        String consulta;
+        try {
+            accesoDatos = new AccesoDatos();
+            consulta = "select * from sch_social_group.f_obtener_cuentas_no_titular(?)";
+            stm = accesoDatos.creaPreparedSmt(consulta);
+            stm.setInt(1, idTitular);
+            resultSet = accesoDatos.ejecutaPrepared(stm);
+            while (resultSet.next()) {
+                cuenta = new Cuenta();
+                //datos cuenta
+                cuenta.setIdCuenta(resultSet.getInt("sr_id_cuenta"));
+                cuenta.setCodigo(resultSet.getString("chv_codigo"));
+                lst.add(cuenta);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return lst;
     }
 }

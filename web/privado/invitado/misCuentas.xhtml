@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"                
+                template="../../WEB-INF/template/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <p:growl id="msjs" life="3000" autoUpdate="true"/>                    
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <h:form id="frmPrincipal">
+
+                    <p:dataTable id="tblCuentas" var="cuenta" value="#{ctCuentasSocios.lstCuentas}" rows="10"
+                                 paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{cuenta.idCuenta}"
+                                 selection="#{ctCuentasSocios.cuentaSel}" selectionMode="single">
+
+                        <p:column headerText="Fecha de compra" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{cuenta.fechaRegistro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Fecha de activación" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{cuenta.fechaActivacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Fecha de caducidad" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{cuenta.fechaCaducidad}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Cuenta" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{cuenta.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Paquete" width="5%" style="text-align: center">
+                            <p:outputLabel value="#{cuenta.pif.pif}"/>
+                        </p:column>
+
+                        <p:column headerText="Contrato" width="5%" style="text-align: center">                            
+                            <p:commandButton icon="ui-icon-local-printshop"
+                                             ajax="false" title="Imprimir contrato"
+                                             actionListener="#{ctCuentasSocios.verReporteLibroPredial()}"
+                                             onclick="this.form.target = '_blank'">
+                                  <f:setPropertyActionListener value="#{cuenta}" target="#{ctCuentasSocios.cuentaSel}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+            </div>
+        </div>
+    </ui:define> 
+</ui:composition>

@@ -50,9 +50,10 @@ public class CtRegistro implements Serializable {
 
             System.out.println("registrar dice: " + msg);
 
-            Util.addSuccessMessage("Ud se ha registrado exitosamente.");
-            getFaceContext().getExternalContext().redirect("login.jsf");
             setObjPersona(new Usuario());
+            aceptar=0;
+            Util.addSuccessMessage("Ud se ha registrado exitosamente.");
+            getFaceContext().getExternalContext().redirect("login");            
 
         } catch (Exception e) {
             System.out.println("public void registrar() dice: " + e.getMessage());

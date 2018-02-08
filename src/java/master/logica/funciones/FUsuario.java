@@ -209,7 +209,7 @@ public class FUsuario {
             prstm.setString(10, usuario.getCiudad());
             prstm.setString(11, usuario.getDireccion());
             prstm.setString(12, usuario.getPais());
-            prstm.setInt(13, usuario.getTipoPersona().getIdTipoPersona());
+            prstm.setInt(13, 1);
             prstm.setString(14, usuario.getNick());
             prstm.setString(15, usuario.getMail());
             prstm.setString(16, usuario.getPassword());

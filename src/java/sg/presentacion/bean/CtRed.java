@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import master.logica.entidades.Usuario;
+import master.logica.funciones.FUsuario;
 import recursos.Util;
 import sg.logica.entidades.Cuenta;
 import sg.logica.funciones.FCuenta;
@@ -42,6 +43,7 @@ public class CtRed implements Serializable {
         }
     }
 
+    /*
     public void crearJson() {
         try {
             int nivel = 0;
@@ -64,6 +66,36 @@ public class CtRed implements Serializable {
             System.out.println("json: " + getJson());
         } catch (Exception e) {
             Util.addErrorMessage(e.getMessage());
+        }
+    }
+     */
+    public void crearJson() {
+        try {
+            int intIdUsuario = (int) getHttpServletRequest().getSession().getAttribute("idUsuario");
+
+            int nivel = 0;
+            Cuenta padre = new Cuenta();
+            padre = FCuenta.obtenerCuentaDadoId(getIdCuenta());
+            List<Cuenta> lst = FCuenta.obtenerCuentasHijasV2(getIdCuenta());
+            Usuario socio = new Usuario();
+            socio = FUsuario.obtenerUsuarioDadoId(intIdUsuario);
+
+            setJson("{'name':'" + socio.getNick() + "',");
+            setJson(getJson() + "'children':[");
+            for (int i = 0; i < lst.size(); i++) {
+                setJson(getJson() + "{'name':'" + lst.get(i).getPersona().getNick() + "',");
+                setJson(getJson() + "'children':[]");
+                if (i != lst.size() - 1) {
+                    setJson(getJson() + "},");
+                } else {
+                    setJson(getJson() + "}]");
+                }
+            }
+            setJson(getJson() + "}");
+
+            System.out.println("json: " + getJson());
+        } catch (Exception e) {
+            Util.addErrorMessage("No tiene ventas.");
         }
     }
 
