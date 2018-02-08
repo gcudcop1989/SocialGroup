@@ -61,15 +61,22 @@
                                 </p:lightBox>
                             </p:column>
 
-                            <p:column headerText="Activar" width="3%" style="text-align: center">
-                                <p:commandButton title="Activar compra"
-                                                 icon="ui-icon-check-box"
+                             <p:column headerText="Activar" width="5%" style="text-align: center">
+                                <p:commandButton title="Activar"
+                                                 icon="ui-icon-check-circle"
                                                  onclick="PF('dlgActivarCompra').show();"
                                                  update="frmActivar">
                                     <f:setPropertyActionListener value="#{compra}" target="#{ctActivarCompras.compraSel}"/>
                                 </p:commandButton>
                             </p:column>
-
+                             <p:column headerText="Degenar" width="5%" style="text-align: center">
+                                <p:commandButton title="Denegar"
+                                                 icon="ui-icon-block"
+                                                 onclick="PF('dlgSolicitarReVerificar').show();"
+                                                 update="frmReVerficar"> 
+                                    <f:setPropertyActionListener value="#{compra}" target="#{ctActivarCompras.compraSel}"/>
+                                </p:commandButton>
+                            </p:column>
                         </p:dataTable>
 
                     </div>                        
@@ -82,5 +89,6 @@
             <img src="../../resources/gifs/cargando_2.gif" alt=""/>
         </p:dialog>
         <ui:include src="dlgActivarCompra.xhtml"/> 
+        <ui:include src="dlgDenegarCompra.xhtml"/> 
     </ui:define>
 </ui:composition>

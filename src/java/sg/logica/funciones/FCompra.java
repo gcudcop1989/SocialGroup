@@ -133,6 +133,7 @@ public class FCompra {
                 compra.getCuenta().getPersona().setCedula(resultSet.getString("cedula_titular"));
                 compra.getCuenta().getPersona().setNombres(resultSet.getString("nombres_titular"));
                 compra.getCuenta().getPersona().setApellidos(resultSet.getString("apellidos_titular"));
+                compra.getCuenta().getPersona().setIdPersona(resultSet.getInt("int_id_persona"));
                 lst.add(compra);
 
             }
@@ -140,6 +141,29 @@ public class FCompra {
             throw e;
         }
         return lst;
+    }
+    public static String reportarCompra(Compra compra, int idUsuario) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_solicitar_reverificacion_compra(?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, compra.getIdCompra());
+            prstm.setInt(2, idUsuario);
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public static String activarCompra(Compra compra, int idUsuario) throws Exception {
