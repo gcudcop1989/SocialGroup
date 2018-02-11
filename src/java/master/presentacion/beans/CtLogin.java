@@ -8,6 +8,7 @@ package master.presentacion.beans;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -19,6 +20,7 @@ import master.logica.entidades.RolUsuario;
 import master.logica.entidades.Usuario;
 import master.logica.funciones.FRolUsuario;
 import master.logica.funciones.FUsuario;
+import recursos.InterfazMenu;
 import recursos.Util;
 
 @ManagedBean
@@ -44,15 +46,17 @@ public class CtLogin implements Serializable {
 
     public void login() {
         try {
+            Random rnd = new Random();
             usuario = FUsuario.loginUsuario(txtUsuario, txtPassword);
             Util.addSuccessMessage("Bienvenido: " + usuario.getNombres() + " " + usuario.getApellidos());
 
             System.out.println("Id Usuario: " + usuario.getIdPersona());
-
+            
             httpServletRequest.getSession().setAttribute("UsuarioLogueado", usuario);
             httpServletRequest.getSession().setAttribute("Datos", usuario.getNombres() + " " + usuario.getApellidos());
             httpServletRequest.getSession().setAttribute("idUsuario", usuario.getIdUsuario());
             httpServletRequest.getSession().setAttribute("fotoUsuario", usuario.getFoto());
+            httpServletRequest.getSession().setAttribute("token", (int) (rnd.nextDouble() * 6 + 1));
 
             ///estado de validacion
             httpServletRequest.getSession().setAttribute("validado", usuario.getValidado());
@@ -83,7 +87,7 @@ public class CtLogin implements Serializable {
                         + "\n priv eliminar: " + ru.getPrivEliminar()
                 );
 
-                faceContext.getExternalContext().redirect("privado/home.jsf");
+                faceContext.getExternalContext().redirect(InterfazMenu.obtenerHomeInicio(ru.getRol().getIdRol()));
             } else {
                 Util.addErrorMessage("El Usuario no tiene roles activos en el sistema.");
                 faceContext.getExternalContext().redirect("index.jsf");
@@ -109,6 +113,10 @@ public class CtLogin implements Serializable {
             httpServletRequest.getSession().setAttribute("privEditar", rolUsuarioSel.getPrivEditar());
             httpServletRequest.getSession().setAttribute("privEliminar", rolUsuarioSel.getPrivEliminar());
 
+            /// agrego a las variablles el inicio de session el rol-usuario
+            faceContext.getExternalContext().getSessionMap().put("RolUsuarioLog", rolUsuarioSel);
+            httpServletRequest.getSession().setAttribute("rolUsuarioSession", rolUsuarioSel);
+            
             /// testo de la funcion
             System.out.println("Id Rol: " + rolUsuarioSel.getRol().getIdRol()
                     + "Rol: " + rolUsuarioSel.getRol().getRol() + "\n"
@@ -117,7 +125,7 @@ public class CtLogin implements Serializable {
                     + "\n priv seleccionar: " + rolUsuarioSel.getPrivSeleccionar()
                     + "\n priv eliminar: " + rolUsuarioSel.getPrivEliminar());
 
-            faceContext.getExternalContext().redirect("home.jsf");
+            faceContext.getExternalContext().redirect(InterfazMenu.obtenerInicioRol(rolUsuarioSel.getRol().getIdRol()));
         } catch (Exception e) {
             Util.addErrorMessage(e.getMessage().replace("\n", "").replace("Hint:", ""));
         }
@@ -140,6 +148,64 @@ public class CtLogin implements Serializable {
             fc.getExternalContext().invalidateSession();
         } catch (Exception ex) {
             Util.addErrorMessage(ex.getMessage().replace("\n", "").replace("Hint:", ""));
+        }
+    }
+
+    public void token() throws IOException {
+        faceContext = FacesContext.getCurrentInstance();
+        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
+        Boolean blnLogeado = httpServletRequest.getSession().getAttribute("token") != null;
+        if (!blnLogeado) {
+            facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Debe iniciar session para continuar", null);
+            faceContext.addMessage(null, facesMessage);
+            facesMessage = null;
+            FacesContext fc = FacesContext.getCurrentInstance();
+            fc.getExternalContext().redirect("permisos.jsf");
+        } else {
+            blnLogeado = httpServletRequest.getSession().getAttribute("idRol") != null;
+            if (blnLogeado) {
+            }
+        }
+    }
+
+    public void estaLogeado() throws IOException {
+        faceContext = FacesContext.getCurrentInstance();
+        httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
+        Boolean blnLogeado = httpServletRequest.getSession().getAttribute("idRol") != null;
+        Boolean blnToken = httpServletRequest.getSession().getAttribute("token") != null;
+        FacesContext fc = FacesContext.getCurrentInstance();
+        if (blnLogeado && blnToken) {
+            int intIdRol = (int) httpServletRequest.getSession().getAttribute("idRol");
+            switch (intIdRol) {
+                case 1:
+                    fc.getExternalContext().redirect("privado/master/home.jsf");
+                    break;
+                case 2:
+                    fc.getExternalContext().redirect("privado/socialGroup/home.jsf");
+                    break;
+                case 3:
+                    fc.getExternalContext().redirect("privado/socialGroup/home.jsf");
+                    break;
+
+                case 4:
+                    fc.getExternalContext().redirect("privado/socialGroup/home.jsf");
+                    break;
+                case 5:
+                    fc.getExternalContext().redirect("privado/invitado/home.jsf");
+                    break;
+                case 6:
+                    fc.getExternalContext().redirect("privado/invitado/home.jsf");
+                    break;
+                case 7:
+                    fc.getExternalContext().redirect("privado/lider/home.jsf");
+                    break;
+                case 9:
+                    fc.getExternalContext().redirect("privado/diseniador/home.jsf");
+                    break;
+                default:
+                    fc.getExternalContext().redirect("/" + Configuracion.getString("Aplicacion"));
+                    break;
+            }
         }
     }
 

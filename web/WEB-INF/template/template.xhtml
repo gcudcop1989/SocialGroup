@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <f:metadata>        
-        <!--<f:event type="preRenderView" listener="#{ctTemplate.verificarSesion()}"/>-->
+        <f:event type="preRenderView" listener="#{ctTemplate.verificarLogin()}"/>
     </f:metadata>
     <h:head>
         <f:facet name="first">
@@ -39,7 +39,7 @@
                 <ui:include src="./footer.xhtml" />              
             </div>             
         </div>
-        
+
         <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:7px;bottom:7px">
             <f:facet name="start">
                 <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
@@ -47,8 +47,26 @@
             <f:facet name="complete">
                 <h:outputText value="" />
             </f:facet>
-        </p:ajaxStatus>   
-        
+        </p:ajaxStatus> 
+
+        <p:idleMonitor onidle="PF('sessionTimeOutDialog').show();" timeout="#{session.maxInactiveInterval* 1000}" />
+        <p:dialog header="Información" widgetVar="sessionTimeOutDialog" 
+                  modal="true" closable="false" resizable="true" visible="false"
+                  appendTo="@(body)">
+            <h:form>
+                <center>
+                    <h1>Sesión Caducada</h1>
+                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">                                    
+                        <p:commandButton value="Iniciar Sesión" icon="ui-icon-refresh"
+                                         onclick="window.location = '#{facesContext.externalContext.requestContextPath}/login.jsf';"/>
+
+                        <p:commandButton value="Salir" icon="ui-icon-close"
+                                         onclick="window.location = '#{facesContext.externalContext.requestContextPath}';"/>               
+                    </p:panelGrid>
+                </center>
+            </h:form>            
+        </p:dialog>  
+
         <h:outputStylesheet name="css/nanoscroller.css" library="ultima-layout" />
         <h:outputStylesheet name="css/animate.css" library="ultima-layout" />
         <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />

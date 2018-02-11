@@ -6,8 +6,12 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:pu="http://primefaces.org/ultima">
     <h:head>
         <title>Iniciar Sesión</title>                
         <meta charset="utf-8"/>
@@ -41,7 +45,7 @@ and open the template in the editor.
         <h:outputStylesheet name="estilos-menus.css" library="css" />
 
     </h:head>
-    <h:body styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}"
+    <h:body styleClass="main-body"
             style="background: url('resources/social/images/pexelcontacto.jpeg') no-repeat center; background-size: cover">
         <p:growl autoUpdate="true" showDetail="true"/>
         <section id="login-container">

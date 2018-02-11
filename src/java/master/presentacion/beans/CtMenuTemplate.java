@@ -16,6 +16,7 @@ import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
+import recursos.InterfazMenu;
 import recursos.Util;
 
 @ManagedBean
@@ -27,9 +28,11 @@ public class CtMenuTemplate implements Serializable {
     private MenuModel menu;
     private String paginaActual;
     private java.util.ResourceBundle Configuracion = java.util.ResourceBundle.getBundle("recursos.DatosAplicacion");
+    private int intIdRol;
 
     public CtMenuTemplate() {
-        paginaActual = "home.jsf";
+//        paginaActual = "home.jsf";
+
         menu = new DefaultMenuModel();
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
@@ -37,23 +40,26 @@ public class CtMenuTemplate implements Serializable {
 
     @PostConstruct
     public void init() {
+        intIdRol = (int) httpServletRequest.getSession().getAttribute("idRol");
+        System.out.println("Rol Logueado: " + intIdRol);
         crearMenu();
     }
 
     public void crearMenu() {
         try {
-            int idRol = (int) httpServletRequest.getSession().getAttribute("idRol");
+
             int idPadre;
 
             DefaultSubMenu subMenu;
             DefaultMenuItem item;
 
-            List<Menu> submenus = FMenu.obtenerMenusDadoRol(idRol);
+            List<Menu> submenus = FMenu.obtenerMenusDadoRol(intIdRol);
             List<Menu> hijos;
 
             item = new DefaultMenuItem("Inicio");
             item.setIcon("home");
-            item.setUrl("/privado/home.jsf");
+            String pag = "/" + InterfazMenu.obtenerHomeInicio(intIdRol);
+            item.setUrl(pag);
             menu.addElement(item);
 
             for (int s = 0; s < submenus.size(); s++) {
@@ -96,7 +102,7 @@ public class CtMenuTemplate implements Serializable {
 
             if (FMenuUrl.obtenerUrlDadoMenu(idMenuSel) == null) {
                 Util.addErrorMessage("Este menú no tiene una Url asignada.");
-                paginaActual = rutaGeneral + "/privado/home.jsf";
+                paginaActual = rutaGeneral + "/" + InterfazMenu.obtenerHomeInicio(intIdRol);
             } else {
                 Util.addSuccessMessage("Redirigiendo a: " + FMenuUrl.obtenerUrlDadoMenu(idMenuSel).getUrl().getNombre());
                 paginaActual = rutaGeneral + FMenuUrl.obtenerUrlDadoMenu(idMenuSel).getUrl().getUrl();
@@ -109,6 +115,14 @@ public class CtMenuTemplate implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
         }
 
+    }
+
+    public int getIntIdRol() {
+        return intIdRol;
+    }
+
+    public void setIntIdRol(int intIdRol) {
+        this.intIdRol = intIdRol;
     }
 
     public HttpServletRequest getHttpServletRequest() {

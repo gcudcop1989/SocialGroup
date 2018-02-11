@@ -1,4 +1,3 @@
-
 package master.presentacion.beans;
 
 import java.io.File;
@@ -8,22 +7,19 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 import master.logica.entidades.Usuario;
-import master.logica.entidades.Persona;
 import master.logica.entidades.RolUsuario;
-import master.logica.funciones.FRolUsuario;
 import master.logica.funciones.FUsuario;
 import recursos.Util;
 
 @ManagedBean
 @RequestScoped
-public class ctDatos implements Serializable{
-    
+public class ctDatos implements Serializable {
+
     //private String codigo;
     private String strMensaje;
     private String strOpcion;
@@ -44,8 +40,7 @@ public class ctDatos implements Serializable{
     private UploadedFile file;
     private String nombreUbicacion;
 
-    
-   //<editor-fold defaultstate="collapsed" desc="Constructor del Controlador cDatos">
+    //<editor-fold defaultstate="collapsed" desc="Constructor del Controlador cDatos">
     public ctDatos() {
         this.nuevoUsuario = new Usuario();
         this.selectUsuario = new Usuario();
@@ -58,17 +53,14 @@ public class ctDatos implements Serializable{
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="Post Constructor del Controlador cDatos">
+    //<editor-fold defaultstate="collapsed" desc="Post Constructor del Controlador cDatos">   
     @PostConstruct
     public void init() {
         cargarUsuarioSeccion();
-        int idRol = (int) httpServletRequest.getSession().getAttribute("idRol");
-        
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="Modificar Datos de la Usuario Perfil">
-    
+    //<editor-fold defaultstate="collapsed" desc="Modificar Datos de la Usuario Perfil">    
     public void actualizarDatosUsuarioPerfil() throws Exception {
         try {
             strMensaje = FUsuario.actualizarDatosUsuarioPerfil(selectUsuario);
@@ -77,35 +69,29 @@ public class ctDatos implements Serializable{
             Util.addErrorMessage(e.getMessage());
         }
     }
-    
     //</editor-fold> 
 
-    //<editor-fold defaultstate="collapsed" desc="Cargar datos del Usuario a Actualizar el Perfil">
-    
-        
+    //<editor-fold defaultstate="collapsed" desc="Cargar datos del Usuario a Actualizar el Perfil">           
     public String cargarUsuarioSeccion() {
         int intIdUsuario = (int) httpServletRequest.getSession().getAttribute("idUsuario");
         int intIdRol = (int) httpServletRequest.getSession().getAttribute("idRol");
         try {
             //selecRolUsuario = FRolUsuario.obtenerRolUsuario(intIdRol, intIdUsuario);
-           selectUsuario = FUsuario.obtenerUsuarioDadoId(intIdUsuario);
+            selectUsuario = FUsuario.obtenerUsuarioDadoId(intIdUsuario);
             //setStrEliminarFoto(selectUsuario.getFoto());
             //setStrEliminarFoto(selectUsuario.getUsuario().getFoto());
             setStrEliminarFoto(selectUsuario.getFoto());
-            
+
         } catch (Exception e) {
             Util.addErrorMessage(e, getStrMensaje());
         }
-        
+
         return getStrEliminarFoto();
     }
-    
     //</editor-fold> 
 
     //<editor-fold defaultstate="collapsed" desc="Cambiar Foto del Perfil Usuario ">
-
-    //Este método permite Cambiar Foto del Perfil Usuario
-     
+    //Este método permite Cambiar Foto del Perfil Usuario     
     public void cambiarFotoUsuarioPerfil(String strNombFoto) {
         int intIdUsuario = (int) httpServletRequest.getSession().getAttribute("idUsuario");
         setStrEliminarFoto(cargarUsuarioSeccion());
@@ -126,9 +112,7 @@ public class ctDatos implements Serializable{
     }
     //</editor-fold>
 
-    
-    //<editor-fold defaultstate="collapsed" desc="GET AND SETT"> 
-  
+    //<editor-fold defaultstate="collapsed" desc="GET AND SETT">   
     public String getStrMensaje() {
         return strMensaje;
     }
@@ -272,12 +256,6 @@ public class ctDatos implements Serializable{
     public void setNombreUbicacion(String nombreUbicacion) {
         this.nombreUbicacion = nombreUbicacion;
     }
-
-    
-    
     //</editor-fold>
 
-    
 }
-
- 

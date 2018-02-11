@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+    <ui:define name="content">
+        <h1>Home Socio</h1>
+
+        <p:idleMonitor onidle="PF('sessionTimeOutDialog').show();" timeout="#{session.maxInactiveInterval* 1000}" />
+        <p:dialog header="Información" widgetVar="sessionTimeOutDialog" 
+                  modal="true" closable="false" resizable="true" visible="false"
+                  appendTo="@(body)">
+            <h:form>
+                <center>
+                    <h1>Sesión Caducada</h1>
+                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">                                    
+                        <p:commandButton value="Iniciar Sesión" icon="ui-icon-refresh"
+                                         onclick="window.location = '#{facesContext.externalContext.requestContextPath}/login.jsf';"/>
+
+                        <p:commandButton value="Salir" icon="ui-icon-close"
+                                         onclick="window.location = '#{facesContext.externalContext.requestContextPath}';"/>               
+                    </p:panelGrid>
+                </center>
+            </h:form>            
+        </p:dialog>      
+
+
+    </ui:define>       
+</ui:composition>
