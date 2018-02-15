@@ -16,8 +16,10 @@ public class Publicidad {
     private Timestamp fechaAprobacion;
     private Timestamp fechaFinalizacion;
     private Usuario sessionUsuario;
+    private FormaPago formaPago;
 
     public Publicidad() {
+        formaPago = new FormaPago();
         cuenta = new Cuenta();
         estado = new EstadoSolicitud();
         sessionUsuario = new Usuario();
@@ -175,6 +177,20 @@ public class Publicidad {
      */
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
+    }
+
+    /**
+     * @return the formaPago
+     */
+    public FormaPago getFormaPago() {
+        return formaPago;
+    }
+
+    /**
+     * @param formaPago the formaPago to set
+     */
+    public void setFormaPago(FormaPago formaPago) {
+        this.formaPago = formaPago;
     }
 
 }

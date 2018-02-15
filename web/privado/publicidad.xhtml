@@ -55,7 +55,7 @@
                         <p:column headerText="Observaciones" width="5%" style="text-align: center">
                             <p:outputLabel value="#{solicitud.observaciones}"/>
                         </p:column>
-                        
+
                         <f:facet name="footer">
                             <p:commandButton value="Nueva Solicitud"
                                              icon="ui-icon-add-to-photos"
@@ -80,6 +80,14 @@
                     <p:outputLabel value="Descripción corta:"/>
                     <p:inputText value="#{ctPublicidadSocio.objPublicidad.descripcion}" 
                                  placeholder="Ej. Acbs S. A."/>
+                    <p:outputLabel value="Forma de Pago:"/>
+                    <p:selectOneMenu value="#{ctPublicidadSocio.idFormaPago}"
+                                     effect="fade" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="* Forma de Pago" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems  value="#{ctPublicidadSocio.lstFormasPago}" var="formaPago" itemLabel="#{formaPago.formaPago}"
+                                        itemValue="#{formaPago.idFormaPago}"/>                         
+                    </p:selectOneMenu>
+
                     <p:outputLabel value="Cuenta a publicitar:"/>
                     <p:selectOneMenu value="#{ctPublicidadSocio.idCuenta}"
                                      effect="fade" filter="true" filterMatchMode="contains">

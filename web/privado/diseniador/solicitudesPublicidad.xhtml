@@ -66,6 +66,15 @@
                             </p:commandButton>
                         </p:column>
 
+                        <p:column headerText="Revisar" width="3%" style="text-align: center">
+                            <p:commandButton icon="ui-icon-image"
+                                             title="Revisar"
+                                             onclick="PF('wdlgAprobar').show();"
+                                             update="frmAprobar">
+                                <f:setPropertyActionListener value="#{solicitud}" target="#{ctPublicidadSocialGroup.publicidadSel}"/>
+                            </p:commandButton>
+                        </p:column>
+
                     </p:dataTable>
                 </div>
             </div>

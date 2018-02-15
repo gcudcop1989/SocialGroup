@@ -103,13 +103,14 @@ public class FPublicidad {
         ResultSet resultSet;
         try {
             accesoDatos = new AccesoDatos();
-            sql = "select * from sch_social_group.f_insertar_publicidad(?,?,?,?,?)";
+            sql = "select * from sch_social_group.f_insertar_publicidad(?,?,?,?,?,?)";
             prstm = accesoDatos.creaPreparedSmt(sql);
             prstm.setInt(1, publicidad.getCuenta().getIdCuenta());
             prstm.setString(2, publicidad.getPublicidad());
             prstm.setString(3, publicidad.getDescripcion());
             prstm.setInt(4, publicidad.getSessionUsuario().getIdUsuario());
             prstm.setString(5, publicidad.getAdjunto());
+            prstm.setInt(6, publicidad.getFormaPago().getIdFormaPago());
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             if (resultSet.next()) {
                 respuesta = resultSet.getString(1);
