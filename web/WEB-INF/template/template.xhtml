@@ -50,12 +50,14 @@
         </p:ajaxStatus> 
 
         <p:idleMonitor onidle="PF('sessionTimeOutDialog').show();" timeout="#{session.maxInactiveInterval* 1000}" />
-        <p:dialog header="Información" widgetVar="sessionTimeOutDialog" 
+        <p:dialog header="Información" widgetVar="sessionTimeOutDialog" showHeader="false"
                   modal="true" closable="false" resizable="true" visible="false"
                   appendTo="@(body)">
             <h:form>
                 <center>
-                    <h1>Sesión Caducada</h1>
+                    <p:graphicImage name="relog.png" width="70%" library="imagenes" />    
+                    <br/>
+                    <b>Sesión Caducada</b>
                     <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">                                    
                         <p:commandButton value="Iniciar Sesión" icon="ui-icon-refresh"
                                          onclick="window.location = '#{facesContext.externalContext.requestContextPath}/login.jsf';"/>
