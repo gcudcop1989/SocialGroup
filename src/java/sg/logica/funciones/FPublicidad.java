@@ -193,4 +193,34 @@ public class FPublicidad {
         }
         return lst;
     }
+    
+    
+    
+    public static String solicitudDesarrolloPublicidad(Publicidad publicidad) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_solicitar_publicidad(?,?,?,?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);            
+            prstm.setString(1, publicidad.getPublicidad());
+            prstm.setString(2, publicidad.getDescripcion());
+            prstm.setInt(3, publicidad.getSessionUsuario().getIdUsuario());
+            prstm.setString(4, publicidad.getAdjunto());
+            prstm.setInt(5, publicidad.getFormaPago().getIdFormaPago());
+            prstm.setInt(6, publicidad.getCuenta().getIdCuenta());
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

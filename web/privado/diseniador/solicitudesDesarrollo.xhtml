@@ -10,8 +10,8 @@
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
             <div class="ui-g">
                 <div class="ui-g-12 ui-md-6 ui-lg-12">            
-                    <center><h1>Solicitudes pendientes</h1></center>
-                    <p:dataTable id="tblSolicitudes" var="solicitud" value="#{ctPublicidadSocialGroup.lstSolicitudes}" rows="10"
+                    <center><h1>Solicitudes pendientes de desarrollo</h1></center>
+                    <p:dataTable id="tblSolicitudes" var="solicitud" value="#{ctPublicidadSocialGroup.lstSolicitudesDesarrollo}" rows="10"
                                  paginator="true"  emptyMessage="No tiene solicitudes pendientes." 
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="15,20,25" reflow="true" rowKey="#{solicitud.idPublicidad}"

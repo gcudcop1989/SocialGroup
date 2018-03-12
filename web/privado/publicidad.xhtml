@@ -61,6 +61,11 @@
                                              icon="ui-icon-add-to-photos"
                                              onclick="PF('wdlgNuevo').show();"
                                              update="frmNuevo" style="background:  #1ab394; font-size: 14px"/>
+
+                            <p:commandButton value="Solicitar Diseño"
+                                             icon="ui-icon-pencil"
+                                             onclick="PF('wdlgSolicitar').show();"
+                                             update="frmNuevo" style="background:  #1ab394; font-size: 14px"/>
                         </f:facet>
                     </p:dataTable>
                 </div>
@@ -72,7 +77,7 @@
                   header="Nuevo anuncio" showEffect="size" hideEffect="size" appendTo="@(body)">
 
             <h:form id="frmNuevo">
-                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
                     <p:outputLabel value="Titulo:"/>
                     <p:inputText value="#{ctPublicidadSocio.objPublicidad.publicidad}" 
                                  placeholder="Ej. Acbs S. A." required="true"
@@ -97,7 +102,7 @@
                     </p:selectOneMenu>                    
                 </p:panelGrid>
                 <p:panelGrid id="pngSubirArchivo" columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
-                    <p:fileUpload fileUploadListener="#{ctPublicidadSocio.cargarArchivoDocumento}"
+                    <p:fileUpload id="upFile" fileUploadListener="#{ctPublicidadSocio.cargarArchivoDocumento}"
                                   allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Abrir" mode="advanced"  
                                   update="pngSubirArchivo,pngDatos" uploadLabel="Subir" cancelLabel="Cancelar"   
                                   value="#{ctPublicidadSocio.archivoDocumento}"
@@ -112,6 +117,55 @@
                                      icon="ui-icon-save"
                                      action="#{ctPublicidadSocio.registrarPublicidad()}"
                                      update="frmPrincipal:tblSolicitudes,frmNuevo"/>
+                </center>
+            </h:form>
+        </p:dialog>
+
+
+        <p:dialog id="dlgSolicitar" widgetVar="wdlgSolicitar" closable="true" modal="true" resizable="true" 
+                  header="Nuevo anuncio" showEffect="size" hideEffect="size" appendTo="@(body)">
+
+            <h:form id="frmSolicitar">
+                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group">
+                    <p:outputLabel value="Titulo:"/>
+                    <p:inputText value="#{ctPublicidadSocio.objPublicidad.publicidad}" 
+                                 placeholder="Ej. Acbs S. A." required="true"
+                                 requiredMessage="Ingrese el título de su anuncio"/>
+                    <p:outputLabel value="Descripción corta:"/>
+                    <p:inputText value="#{ctPublicidadSocio.objPublicidad.descripcion}" 
+                                 placeholder="Ej. Acbs S. A."/>
+                    <p:outputLabel value="Forma de Pago:"/>
+                    <p:selectOneMenu value="#{ctPublicidadSocio.idFormaPago}"
+                                     effect="fade" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="* Forma de Pago" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems  value="#{ctPublicidadSocio.lstFormasPago}" var="formaPago" itemLabel="#{formaPago.formaPago}"
+                                        itemValue="#{formaPago.idFormaPago}"/>                         
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Cuenta a publicitar:"/>
+                    <p:selectOneMenu value="#{ctPublicidadSocio.idCuenta}"
+                                     effect="fade" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="* Cuenta" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems  value="#{ctPublicidadSocio.lstCuentas}" var="cuenta" itemLabel="#{cuenta.codigo}"
+                                        itemValue="#{cuenta.idCuenta}"/>                         
+                    </p:selectOneMenu>                                        
+                </p:panelGrid>
+                <b>Bosquejo</b>
+                <p:panelGrid id="pngSubirArchivo" columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">                    
+                    <p:fileUpload id="upFile" fileUploadListener="#{ctPublicidadSocio.cargarArchivoDocumento}"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Abrir" mode="advanced"  
+                                  update="pngSubirArchivo,pngDatos" uploadLabel="Subir" cancelLabel="Cancelar"   
+                                  value="#{ctPublicidadSocio.archivoDocumento}"
+                                  required="true" requiredMessage="Cargar Documento!!" />                                                              
+                </p:panelGrid>
+                <p:panelGrid id="pngDatos" columns="2" styleClass="ui-panelgrid-blank form-group">
+                    <p:outputLabel value="Archivo adjunto:"/>
+                    <p:outputLabel id ="txtRutaDocumento" value="#{ctPublicidadSocio.nombreDocumento}"/>                    
+                </p:panelGrid>
+                <center>
+                    <p:commandButton value="Aceptar"
+                                     icon="ui-icon-save"
+                                     action="#{ctPublicidadSocio.solicitarPublicidad()}"
+                                     update="frmPrincipal:tblSolicitudes,frmSolicitar"/>
                 </center>
             </h:form>
         </p:dialog>

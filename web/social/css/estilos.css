@@ -767,6 +767,13 @@ ul.social-project-gallery  li  a img:hover {
     background: #152747;
 }
 
+.info3{
+    width: 100%;
+    overflow: hidden;
+    background: #152747;
+}
+
+
 .info_pic{
     display: block;
     width: 50%;
@@ -788,6 +795,22 @@ ul.social-project-gallery  li  a img:hover {
     height: 600px;
     float: left;
     background: url('../images/fondo4.jpg') no-repeat;
+
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+
+
+
+.info_pic3{
+    display: block;
+    width: 100%;
+    height: 600px;
+    float: left;
+    background: url('../images/social1.jpg') no-repeat;
 
     background-size: cover;
     -webkit-background-size: cover;
@@ -905,7 +928,13 @@ ul.social-project-gallery  li  a img:hover {
     .info_details{
         width: 100%;
     }
+	
 	.info_pic2,
+    .info_details2{
+        width: 100%;
+    }
+	
+	.info_pic3,
     .info_details2{
         width: 100%;
     }
@@ -948,7 +977,7 @@ ul.social-project-gallery  li  a img:hover {
 	color: #152747;
     text-align: justify;   
     font-size: 12px;
-	font-family: "Caviar Dreams";
+	font-family: 'Caviar Dreams','Open Sans', sans-serif;
 	font-weight: bold
 	
 }

@@ -30,6 +30,7 @@ import sg.logica.funciones.FPublicidad;
 @ViewScoped
 public class CtPublicidadSocialGroup implements Serializable {
 
+    private List<Publicidad> lstSolicitudesDesarrollo;
     private List<Publicidad> lstSolicitudes;
     private List<Publicidad> lstSolicitudesRech;
     private List<Publicidad> anunciosActivos;
@@ -57,6 +58,7 @@ public class CtPublicidadSocialGroup implements Serializable {
         obtenerAnuncios();
         obtenerAnunciosActivos();
         obtenerAnunciosRechazados();
+        obtenerSolicitudesDesarrrollo();
     }
 
     public void obtenerSession() {
@@ -68,6 +70,14 @@ public class CtPublicidadSocialGroup implements Serializable {
             System.out.println("public void obtenerSession() dice: " + e.getMessage());
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+
+    public void obtenerSolicitudesDesarrrollo() {
+        try {
+            setLstSolicitudesDesarrollo(FPublicidad.obtenerAnunciosDadoEstado(7));
+        } catch (Exception e) {
+            System.out.println("public void obtenerSolicitudesDesarrrollo() dice: " + e.getMessage());
         }
     }
 
@@ -298,6 +308,20 @@ public class CtPublicidadSocialGroup implements Serializable {
      */
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    /**
+     * @return the lstSolicitudesDesarrollo
+     */
+    public List<Publicidad> getLstSolicitudesDesarrollo() {
+        return lstSolicitudesDesarrollo;
+    }
+
+    /**
+     * @param lstSolicitudesDesarrollo the lstSolicitudesDesarrollo to set
+     */
+    public void setLstSolicitudesDesarrollo(List<Publicidad> lstSolicitudesDesarrollo) {
+        this.lstSolicitudesDesarrollo = lstSolicitudesDesarrollo;
     }
 
 }

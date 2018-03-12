@@ -42,8 +42,9 @@ import sg.logica.funciones.FPublicidad;
 @ManagedBean
 @ViewScoped
 public class CtPublicidadSocio implements Serializable {
-    
+
     private List<Publicidad> lstSolicitudes;
+    private List<Publicidad> lstSolicitudesDesarrollo;
     private Publicidad objPublicidad;
     private Publicidad publicidadSel;
     private String msg;
@@ -61,7 +62,7 @@ public class CtPublicidadSocio implements Serializable {
     private UploadedFile archivoDocumento;
     //cargar configuracion del  path
     private java.util.ResourceBundle Configuracion = java.util.ResourceBundle.getBundle("recursos.rutasMedia");
-    
+
     public CtPublicidadSocio() {
         publicidadSel = new Publicidad();
         objPublicidad = new Publicidad();
@@ -69,15 +70,16 @@ public class CtPublicidadSocio implements Serializable {
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
     }
-    
+
     @PostConstruct
     public void init() {
         obtenerSession();
         obtenerCuentas();
         obtenerAnuncios();
         obtenerFormasPago();
+        obtenerSolicitudesDesarrrollo();
     }
-    
+
     public void obtenerFormasPago() {
         try {
             setLstFormasPago(FFormaPago.obtenerFormasPagoActivas());
@@ -85,7 +87,7 @@ public class CtPublicidadSocio implements Serializable {
             System.out.println("public void obtenerFormasPago() dice: " + e.getMessage());
         }
     }
-    
+
     public void obtenerSession() {
         try {
             int intIdUsuario = (int) getHttpServletRequest().getSession().getAttribute("idUsuario");
@@ -97,7 +99,7 @@ public class CtPublicidadSocio implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
-    
+
     public void obtenerAnuncios() {
         try {
             setLstSolicitudes(FPublicidad.obtenerAnunciosDadoCliente(getSessionUsuario().getIdPersona()));
@@ -105,43 +107,73 @@ public class CtPublicidadSocio implements Serializable {
             System.out.println("public void obtenerAnuncios() dice: " + e.getMessage());
         }
     }
-    
+
+    public void obtenerSolicitudesDesarrrollo() {
+        try {
+            setLstSolicitudesDesarrollo(FPublicidad.obtenerAnunciosDadoEstado(7));
+        } catch (Exception e) {
+            System.out.println("public void obtenerSolicitudesDesarrrollo() dice: " + e.getMessage());
+        }
+    }
+
     public void obtenerCuentas() {
         try {
             setLstCuentas(FCuenta.obtenerCuentasDadoTitular(getSessionUsuario().getIdPersona()));
-            
+
         } catch (Exception e) {
             System.out.println("public void obtenerAnuncios() dice: " + e.getMessage());
         }
     }
-    
+
     public void registrarPublicidad() {
         try {
             getObjPublicidad().getFormaPago().setIdFormaPago(getIdFormaPago());
             getObjPublicidad().getCuenta().setIdCuenta(getIdCuenta());
             getObjPublicidad().setSessionUsuario(getSessionUsuario());
-            
+
             setMsg(FPublicidad.registrarPublicidad(getObjPublicidad()));
             Util.addSuccessMessage(getMsg());
-            
+
             obtenerAnuncios();
             setObjPublicidad(new Publicidad());
             setIdCuenta(0);
-            
+
             resetearDataTable("frmPrincipal:tblSolicitudes");
             DefaultRequestContext.getCurrentInstance().execute("PF('wdlgNuevo').hide()");
-            
+
         } catch (Exception e) {
             System.out.println("public void registrarPublicidad() dice: " + e.getMessage());
             Util.addErrorMessage(e.getMessage());
         }
     }
-    
+
+    public void solicitarPublicidad() {
+        try {
+            getObjPublicidad().getFormaPago().setIdFormaPago(getIdFormaPago());
+            getObjPublicidad().getCuenta().setIdCuenta(getIdCuenta());
+            getObjPublicidad().setSessionUsuario(getSessionUsuario());
+
+            setMsg(FPublicidad.solicitudDesarrolloPublicidad(getObjPublicidad()));
+            Util.addSuccessMessage(getMsg());
+
+            obtenerAnuncios();
+            setObjPublicidad(new Publicidad());
+            setIdCuenta(0);
+
+            resetearDataTable("frmPrincipal:tblSolicitudes");
+            DefaultRequestContext.getCurrentInstance().execute("PF('wdlgSolicitar').hide()");
+
+        } catch (Exception e) {
+            System.out.println("public void solicitarPublicidad() dice: " + e.getMessage());
+            Util.addErrorMessage(e.getMessage());
+        }
+    }
+
     public void resetearDataTable(String id) {
         DataTable table = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
         table.reset();
     }
-    
+
     public void cargarArchivoDocumento(FileUploadEvent e) {
         System.out.println("Entra al método cargar documento");
         UploadedFile file = e.getFile();
@@ -163,9 +195,9 @@ public class CtPublicidadSocio implements Serializable {
         } catch (IOException ex) {
             Logger.getLogger(CtPublicidadSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public boolean guardarArchivo(String nombre, byte[] contenido) {
         String rutaImagenes = getConfiguracion().getString("rutaPublicidad");
         int longitudRelativa = Integer.valueOf(getConfiguracion().getString("logitudRelativa"));
@@ -179,21 +211,21 @@ public class CtPublicidadSocio implements Serializable {
             String rutaTemp = Functions.substring(f.getAbsolutePath(), longitudRelativa, f.getAbsolutePath().length());
             //getCompraSel().setComprobante(rutaTemp.replace('\\', '/'));
             getObjPublicidad().setAdjunto(rutaTemp.replace('\\', '/'));
-            
+
             System.out.println("Publicidad a insertar: " + getObjPublicidad().getAdjunto());
-            
+
             System.out.println("cargar objeto fos ");
             FileOutputStream fos = new FileOutputStream(f);
             System.out.println("escribir fos ");
             fos.write(contenido);
-            
+
             return true;
         } catch (Exception e) {
             Util.mostrarMensaje(e.getMessage());
             return false;
         }
     }
-    
+
     private byte[] getFileContents(InputStream in) {
         byte[] bytes = null;
         try {
@@ -201,7 +233,7 @@ public class CtPublicidadSocio implements Serializable {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             int read = 0;
             bytes = new byte[1024];
-            
+
             while ((read = in.read(bytes)) != -1) {
                 bos.write(bytes, 0, read);
             }
@@ -427,5 +459,19 @@ public class CtPublicidadSocio implements Serializable {
     public void setIdFormaPago(int idFormaPago) {
         this.idFormaPago = idFormaPago;
     }
-    
+
+    /**
+     * @return the lstSolicitudesDesarrollo
+     */
+    public List<Publicidad> getLstSolicitudesDesarrollo() {
+        return lstSolicitudesDesarrollo;
+    }
+
+    /**
+     * @param lstSolicitudesDesarrollo the lstSolicitudesDesarrollo to set
+     */
+    public void setLstSolicitudesDesarrollo(List<Publicidad> lstSolicitudesDesarrollo) {
+        this.lstSolicitudesDesarrollo = lstSolicitudesDesarrollo;
+    }
+
 }
