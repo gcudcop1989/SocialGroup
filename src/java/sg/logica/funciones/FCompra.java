@@ -142,6 +142,7 @@ public class FCompra {
         }
         return lst;
     }
+
     public static String reportarCompra(Compra compra, int idUsuario) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -293,7 +294,7 @@ public class FCompra {
                 compra.getCuenta().getPersona().setNombres(resultSet.getString("chv_nombres"));
                 compra.getCuenta().getPersona().setApellidos(resultSet.getString("chv_apellidos"));
                 compra.getCuenta().getPersona().setCedula(resultSet.getString("chv_cedula"));
-                
+
                 lst.add(compra);
             }
         } catch (Exception e) {

@@ -71,17 +71,17 @@ public class CtActivarCompras implements Serializable {
         }
     }
 
-       public void activarCompra() {
+    public void activarCompra() {
         //objCliente = new Usuario();
         //CtActivarCompras objCtActivarCompras = new CtActivarCompras();
         try {
 
-            System.out.println("Compra " + compraSel.getIdCompra() + " cuenta: " + compraSel.getCuenta().getIdCuenta()+"D CLIENTE:    "+ compraSel.getCuenta().getPersona().getIdPersona());
+            System.out.println("Compra " + compraSel.getIdCompra() + " cuenta: " + compraSel.getCuenta().getIdCuenta() + "D CLIENTE:    " + compraSel.getCuenta().getPersona().getIdPersona());
             String codigoCompra = compraSel.getCuenta().getCodigo();
             String msg = FCompra.activarCompra(compraSel, sessionUsuario.getIdUsuario());
             Util.addSuccessMessage(msg);
             setObjCliente(FUsuario.obtenerUsuarioDadoCodigo(compraSel.getCuenta().getPersona().getIdPersona()));
-            CtActivarCompras objCtActivarCompras= new CtActivarCompras();
+            CtActivarCompras objCtActivarCompras = new CtActivarCompras();
             objCtActivarCompras.enviarMensajeActivacion(objCliente.getMail(), codigoCompra);
             obtenerCompras();
             compraSel = new Compra();
@@ -94,18 +94,18 @@ public class CtActivarCompras implements Serializable {
             Util.addErrorMessage("public void activarCompra() dice: " + e.getMessage());
         }
     }
-   
- public void reportarCompra() {
+
+    public void reportarCompra() {
         //objCliente = new Usuario();
         //CtActivarCompras objCtActivarCompras = new CtActivarCompras();
         try {
 
-            System.out.println("Compra " + compraSel.getIdCompra() + " cuenta: " + compraSel.getCuenta().getIdCuenta()+"D CLIENTE:    "+ compraSel.getCuenta().getPersona().getIdPersona());
+            System.out.println("Compra " + compraSel.getIdCompra() + " cuenta: " + compraSel.getCuenta().getIdCuenta() + "D CLIENTE:    " + compraSel.getCuenta().getPersona().getIdPersona());
             String codigoCompra = compraSel.getCuenta().getCodigo();
             String msg = FCompra.reportarCompra(compraSel, sessionUsuario.getIdUsuario());
             Util.addSuccessMessage(msg);
             setObjCliente(FUsuario.obtenerUsuarioDadoCodigo(compraSel.getCuenta().getPersona().getIdPersona()));
-            CtActivarCompras objCtActivarCompras= new CtActivarCompras();
+            CtActivarCompras objCtActivarCompras = new CtActivarCompras();
             objCtActivarCompras.enviarMensajeReporteDoc(objCliente.getMail(), codigoCompra);
             obtenerCompras();
             compraSel = new Compra();
@@ -118,9 +118,9 @@ public class CtActivarCompras implements Serializable {
             Util.addErrorMessage("public void activarCompra() dice: " + e.getMessage());
         }
     }
- 
+
     //<editor-fold defaultstate="collapsed" desc="Enviar Mensaje al correo de Documento NO VALIDADO">
-    public void enviarMensajeReporteDoc(String strEmail,  String codigoCompra ) {
+    public void enviarMensajeReporteDoc(String strEmail, String codigoCompra) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -154,10 +154,10 @@ public class CtActivarCompras implements Serializable {
                     + "                ESTIMADO@ USUARIO: " + strEmail + "\n"
                     + "                <br>\n"
                     + "                <br>\n"
-                    + "                CODIGO DE COMPRA: " +  codigoCompra+ "\n"
+                    + "                CODIGO DE COMPRA: " + codigoCompra + "\n"
                     + "                <br>\n"
                     + "                <br>\n"
-                    + "                ESTADO DE ACTIVACIÓN: Documento enviado NO Válido,la activación de la compra no se realizó.  \n" 
+                    + "                ESTADO DE ACTIVACIÓN: Documento enviado NO Válido,la activación de la compra no se realizó.  \n"
                     + "                                      Por favor reenvíe un nuevo documento."
                     + "                <br>\n"
                     + "                <br>\n"
@@ -184,7 +184,7 @@ public class CtActivarCompras implements Serializable {
 
     //</editor-fold>   
     //<editor-fold defaultstate="collapsed" desc="Enviar Mensaje al correo">
-    public void enviarMensajeActivacion(String strEmail,  String codigoCompra ) {
+    public void enviarMensajeActivacion(String strEmail, String codigoCompra) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -218,10 +218,10 @@ public class CtActivarCompras implements Serializable {
                     + "                ESTIMADO@ USUARIO: " + strEmail + "\n"
                     + "                <br>\n"
                     + "                <br>\n"
-                    + "                CODIGO DE COMPRA: " +  codigoCompra+ "\n"
+                    + "                CODIGO DE COMPRA: " + codigoCompra + "\n"
                     + "                <br>\n"
                     + "                <br>\n"
-                    + "                ESTADO DE ACTIVACIÓN: La Cuenta ha sido Verificada y Activada Exitosamente\n" 
+                    + "                ESTADO DE ACTIVACIÓN: La Cuenta ha sido Verificada y Activada Exitosamente\n"
                     + "                <br>\n"
                     + "                <br>\n"
                     + "                SocialGroup agradece por su confianza.\n"
@@ -246,7 +246,6 @@ public class CtActivarCompras implements Serializable {
     }
 
     //</editor-fold>    
-    
     public void resetearDataTable(String id) {
         DataTable table = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
         table.reset();
@@ -321,7 +320,8 @@ public class CtActivarCompras implements Serializable {
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
     }
-       public Usuario getObjCliente() {
+
+    public Usuario getObjCliente() {
         return objCliente;
     }
 
